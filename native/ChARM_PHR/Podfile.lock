@@ -1,0 +1,72 @@
+PODS:
+  - Apptics-SDK/AnalyticsWithMXCrash (3.3.2):
+    - Apptics-SDK/Scripts
+    - AppticsAnalytics/CoreWithMXCrash (= 3.3.2)
+  - Apptics-SDK/Scripts (3.3.2)
+  - Apptics-Swift (3.3.2):
+    - Apptics-Swift/AnalyticsWithMXCrash (= 3.3.2)
+  - Apptics-Swift/AnalyticsWithMXCrash (3.3.2):
+    - Apptics-SDK/AnalyticsWithMXCrash (= 3.3.2)
+  - AppticsAnalytics/Apptics (3.3.2):
+    - AppticsAnalytics/JWT
+  - AppticsAnalytics/CoreWithMXCrash (3.3.2):
+    - AppticsAnalytics/Apptics
+    - AppticsAnalytics/CrashKit
+    - AppticsAnalytics/EventTracker
+    - AppticsAnalytics/MXCrashKit
+    - AppticsAnalytics/ScreenTracker
+  - AppticsAnalytics/EventTracker (3.3.2)
+  - AppticsAnalytics/JWT (3.3.2)
+  - AppticsAnalytics/MXCrashKit (3.3.2)
+  - AppticsAnalytics/ScreenTracker (3.3.2)
+  - AppticsInAppUpdate (3.3.2):
+    - AppticsInAppUpdate/AppUpdate (= 3.3.2)
+  - AppticsInAppUpdate/AppUpdate (3.3.2):
+    - AppticsAnalytics/Apptics (= 3.3.2)
+  - AppticsRateUs (3.3.2):
+    - AppticsRateUs/RateUs (= 3.3.2)
+  - AppticsRateUs/RateUs (3.3.2):
+    - AppticsAnalytics/Apptics (= 3.3.2)
+  - CharmCommonComponents (1.0)
+  - JTAppleCalendar (8.0.5)
+  - MDTextField (1.1):
+    - CharmCommonComponents
+  - UICKeyChainStore (2.2.1)
+
+DEPENDENCIES:
+  - Apptics-Swift (= 3.3.2)
+  - AppticsInAppUpdate (= 3.3.2)
+  - AppticsRateUs (= 3.3.2)
+  - CharmCommonComponents (= 1.0)
+  - JTAppleCalendar (= 8.0.5)
+  - MDTextField (= 1.1)
+  - UICKeyChainStore
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs:
+    - Apptics-SDK
+    - AppticsAnalytics
+    - JTAppleCalendar
+    - UICKeyChainStore
+  https://github.com/zoho/Apptics.git:
+    - Apptics-Swift
+    - AppticsInAppUpdate
+    - AppticsRateUs
+  https://zrepository.zoho.com/MedicalMine/charm/Mobile_Team/charm_pod_specs.git:
+    - CharmCommonComponents
+    - MDTextField
+
+SPEC CHECKSUMS:
+  Apptics-SDK: e48750f5052ae4d99119125881b2de82f1fd184b
+  Apptics-Swift: e867372ecb948055153fa29921c5cb267b9959f4
+  AppticsAnalytics: dc132da5508c65f1f5ee5cf4dd5edcf173dc7ce5
+  AppticsInAppUpdate: d8d081c148a5de3c4933d86ace31e0827cce17f8
+  AppticsRateUs: 2f998801606109b0609eb498014c081f760dabbb
+  CharmCommonComponents: 3e2724a11caf28701a2c96bc72d07944c54abfa9
+  JTAppleCalendar: 16c6501b22cb27520372c28b0a2e0b12c8d0cd73
+  MDTextField: 0d4547f55685a4b4e744f9361707c42a17777fe7
+  UICKeyChainStore: ba3bff2c762b12db1e516f395c837dd25298b05e
+
+PODFILE CHECKSUM: cacf2a9bfb2bd8777be591f83773a33f89b02920
+
+COCOAPODS: 1.16.2

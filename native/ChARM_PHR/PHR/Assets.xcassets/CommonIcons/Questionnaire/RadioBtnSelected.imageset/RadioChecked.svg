@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Radio_Checked" data-name="Radio Checked" transform="translate(-5031 -11554)">
+    <g id="Rectangle_5383" data-name="Rectangle 5383" transform="translate(5031 11554)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+      <rect width="24" height="24" stroke="none"/>
+      <rect x="0.5" y="0.5" width="23" height="23" fill="none"/>
+    </g>
+    <g id="Group_23251" data-name="Group 23251" transform="translate(5031 11554)">
+      <circle id="Ellipse_382" data-name="Ellipse 382" cx="9" cy="9" r="9" transform="translate(3 3)" fill="none" stroke="#4074d9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <circle id="Ellipse_383" data-name="Ellipse 383" cx="5" cy="5" r="5" transform="translate(7 7)" fill="#4074d9"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+  <g id="Blood_Sugar" data-name="Blood Sugar" transform="translate(-14448 -5691)">
+    <g id="Group_20945" data-name="Group 20945" transform="translate(-1 0)">
+      <g id="Group_20943" data-name="Group 20943" transform="translate(14453.235 5695.198)" opacity="0.1">
+        <g id="Group_20942" data-name="Group 20942" transform="translate(0 0)">
+          <path id="Path_12490" data-name="Path 12490" d="M6.733,1.337C4.174,2.061,1.442,3.291.416,5.74c-.955,2.277-.121,4.9,1.015,7.091,2.464,4.752,6.276,8.654,10.1,12.407,2.12,2.082,4.585,4.279,7.56,4.267a8.182,8.182,0,0,0,3.936-1.192A15.4,15.4,0,0,0,30.409,14.6C29.979.154,18.253-1.923,6.733,1.337" transform="translate(-1.235 -1.198)" fill="#fe3c30"/>
+        </g>
+        <rect id="Rectangle_4255" data-name="Rectangle 4255" width="36" height="36" transform="translate(-4.235 -4.197)" fill="rgba(0,0,0,0)"/>
+      </g>
+      <g id="Group_20944" data-name="Group 20944" transform="translate(14450.764 5694)">
+        <path id="Subtraction_39" data-name="Subtraction 39" d="M8.237,20A8.024,8.024,0,0,1,2.2,17.378a8.6,8.6,0,0,1-2.2-5.7A11.484,11.484,0,0,1,2.039,5.651,26.418,26.418,0,0,1,5.907.973a3.276,3.276,0,0,1,4.661,0,26.372,26.372,0,0,1,3.868,4.678,11.475,11.475,0,0,1,2.039,6.026,8.6,8.6,0,0,1-2.2,5.7A8.03,8.03,0,0,1,8.237,20Zm4.119-8.528a.883.883,0,0,0-.884.88A2.4,2.4,0,0,1,8.826,15a.881.881,0,1,0,0,1.763,4.575,4.575,0,0,0,3-1,4.234,4.234,0,0,0,1.416-3.414A.883.883,0,0,0,12.356,11.472Z" transform="translate(7.999 5)" fill="#fe3c30"/>
+      </g>
+    </g>
+  </g>
+</svg>

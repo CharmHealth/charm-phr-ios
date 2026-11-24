@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="checkbox-heirarchy-unselected" transform="translate(-4973 -11536)">
+    <path id="Path_11788" data-name="Path 11788" d="M0,0H24V24H0Z" transform="translate(4973 11536)" fill="rgba(0,0,0,0)"/>
+    <path id="Path_30191" data-name="Path 30191" d="M2,0H16a2,2,0,0,1,2,2V16a2,2,0,0,1-2,2H2a2,2,0,0,1-2-2V2A2,2,0,0,1,2,0Z" transform="translate(4976 11539)" fill="none" stroke="#999" stroke-width="1.5"/>
+    <g id="Group_23256" data-name="Group 23256" transform="translate(3268.5 11303.5)">
+      <line id="Line_1271" data-name="Line 1271" y2="10" transform="translate(1716.5 239.5)" fill="none" stroke="#4074d9" stroke-width="1.5"/>
+      <line id="Line_1272" data-name="Line 1272" x1="10" transform="translate(1711.5 244.5)" fill="none" stroke="#4074d9" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

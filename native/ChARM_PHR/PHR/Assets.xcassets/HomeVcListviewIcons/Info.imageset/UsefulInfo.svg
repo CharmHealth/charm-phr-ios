@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2248" data-name="Rectangle 2248" width="31.165" height="26.392" transform="translate(0 0)" fill="#ff337e"/>
+    </clipPath>
+  </defs>
+  <g id="Useful_Info" data-name="Useful Info" transform="translate(-11200 -3629)">
+    <g id="Rectangle_2247" data-name="Rectangle 2247" transform="translate(11200 3629)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+      <rect width="36" height="36" stroke="none"/>
+      <rect x="0.5" y="0.5" width="35" height="35" fill="none"/>
+    </g>
+    <g id="Group_12842" data-name="Group 12842" transform="translate(0)">
+      <g id="Group_12839" data-name="Group 12839" transform="translate(3277 -945)">
+        <g id="Group_12837" data-name="Group 12837" transform="translate(7927 4578)">
+          <path id="Path_5603" data-name="Path 5603" d="M0,0H28V28H0Z" fill="none"/>
+        </g>
+        <g id="Group_12838" data-name="Group 12838" transform="translate(7930.5 4581.5)">
+          <path id="Path_5604" data-name="Path 5604" d="M23,12.5A10.5,10.5,0,1,0,12.5,23,10.5,10.5,0,0,0,23,12.5Z" transform="translate(-2 -2)" fill="#ff337e"/>
+          <path id="Path_5605" data-name="Path 5605" d="M12.292,17.051V12.009c0-.475,0-.713-.154-.861s-.4-.148-.9-.148" transform="translate(-1.538 -1.301)" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+          <path id="Path_5606" data-name="Path 5606" d="M11.992,8H12" transform="translate(-1.5 -1.7)" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </g>
+      </g>
+      <g id="Group_12841" data-name="Group 12841" transform="translate(11204 3635)" opacity="0.1">
+        <g id="Group_12840" data-name="Group 12840" transform="translate(-1.644 -1.392)" clip-path="url(#clip-path)">
+          <path id="Path_5607" data-name="Path 5607" d="M30.846,9.69c.49-2.554.613-5.48-1.085-7.454C28.184.4,25.517-.026,23.095,0c-5.253.06-10.352,1.67-15.326,3.356C5.01,4.292,2,5.476.7,8.08a7.974,7.974,0,0,0-.685,3.962A15.1,15.1,0,0,0,8.794,24.524c12.865,5.985,19.844-3.34,22.051-14.833" transform="translate(0 0)" fill="#ff337e"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

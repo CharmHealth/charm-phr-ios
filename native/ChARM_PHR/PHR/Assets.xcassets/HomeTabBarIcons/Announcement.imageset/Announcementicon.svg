@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Announcement_icon" data-name="Announcement icon" transform="translate(-1187 16)">
+    <g id="Rectangle_5044" data-name="Rectangle 5044" transform="translate(1187 -16)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+      <rect width="24" height="24" stroke="none"/>
+      <rect x="0.5" y="0.5" width="23" height="23" fill="none"/>
+    </g>
+    <g id="Anouncement" transform="translate(1187 -17)">
+      <path id="Path_4265" data-name="Path 4265" d="M11,6a13,13,0,0,0,8.4-2.8A1,1,0,0,1,21,4V16a1,1,0,0,1-1.6.8A13,13,0,0,0,11,14H5a2,2,0,0,1-2-2V8A2,2,0,0,1,5,6Z" transform="translate(0 0)" fill="#3f74d9"/>
+      <path id="Path_4266" data-name="Path 4266" d="M6,14a12,12,0,0,0,2.4,7.2,2,2,0,0,0,3.2-2.4A8,8,0,0,1,10,14" transform="translate(0 0)" fill="#3f74d9"/>
+      <path id="Path_4267" data-name="Path 4267" d="M8,6v8" transform="translate(0 -0.576)" fill="#3f74d9"/>
+    </g>
+  </g>
+</svg>

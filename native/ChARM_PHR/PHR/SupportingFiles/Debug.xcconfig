@@ -1,0 +1,25 @@
+//
+//  Debug.xcconfig
+//  PHR
+//
+//  Created by Sankar Saravanan on 23/04/20.
+//  Copyright © 2020 Dhanuprasanya P. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include "Pods/Target Support Files/Pods-phr/Pods-phr.debug.xcconfig"
+
+SERVER=https:/$()/prathiba.dev.charmhealth.ai:8443/
+
+
+WELCOME_SCREEN_DISPLAY_NAME=Charm Patient Portal
+IS_CUSTOM_BRAND_APP=false
+PRACTICE_ID=257000000071003
+ZA_DEBUG_MODE=2
+APPTICS_PATH=PHR/SupportingFiles/charm-dev-apptics-config.plist
+APNS_MODE=SBX
+APP_ICON_NAME=AppIcon
+APP_DISPLAY_NAME=Charm mPHR
+LAUNCH_SCREEN=LaunchScreen

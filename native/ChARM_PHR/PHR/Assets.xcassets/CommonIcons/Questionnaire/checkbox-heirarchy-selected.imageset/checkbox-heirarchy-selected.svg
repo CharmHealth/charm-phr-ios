@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="checkbox-heirarchy-selected" transform="translate(-4929 -11536)">
+    <path id="Path_11788" data-name="Path 11788" d="M0,0H24V24H0Z" transform="translate(4929 11536)" fill="rgba(0,0,0,0)"/>
+    <g id="Group_23253" data-name="Group 23253" transform="translate(-16)">
+      <rect id="Rectangle_5384" data-name="Rectangle 5384" width="18" height="18" rx="2" transform="translate(4948 11539)" fill="none" stroke="#999" stroke-width="1.5"/>
+    </g>
+    <path id="Checkbox_expanded" data-name="Checkbox expanded" d="M22.278,4.5H6.722A2.229,2.229,0,0,0,4.5,6.722V22.278A2.229,2.229,0,0,0,6.722,24.5H22.278A2.229,2.229,0,0,0,24.5,22.278V6.722A2.229,2.229,0,0,0,22.278,4.5ZM20.056,15.611H8.944V13.389H20.056Z" transform="translate(4926.5 11533.5)" fill="#3f74d9"/>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="24" viewBox="0 0 35 24">
+  <g id="radio-heirarchy-selected" transform="translate(-5031 -11554)">
+    <g id="Rectangle_5383" data-name="Rectangle 5383" transform="translate(5031 11554)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+      <rect width="35" height="24" stroke="none"/>
+      <rect x="0.5" y="0.5" width="34" height="23" fill="none"/>
+    </g>
+    <g id="Group_23251" data-name="Group 23251" transform="translate(5031 11554)">
+      <circle id="Ellipse_382" data-name="Ellipse 382" cx="9" cy="9" r="9" transform="translate(3 3)" fill="none" stroke="#4074d9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <circle id="Ellipse_383" data-name="Ellipse 383" cx="5" cy="5" r="5" transform="translate(7 7)" fill="#4074d9"/>
+    </g>
+    <path id="Path_30192" data-name="Path 30192" d="M36.356,9.886c-.565,0-.706.392-.321.876l3.98,4.891a.87.87,0,0,0,1.413,0l3.98-4.891c.386-.484.244-.876-.321-.876Z" transform="translate(5020.181 11553.114)" fill="#777"/>
+  </g>
+</svg>

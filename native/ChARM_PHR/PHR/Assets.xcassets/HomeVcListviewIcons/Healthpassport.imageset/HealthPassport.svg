@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_1876" data-name="Rectangle 1876" width="36" height="36" transform="translate(0)" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Health_Passport" data-name="Health Passport" transform="translate(-6330 -736)">
+    <path id="Path_12045" data-name="Path 12045" d="M32.785,10.3c.521-2.714.651-5.824-1.153-7.923C29.955.426,27.121-.028,24.547,0c-5.583.063-11,1.775-16.289,3.567C5.325,4.562,2.124,5.821.745,8.588A8.475,8.475,0,0,0,.016,12.8,16.051,16.051,0,0,0,9.347,26.065c13.674,6.362,21.092-3.55,23.438-15.766" transform="translate(6331.438 739.975)" fill="#ff337e" opacity="0.1"/>
+    <g id="Group_11691" data-name="Group 11691" transform="translate(6319.418 720.792)">
+      <g id="Group_11690" data-name="Group 11690" transform="translate(15.96 23.59)">
+        <g id="Rectangle_1855" data-name="Rectangle 1855">
+          <rect id="Rectangle_1855-2" data-name="Rectangle 1855-2" width="25.243" height="19.235" rx="2" fill="#ff337e"/>
+          <path id="Path_7765" data-name="Path 7765" d="M20.646,23.68H36.638c2.533,0,4.586,2.506,4.586,5.595v7.974c0,3.089-2.053,5.595-4.586,5.595H20.646c-2.533,0-4.586-2.506-4.586-5.595V29.275C16.06,26.17,18.113,23.68,20.646,23.68Z" transform="translate(-16.021 -23.645)" fill="none"/>
+        </g>
+      </g>
+      <path id="Path_7766" data-name="Path 7766" d="M64.473,35.676h1.655V34.017h1.659V32.359H66.143V30.7H64.473v1.659H62.83v1.659h1.643Z" transform="translate(-29.404 -4.309)" fill="#fff"/>
+      <path id="Path_7769" data-name="Path 7769" d="M20.55,46H30.2v1.505H20.55Z" transform="translate(-1.782 -11.581)" fill="#fff"/>
+      <path id="Path_7768" data-name="Path 7768" d="M20.55,62.2H39.856v1.5H20.55Z" transform="translate(-1.782 -23.398)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

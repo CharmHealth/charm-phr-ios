@@ -1,0 +1,1342 @@
+/*
+  Localizable.strings
+  PHR
+
+  Created by Sankar Saravanan on 21/10/19.
+  Copyright © 2019 Dhanuprasanya P. All rights reserved.
+*/
+
+//TODO: dont use capital letters for key
+
+//MARK: - actions strings
+"com.charmphr.action.cancel" = "Cancel";
+"com.charmphr.action.submit" = "Submit";
+"com.charmphr.action.close" = "Close";
+"com.charmphr.action.done" = "Done";
+"com.charmphr.action.save" = "Save";
+"com.charmphr.action.back" = "Back";
+"com.charmphr.action.retry" = "Retry";
+"com.charmphr.action.tryAgain" = "TRY AGAIN";
+"com.charmphr.action.logout" = "Logout";
+"com.charmphr.action.Discard" = "Discard";
+"com.charmphr.action.Ok" = "Ok";
+"com.charmphr.action.edit" = "Edit";
+"com.charmphr.action.update" = "Update";
+"com.charmphr.action.delete" = "Delete";
+"com.charmphr.action.share" = "Share";
+"com.charmphr.action.forward" = "Forward";
+"com.charmphr.action.noData.title" = "No data available";
+"com.charmphr.action.noData.message" = "Tap + to add ";
+"com.charmphr.action.appointment.noData.message" = "Tap + to book ";
+"com.charmphr.action.add" = "Add";
+"com.charmphr.action.addNew" = "Add New";
+"com.charmphr.action.settings" = "Settings";
+"com.charmphr.action.deniedToSpecify" = "Declined to specify";
+
+//MARK: - common string
+
+"com.charmphr.invalidData" = "Invalid Data";
+"com.charmphr.common.yes" = "Yes";
+"com.charmphr.common.no" = "No";
+"com.charmphr.common.today" = "Today";
+"com.charmphr.common.yesterday" = "Yesterday";
+"com.charmphr.common.detail" = "Detail";
+"com.charmphr.common.details" = "Details";
+"com.charmphr.common.notAvailable" = "Not Available";
+"com.charmphr.common.somethingWentWrong" = "Something went wrong";
+"com.charmphr.common.somethingWentWrong.msg" = "Check your connection and try again";
+"com.charmphr.common.error" = "Error occured";
+"com.charmphr.common.selectPractice" = "Please select practice";
+"com.charmphr.common.Practice" = "Practice";
+"com.charmphr.common.no.searchResulut" = "No search results found";
+"com.charmphr.common.mandatory.alert.msg" = "Please Enter ";// any name can come
+"com.charmphr.common.PracticeDetails.title" = "Practice Details";// used in many VC
+"com.charmphr.common.discarded.alert.msg" = "Do you want to discard the changes?";
+"com.charmphr.common.dateField.placeholder" = "Select date";
+
+"com.charmphr.dashboard.recentMessage.title" = "Unread Messages";
+"com.charmphr.dashboard.questionnaire.title" = "Shared Questionnaire";
+"com.charmphr.dashboard.invoice.title" = "Active Invoices";
+
+"com.charmphr.date.keyField" = "Date";
+"com.charmphr.time.keyField" = "Time";
+
+"com.charmphr.phr.practice.error" = "To access this application, you need a practice-associated PHR account. You are not associated with any practice. Please use the web PHR application.";
+
+//MARK: - Error msgs
+"com.charmphr.alertForAuthendicationCancelled" = "Authentication failed. Please try again";
+"com.charmphr.alertForInternalServer" = "Unexpected Error. Please contact support";//"Server is busy, please try again later"
+"com.charmphr.alertForExistingProcedureName" = "You have already Added this Procedure before";
+"com.charmphr.alertForNoNetworkConnection" = "Unable to communicate with the server. Check internet connectivity";
+"com.charmphr.alertForServerDown" = "Server is busy, please try again later";
+"com.charmphr.alertForTimeOut" = "Server is busy, please try again later";
+"com.charmphr.alertError" = "Error occurred. Please try again";
+"com.charmphr.alert2000Error" = "Error in establishing connection";
+
+"com.charmphr.dataNotInCorrectFormat" = "The data couldn’t be read because it isn’t in the correct format.";
+
+"com.charmphr.alert.download.error" = "Unable to download";
+"com.charmphr.alert.unsupported.error" = "UnSupported file format";
+
+//MARK: - login VC
+"com.charmphr.password.info" = "Create password for the app";
+"com.charmphr.login.btn.title" = "LOGIN";
+"com.charmphr.joinMeeting.btn.title" = "CONSULT";
+
+"com.charmphr.patientid.error" = "Patient id not found";
+
+"com.charmphr.error.noUrl.title" = "No URL Found";
+"com.charmphr.error.fileEmpty.title" = "File is empty.";
+"com.charmphr.error.createRequest.title" = "Could not create request";
+"com.charmphr.error.transactionFailed.title" = "Transaction failed. Please try again.";
+
+//MARK: - login on bording view
+"com.charmphr.login.onboard.welcome.title" = "Welcome to";
+"com.charmphr.login.onboard.welcome.message" = "Securely access and manage your health data anytime, anywhere.";
+"com.charmphr.login.onboard.helthPassport.title" = "Health Passport";
+"com.charmphr.login.onboard.helthPassport.message" = "Securely share health records with your providers in a single click.";
+"com.charmphr.login.onboard.appointments.title" = "Appointments";
+"com.charmphr.login.onboard.appointments.message" = "Request or schedule appointments with your care team easily";
+"com.charmphr.login.onboard.questionnaires.title" = "Questionnaires";
+"com.charmphr.login.onboard.questionnaires.message" = "Fill pre-appointment questionnaires at your leisure before the visit";
+
+
+"com.charmphr.login.onboard.documents.title" = "Documents";
+"com.charmphr.login.onboard.documents.message" = "Share clinical documents with care team";
+"com.charmphr.login.onboard.ClinicalSummary.title" = "Clinical Summary";
+"com.charmphr.login.onboard.ClinicalSummary.message" = "View, Download and Transmit Clinical Summary shared by your providers.";
+"com.charmphr.login.onboard.Messaging.title" = "Secure Messaging";
+"com.charmphr.login.onboard.Messaging.message" = "Communicate with your care team securely";
+"com.charmphr.login.onboard.labResultandRx.title" = "Lab Results / Rx";
+"com.charmphr.login.onboard.labResultandRx.message" = "View Lab results and Prescriptions shared by your provider";
+"com.charmphr.login.onboard.healthPassport.title" = "Health Passport";
+"com.charmphr.login.onboard.healthPassport.message" = "Securely share health records with your providers in a single click";
+
+//MARK: - Lock screen VC
+"com.charmphr.lockscreen.enterpassword" = "Enter PIN for %@";
+"com.charmphr.lockscreen.reenterpassword" = "Re-enter PIN";
+"com.charmphr.lockscreen.enternewpassword" = "Create a new 5 digit lock screen PIN. This ensure your app security.";
+"com.charmphr.lockscreen.passwordExceeded" = "You have entered the PIN incorrectly 3 times, please re-login.";
+"com.charmphr.lockscreen.password.placeHolder" = "Please enter password";
+
+//MARK: - logout
+"com.charmphr.logout.conformation" = "Do you want to logout ?";
+"com.charmphr.logout.error.login" = "Login failed.";
+"com.charmphr.logout.session.expired" = "Session expired. Please log out.";
+"com.charmphr.logout.max.session.title" = "Hey there, you've reached the maximum number of device sessions allowed.";
+"com.charmphr.logout.max.session.msg" = "Delete old sessions in charm Accounts > Sessions > App Logins, to sign-in to ";
+"com.charmphr.pushNotification.switchPatient.alert.title" = "%@ has received a new %@";
+"com.charmphr.pushNotification.switchPatient.alert.message" = "Do you want to switch member?";
+
+//MARK: - select patients
+"com.charmphr.selectpatient.title" = "Members";
+"com.charmphr.selectpatient.noPatient.title" = "There is no patient. Please log out.";
+"com.charmphr.selectpatient.customapp.invaildUser.title" = "You are not subscribed to this practice, you will be logged out.";
+"com.charmphr.selectpatient.customapp.invaildUser.loginPage.title" = "You are not subscribed to this practice, please log out.";
+
+//MARK: - home vc
+"com.charmphr.home.Dashboard" = "Dashboard";
+"com.charmphr.home.healthData" = "My Health";
+"com.charmphr.home.Add.appointment" = "Book Appointment";
+"com.charmphr.home.upcoming.Add.appointment" = "Book Now";
+"com.charmphr.home.composeMsg.appointment" = "Compose Message";
+
+"com.charmphr.home.subheading.engagement" = "ENGAGEMENT";
+"com.charmphr.home.subheading.billing" = "BILLING";
+"com.charmphr.home.subheading.record" = "RECORDS";
+"com.charmphr.home.subheading.resource" = "RESOURCES";
+"com.charmphr.home.sections.nodata" = "Sections are not configured.";
+
+"com.charmphr.home.listView.Appointments" = "Appointments";
+"com.charmphr.home.listView.Messages" = "Messages";
+"com.charmphr.home.listView.Billing" = "Billing";
+"com.charmphr.home.listView.Questionnaire" = "Questionnaire";
+"com.charmphr.home.listView.About" = "About";
+"com.charmphr.home.listView.Flowsheets" = "Flowsheets";
+"com.charmphr.home.listView.Announcement" = "Announcements";
+"com.charmphr.home.listView.UsefulInfo" = "Useful Info";
+"com.charmphr.home.listView.Prescriptions" = "Prescriptions";
+"com.charmphr.home.listView.Lab" = "Lab Results";
+"com.charmphr.home.listView.VisitSummary" = "Visit Summary";
+"com.charmphr.home.listView.Procedures" = "Procedures";
+"com.charmphr.home.listView.invoice" = "Invoices";
+"com.charmphr.home.listView.receipt" = "Receipts";
+
+
+
+"com.charmphr.home.listView.Documents" = "Documents";
+"com.charmphr.home.listView.Allergies" = "Allergies";
+"com.charmphr.home.listView.Immunization" = "Immunizations";
+
+"com.charmphr.home.listView.notification.max" = "99+";
+
+//MARK: - Wellness VC
+"com.charmphr.wellness.title" = "Wellness";
+"com.charmphr.wellness.vitals" = "Vitals";
+"com.charmphr.wellness.others" = "Fitness & Others";
+"com.charmphr.wellness.tracker.empty.error" = "Tracker list is empty. Please try again later.";
+
+// Health kit
+"com.charmphr.wellness.healthkit.patient.title" = "Sync from Apple Health";
+"com.charmphr.wellness.healthkit.apple.title" = "Apple Health";
+"com.charmphr.wellness.healthkit.apple.info" = "Height, Weight, Pulse Rate, Temperature , Blood Pressure.";
+"com.charmphr.wellness.healthkit.charm.title" = "Select a Profile";
+"com.charmphr.wellness.healthkit.charm.info" = "Apple Health records will sync to the selected profile";
+"com.charmphr.wellness.healthkit.patient.info" = "Select only your own profile. Family members should use their own devices to sync their records.";
+"com.charmphr.wellness.healthkit.patient.info.2" = "Family members should use their own devices to sync their records.";
+"com.charmphr.wellness.healthkit.patient.error" = "Please select a patient to continue.";
+"com.charmphr.wellness.healthkit.patient.invalid.error" = "The selected profile's date of birth doesn't match the Apple Health profile on this device.";
+"com.charmphr.wellness.healthkit.patient.no.dob.heading" = "Date of Birth Not Available";
+"com.charmphr.wellness.healthkit.patient.no.dob.info" = "Add your Date of Birth in your Health app and allow %@ to access it.\nGo to Apple Health -> Apps -> %@ -> Enable Date of Birth ";
+
+"com.charmphr.wellness.healthkit.manualsync.info" = "Sync your %@ from Apple Health and keep your records up to date.";
+"com.charmphr.wellness.healthkit.manualsync.title" = "Sync from Apple Health";
+"com.charmphr.wellness.healthkit.syncperiod.title" = "Sync Period";
+"com.charmphr.wellness.healthkit.daterange.label" = "Date Range";
+"com.charmphr.wellness.healthkit.fromdate.label" = "From Date";
+"com.charmphr.wellness.healthkit.todate.label" = "To Date";
+"com.charmphr.wellness.healthkit.1week.label" = "Last 7 days";
+"com.charmphr.wellness.healthkit.2week.label" = "Last 14 days";
+"com.charmphr.wellness.healthkit.1month.label" = "Last 30 days";
+"com.charmphr.wellness.healthkit.2months.label" = "Last 60 days";
+"com.charmphr.wellness.healthkit.6months.label" = "Last 6 months";
+"com.charmphr.wellness.healthkit.custom.label" = "Custom";
+"com.charmphr.wellness.healthkit.lastweek.label" = "Last Week";
+
+"com.charmphr.wellness.healthkit.syncall.label" = "Sync All";
+
+"com.charmphr.wellness.healthkit.showresult.label" = "View Records";
+
+"com.charmphr.wellness.healthkit.auth.error" = "Enable access to sync Vitals";
+"com.charmphr.wellness.healthkit.auth.alert" = "Access to Healthkit is restricted to some vitals. Would you like to continue?";
+
+"com.charmphr.wellness.healthkit.bp.value" = "%@ / %@ %@";
+"com.charmphr.wellness.healthkit.date.value" = "%@ at %@";
+"com.charmphr.wellness.healthkit.entry.value" = "%@ %@";
+"com.charmphr.wellness.healthkit.date.invalidPeriod" = "From Date should not be after To Date";
+"com.charmphr.wellness.healthkit.date.fromDate.error" = "Please select From Date";
+"com.charmphr.wellness.healthkit.date.toDate.error" = "Please select To Date";
+
+"com.charmphr.wellness.healthkit.add.heading" = "Sync All Data?";
+"com.charmphr.wellness.healthkit.add.msg" = "This will sync all available records from Apple Health to your profile.";
+"com.charmphr.wellness.healthkit.syncnow.title" = "Sync now";
+
+"com.charmphr.wellness.healthkit.viewmore" = "View all";
+"com.charmphr.wellness.healthkit.remove" = "Remove";
+"com.charmphr.wellness.healthkit.alert.remove" = "Are you sure you want to remove this entry?";
+"com.charmphr.wellness.healthkit.alert.daterange" = "Please select a date range to continue.";
+"com.charmphr.wellness.healthkit.alert.nodata" = "There are no entries available to Sync.";
+
+"com.charmphr.wellness.healthkit.success.msg" = "%@ added successfully";
+
+"com.charmphr.wellness.healthkit.started.heading" = "Sync from Apple Health" ;
+"com.charmphr.wellness.healthkit.started.msg" = "Keep your Health records up to date by syncing data from Apple Health." ;
+"com.charmphr.wellness.healthkit.started.btn" = "Get Started" ;
+"com.charmphr.wellness.healthkit.sync.heading" = "Sync Health Record";
+"com.charmphr.wellness.healthkit.sync.item.heading" = "Apple Health";
+"com.charmphr.wellness.healthkit.sync.item.subheading" = "Import records from Apple Health";
+"com.charmphr.wellness.healthkit.sync.value.placeholder" = "Sync to Profile";
+"com.charmphr.wellness.healthkit.sync.confirm.title" = "Sync the %@ to '%@'?";
+"com.charmphr.wellness.healthkit.sync.confirm.yes" = "Yes, Sync";
+"com.charmphr.wellness.healthkit.sync.confirm.records" = "%@ records";
+"com.charmphr.wellness.healthkit.sync.confirm.description" = "Records from Apple Health will be added to %@'s %@ profile.";
+"com.charmphr.wellness.healthkit.sync.confirm.daterange" = "Date Range";
+
+
+//MARK: - JOIN ZOOOM CALL VC
+"com.charmphr.zoomCall.joinMeeting.placeholder" = "Join Meeting";
+"com.charmphr.zoomCall.meetingId.placeholder" = "Meeting ID";
+"com.charmphr.zoomCall.password.placeholder" = "Password";
+"com.charmphr.zoomCall.userName.placeholder" = "User name";
+"com.charmphr.zoomCall.joinMeeting.title" = "JOIN";
+"com.charmphr.zoomCall.alert.close" = "Do you want to close ?";
+
+//MARK: - PROFILE vc
+"com.charmphr.profile.title" = "Profile";
+"com.charmphr.linkedAccount.title" = "Linked Members";
+"com.charmphr.MyInfo.title" = "My Info";
+"com.charmphr.feedback.title" = "Feedbacks and Suggestion";
+"com.charmphr.OtherSetting.title" = "Other Settings";
+"com.charmphr.profile.analytics.title" = "Analytics";
+"com.charmphr.profile.analytics.info" = "Help Charm improve the user experience by automatically sending diagnostics and usage data anonymously.";
+"com.charmphr.profile.LogOut.title" = "Log Out";
+"com.charmphr.profile.Announcement.title" = "Announcements";
+"com.charmphr.profile.about.title" = "About";
+"com.charmphr.profile.healthPassport.title" = "Health Passport";
+"com.charmphr.profile.contactUs.title" = "App Feedback";
+"com.charmphr.profile.contactPractice.title" = "Contact Practice";
+
+"com.charmphr.profile.contactUs.info" = "Send your Questions, Suggestions, Complaints and Appreciation";
+"com.charmphr.profile.contactUs.pratice" = "To Practice";
+"com.charmphr.profile.contactUs.charm" = "To Charm PHR";
+
+"com.charmphr.dashboard.vitals.error" = "Error occurred. Please try again";
+"com.charmphr.profile.image.failed" = "Error Occured while picking an image. Please try again";
+
+
+//MARK: - About VC
+"com.charmphr.about.title" = "About";
+"com.charmphr.about.facility.title" = "Facility";
+"com.charmphr.about.provider.title" = "Provider";
+"com.charmphr.about.nofacilty.title" = "No facility!";
+"com.charmphr.about.noProvider.title" = "No provider!";
+"com.charmphr.about.noMaps.error.message" = "No map is linked to this facility";
+
+//MARK: - provider VC
+"com.charmphr.provider.name.title" = "Name";
+"com.charmphr.provider.degree.title" = "Degree";
+"com.charmphr.provider.Specialization.title" = "Specialization";
+"com.charmphr.provider.emailid.title" = "Email";
+"com.charmphr.provider.phonenumber.title" = "Phone number";
+
+//MARK: - facility VC
+"com.charmphr.facility.name.title" = "Facility name";
+"com.charmphr.facility.address.title" = "Address";
+"com.charmphr.facility.emailid.title" = "Email";
+"com.charmphr.facility.phonenumber.title" = "Phone number";
+"com.charmphr.facility.web.title" = "Web";
+"com.charmphr.facility.location.title" = "Location";
+
+//MARK: - Announcement VC
+"com.charmphr.Announcement.title" = "Announcements";
+"com.charmphr.NoAnnouncement.title" = "No announcements!";
+"com.charmphr.AnnouncementOn.title" = "Announced on";
+"com.charmphr.Announcement.subject.title" = "Subject";
+"com.charmphr.Announcement.content.title" = "Content";
+"com.charmphr.Announcement.PracticeDetails.title" = "Practice Details";
+
+//MARK: - Useful info VC
+"com.charmphr.UsefulInfo.title" = "Useful Info";
+"com.charmphr.UsefulInfoOn.title" = "Useful Info on";
+"com.charmphr.UsefulInfo.Category.title" = "Category";
+"com.charmphr.UsefulInfo.content.title" = "Content";
+"com.charmphr.UsefulInfo.nodata" = "No useful info!";
+
+//MARK: - dash board viewcontroller
+"com.charmphr.dashboard.todayAppointment.title" = "Today's Appointment";
+"com.charmphr.dashboard.upcomingAppointment.title" = "Upcoming Appointments";
+"com.charmphr.dashboard.activeMedication.title" = "Active Medications";
+"com.charmphr.dashboard.noPrescription.title" = "No medication available";
+"com.charmphr.dashboard.activeMedication.action.showmore" = "Show All";
+"com.charmphr.dashboard.activeMedication.action.fillQuestionnaire" = "Questionnaire";
+
+//MARK: -vitals
+"com.charmphr.dashboard.vitals.Weight" = "Weight";
+"com.charmphr.dashboard.vitals.Height" = "Height";
+"com.charmphr.dashboard.vitals.BloodPressure" = "Blood Pressure";
+
+
+//MARK: - billing VC
+"com.charmphr.billing.title" = "Billing";
+"com.charmphr.billing.invoice.title" = "Invoices";
+"com.charmphr.billing.receipt.title" = "Receipts";
+"com.charmphr.billing.noinvoice.title" = "No invoice!";
+"com.charmphr.billing.noreceipt.title" = "No receipt!";
+"com.charmphr.billing.receipt.vc.title" = "Receipt";
+"com.charmphr.billing.invoice.vc.title" = "Invoice";
+"com.charmphr.billing.receipt.generate.failed" = "Error while making payment.";
+"com.charmphr.billing.invoice.cancelled" = "Cancelled";
+"com.charmphr.billing.invoice.statement" = "Statement";
+"com.charmphr.billing.invoice.invoiceAmount" = "Invoice amount";
+"com.charmphr.billing.invoice.dueAtPresent" = "Due at present";
+"com.charmphr.billing.invoice.paymentRequested" = "Payment requested";
+"com.charmphr.billing.invoice.amountPaid" = "Amount Paid";
+"com.charmphr.billing.receipt.fromPHR" = "Added in PHR";
+
+//MARK: - Payment VC
+"com.charmphr.Payment.title" = "Payment";
+"com.charmphr.Payment.AmountPayable.title" = "Amount Payable";
+"com.charmphr.Payment.paymentInfo.title" = "Payment Information";
+"com.charmphr.Payment.name.title" = "Name";
+"com.charmphr.Payment.name.placeholder" = "Card Holder Name";
+"com.charmphr.Payment.cardNumber.title" = "Card Number";
+"com.charmphr.Payment.cardNumber.placeholder" = "Enter Card Number";
+"com.charmphr.Payment.Expires.title" = "Expires";
+"com.charmphr.Payment.Expires.placeholder" = "MM / YYYY";
+"com.charmphr.Payment.CVV.title" = "CVV";
+"com.charmphr.Payment.CVV.placeholder" = "Security Code";
+"com.charmphr.Payment.card.title" = "Choose Card";
+"com.charmphr.Payment.CVV.title" = "CVV";
+"com.charmphr.payment.storedcard.empty"= "Please select a stored card";
+"com.charmphr.Payment.AmountPayable.placeholder" = "Enter Amount";
+
+
+"com.charmphr.Payment.makePayment.title" = "Make Payment";
+"com.charmphr.Payment.paymentNote.info" = "NOTE : Card details will be stored in the Payment Gateway and can be used for future transactions.";
+"com.charmphr.payment.store.failed" = "Error Occured while storing card. Please try again";
+
+
+//MARK: - invoice Deatil VC
+"com.charmphr.invoice.title" = "Invoice Details";
+"com.charmphr.statement.title" = "Statement Details";
+"com.charmphr.invoice.Date.title" = "Date";
+"com.charmphr.invoice.InvoiceNo.title" = "Invoice No";
+"com.charmphr.invoice.Facility.title" = "Facility";
+"com.charmphr.invoice.DueAtPresent.title" = "Due at present";
+"com.charmphr.invoice.PaymentRequested.title" = "Payment Requested";
+"com.charmphr.invoice.pay.title" = "Pay";
+"com.charmphr.invoice.viewInvoice.title" = "View Invoice";
+"com.charmphr.statement.viewStatement.title" = "View Statement";
+
+//MARK: - billing cell
+"com.charmphr.billing.invoice.cell.dueAtPresent" = "Due at present";
+"com.charmphr.billing.invoice.paymentReq" = "Payment requested";
+
+"com.charmphr.billing.invoice.Amountpaid" = "Amount paid";
+"com.charmphr.Payment.storeCard.title" = "Continue";
+
+//MARK: - messges
+"com.charmphr.message.title" = "Messages";
+"com.charmphr.message.unread.title" = "Unread";
+"com.charmphr.message.inbox.title" = "Inbox";
+"com.charmphr.message.sent.title" = "Sent";
+"com.charmphr.message.nomsg.title" = "Tap + to compose message";
+"com.charmphr.message.alert.delete.message" = "Are you sure want to delete the message?";
+"com.charmphr.message.alert.MessageRestrict.message" = "Sorry, you have exceeded number of messages allowed between office visits. Please contact your practice.";
+"com.charmphr.message.alert.sendMessageRestrict.message" = "Messaging is restricted by the Practice. Please email your Practice.";
+"com.charmphr.message.compose.title" = "Compose";
+
+"com.charmphr.message.reply.title" = "Reply";
+"com.charmphr.message.replyAll.title" = "Reply all";
+"com.charmphr.message.attachment.download.title" = "Tap to view";
+
+"com.charmphr.message.forward.error.msg" = "Error occured while forwarding message.";
+
+//MARK: - composeMessage vc
+"com.charmphr.message.compose.from" = "From :";
+"com.charmphr.message.compose.to" = "To :";
+"com.charmphr.message.compose.practice" = "Practice";
+"com.charmphr.message.compose.practice.placeholder" = "Select Practice";
+"com.charmphr.message.compose.members.title" = "MEMBERS";
+"com.charmphr.message.compose.groups.title" = "GROUPS";
+"com.charmphr.message.compose.subject" = "Subject:";
+"com.charmphr.message.compose.no.sender.alert.msg" = "Please enter recipient address";
+"com.charmphr.message.compose.no.content.alert.msg" = "Do you want to proceed without content?";
+"com.charmphr.message.compose.no.subject.alert.msg" = "Do you want to proceed without subject?";
+"com.charmphr.message.compose.camera" = "Camera";
+"com.charmphr.message.compose.photoAndVideo" = "Photos";
+"com.charmphr.message.compose.Documents" = "Documents";
+"com.charmphr.message.compose.fetchProvider.error.title" = "Error Occured while fetching provider list.Please try again.";
+
+"com.charmphr.message.attachment.select.error" = "Error occured while selecting an attachment. Please try again.";
+
+"com.charmphr.message.compose.group.selectGroup.error.title" = "Message can be sent to only one group";
+"com.charmphr.message.compose.group.selectProvider.error.title" = "You are not allowed to send message to both groups and practice members";
+"com.charmphr.message.compose.content.placeholder.title" = "Type your message here";
+
+
+//MARK: - labs VC
+"com.charmphr.labs.title" = "Labs";
+"com.charmphr.labs.results.title" = "Results";
+"com.charmphr.labs.orders.title" = "Orders";
+"com.charmphr.labs.noresultsmsg.title" = "No results !";
+"com.charmphr.labs.noordersmsg.title" = "No orders !";
+"com.charmphr.labs.results.vc.title" = "Lab result";
+"com.charmphr.labs.resultsDetail.vc.title" = "Result detail";
+"com.charmphr.labs.showmore" = "Show more";
+
+//MARK: - lab results
+"com.charmphr.labsResult.physicianadvice" = "Physician Advice";
+"com.charmphr.labsResults.viewfullreport" = "View Full Report";
+"com.charmphr.labsResults.normal" = "NORMAL";
+"com.charmphr.labsResults.abnormal" = "ABNORMAL";
+"com.charmphr.labsResults.reference" = "Reference";
+"com.charmphr.labsResults.interpretation" = "Interpretation";
+"com.charmphr.labsResults.cancelled" = "Cancelled";
+"com.charmphr.labsResults.item.labname.title" = "Lab Name";
+
+"com.charmphr.labOrders.shareBy.title" = "Shared by";
+
+"com.charmphr.labOrders.reviewer.label" = "Reviewed By";
+"com.charmphr.labOrders.resultstatus.label" = "Result Status";
+
+//MARK: - allergies
+"com.charmphr.allergies.title" = "Allergies";
+"com.charmphr.allergies.active.title" = "Active";
+"com.charmphr.allergies.inactive.title" = "Inactive";
+"com.charmphr.allergies.Resolved.title" = "Resolved";
+"com.charmphr.allergies.noAllergy.title" = "Allergy";
+"com.charmphr.allergies.previousseverity.title" = "Previous Severity";
+"com.charmphr.allergies.alert.delete.allergies" = "Are you sure you want to delete the allergy?";
+"com.charmphr.allergies.alert.edit.allergies" = "Are you sure you want to edit the allergy?";
+"com.charmphr.allergies.itemView.from.title" = "From";
+"com.charmphr.allergies.itemView.PreviousSeverity.title" = "Previous Severity";
+
+//MARK: - Add Allergie VC strings
+"com.charmphr.addAllergies.title" = "Add Allergies";
+"com.charmphr.editAllergies.title" = "Edit Allergies";
+"com.charmphr.addAllergies.AllergenName" = "Allergen";
+"com.charmphr.addAllergies.AllergenType" = "Type";
+"com.charmphr.addAllergies.OtherType" = "Other Type";
+"com.charmphr.addAllergies.Severity" = "Severity";
+"com.charmphr.addAllergies.Status" = "Status";
+"com.charmphr.addAllergies.ObservedOn" = "Observed on";
+"com.charmphr.addAllergies.ResolvedOn" = "Resolved on";
+"com.charmphr.addAllergies.AnyReactions" = "Reactions";
+"com.charmphr.addAllergies.AllergenName.placeholder" = "Enter allergen";
+
+"com.charmphr.addAllergies.AllergenName.emptyMsg" = "Please enter Allergen Name";
+"com.charmphr.addAllergies.Severity.emptyMsg" = "Please select Severity";
+
+//MARK: -  prescriptions
+"com.charmphr.prescriptions.title" = "Prescriptions";
+"com.charmphr.prescriptions.supplements.title" = "Supplements";
+"com.charmphr.prescriptions.medications.title" = "Medications";
+"com.charmphr.prescriptions.nosupplements.title" = "supplement";
+"com.charmphr.prescriptions.nomedications.title" = "medication";
+"com.charmphr.prescriptions.alert.edit.medication" = "Are you sure you want to edit the medication?";
+"com.charmphr.prescriptions.alert.delete.medication" = "Are you sure you want to delete the medication?";
+"com.charmphr.prescriptions.alert.edit.supplement" = "Are you sure want you to edit the supplement?";
+"com.charmphr.prescriptions.alert.delete.supplement" = "Are you sure you want to delete the supplement?";
+"com.charmphr.prescriptions.FilteredBy.title" = "Filtered by";
+"com.charmphr.prescriptions.reminderAlert.delete.medication" = "The reminders associated with this medication will also be deleted.";
+"com.charmphr.prescriptions.reminderAlert.delete.supplement" = "The reminders associated with this supplement will also be deleted.";
+
+//MARK: - Medication View Controller
+"com.charmphr.medication.drugName.title" = "Drug Name";
+"com.charmphr.medication.medicationName.title" = "Medication name";
+"com.charmphr.medication.StartDate.title" = "Start date";
+"com.charmphr.medication.StopDate.title" = "Stop date";
+"com.charmphr.medication.PrescribedBy.title" = "Prescribed by";
+"com.charmphr.medication.Directions.title" = "Directions";
+"com.charmphr.medication.AdditionalRefills.title" = "Additional Refills";
+"com.charmphr.medication.Dispense.title" = "Dispense";
+"com.charmphr.medication.Dose.title" = "Dose";
+"com.charmphr.medication.Strength.title" = "Strength";
+"com.charmphr.medication.When.title" = "When";
+"com.charmphr.medication.howToTake.title" = "How";
+"com.charmphr.medication.Frequency.title" = "Frequency";
+"com.charmphr.medication.refill.title" = "Request Refill";
+"com.charmphr.medication.ResoneForrefill.title" = "Reason for Refill";
+"com.charmphr.medication.Refill.title" = "Refill";
+"com.charmphr.medication.resone.Placeholder" = "Reason";
+"com.charmphr.medication.refill.success" = "Refill request submitted successfully";
+
+//MARK: -  supplements View Controller
+"com.charmphr.supplements.supplementsName.title" = "Supplement name";
+"com.charmphr.supplements.StartDate.title" = "Start date";
+"com.charmphr.supplements.StopDate.title" = "Stop date";
+"com.charmphr.supplements.PrescribedBy.title" = "Prescribed By";
+"com.charmphr.supplements.dosage.title" = "Dosage";
+"com.charmphr.supplements.intake.title" = "Intake";
+"com.charmphr.supplements.When.title" = "Intake When";
+"com.charmphr.supplements.comment.title" = "Comment";
+"com.charmphr.supplements.refill.title" = "Request Refill";
+"com.charmphr.supplements.refill.placeHolder" = "Refill";
+"com.charmphr.supplements.refill.success" = "Refill request submitted successfully";
+"com.charmphr.supplements.Frequency.title" = "Frequency";
+"com.charmphr.supplements.Schedule.title" = "Schedule";
+
+//MARK: -  Add medication VC and add supplemts VC
+"com.charmphr.add.MedicationAndSupplememnts.AddMedications.title" = "Add Medication";
+"com.charmphr.add.MedicationAndSupplememnts.EditMedications.title" = "Edit Medication";
+"com.charmphr.add.MedicationAndSupplememnts.AddSupplement.title" = "Add Supplement";
+"com.charmphr.add.MedicationAndSupplememnts.EditSupplement.title" = "Edit Supplement";
+"com.charmphr.add.MedicationAndSupplememnts.drugName.title" = "Drug name";
+"com.charmphr.add.MedicationAndSupplememnts.drugName.placeHolder" = "Select drug name";
+"com.charmphr.add.MedicationAndSupplememnts.supplementName.title" = "Supplement name";
+"com.charmphr.add.MedicationAndSupplememnts.dose.title" = "Dose";
+"com.charmphr.add.MedicationAndSupplememnts.dose.placeHolder" = "Dose";
+"com.charmphr.add.MedicationAndSupplememnts.doseUnit.title" = "Dose unit";
+"com.charmphr.add.MedicationAndSupplememnts.Strength.title" = "Strength";
+"com.charmphr.add.MedicationAndSupplememnts.Strength.placeHoldeer" = "Strength";
+"com.charmphr.add.MedicationAndSupplememnts.StrengthUnit.title" = "Strength unit";
+"com.charmphr.add.MedicationAndSupplememnts.manufacturer.title" = "Manufacturer ";
+"com.charmphr.add.MedicationAndSupplememnts.HowtoTake.title" = "How to Take?";
+"com.charmphr.add.MedicationAndSupplememnts.Frequency.title" = "Frequency";
+"com.charmphr.add.MedicationAndSupplememnts.when.title" = "When";
+"com.charmphr.add.MedicationAndSupplememnts.ReasonforTaking.title" = "Reason for Taking ";
+"com.charmphr.add.MedicationAndSupplememnts.Prescribedby.title" = "Prescribed by ";
+"com.charmphr.add.MedicationAndSupplememnts.Prescribedon.title" = "Prescribed on ";
+"com.charmphr.add.MedicationAndSupplememnts.Refills.title" = "Refills ";
+"com.charmphr.add.MedicationAndSupplememnts.Comment.title" = "Comment";
+"com.charmphr.add.MedicationAndSupplememnts.StartDate.title" = "Start Date";
+"com.charmphr.add.MedicationAndSupplememnts.EndDate.title" = "End Date";
+"com.charmphr.add.MedicationAndSupplememnts.stopDate.title" = "Stop Date ";
+"com.charmphr.add.MedicationAndSupplememnts.refill.title" = "REFILL";
+"com.charmphr.add.MedicationAndSupplememnts.dispense.title" = "Dispense ";
+
+
+
+//MARK: - Visit summary
+"com.charmphr.visitSummary.title" = "Visit Summary";
+"com.charmphr.NoVisitSummary.title" = "No visit summary!";
+"com.charmphr.visitSummarypdfDetail.title" = "Visit Summary Detail";
+"com.charmphr.visitSummary.nodata.title" = "No data shared for this visit";
+"com.charmphr.visitSummary.itemView.reason.title" = "Reason - ";
+
+//MARK: - Procedures
+"com.charmphr.Procedures.title" = "Procedures";
+"com.charmphr.Procedures.NoProcedures.message" = "Procedure";
+"com.charmphr.Procedures.alert.edit" = "Are you sure you want to edit the Procedure?";
+"com.charmphr.Procedures.alert.delete" = "Are you sure you want to delete the Procedure?";
+
+//MARK: - Procedures detail
+"com.charmphr.Procedures.Name.title" = "Name";
+"com.charmphr.Procedures.type.title" = "Type";
+"com.charmphr.Procedures.start.Date.title" = "Start Date";
+"com.charmphr.Procedures.end.Date.title" = "End Date";
+"com.charmphr.Procedures.Comments.title" = "Notes";
+
+//MARK: -  add Procedures
+"com.charmphr.addProcedures.title" = "Add Procedure";
+"com.charmphr.editProcedures.title" = "Edit Procedure";
+"com.charmphr.addProcedures.Name.title" = "Name";
+"com.charmphr.addProcedures.Name.placeHolder" = "Enter name";
+"com.charmphr.addProcedures.type.title" = "Type";
+"com.charmphr.addProcedures.others.type.title" = "Specify Other Type";
+"com.charmphr.addProcedures.others.type.placeHolder" = "Other Type";
+"com.charmphr.addProcedures.Date.title" = "Date";
+"com.charmphr.addProcedures.start.Date.title" = "Start Date";
+"com.charmphr.addProcedures.end.Date.title" = "End Date";
+"com.charmphr.addProcedures.Comments.title" = "Notes";
+
+"com.charmphr.procedure.name.invalid" = "Please enter at least one alphabet in Procedure name";
+
+//MARK: -  Appointment
+"com.charmphr.appointments.title" = "Appointments";
+"com.charmphr.appointments.Appointments.title" = "Appointments";
+"com.charmphr.appointments.Requested.title" = "Requested";
+"com.charmphr.appointments.Denied.title" = "Denied";
+"com.charmphr.appointments.Waitinglist.title" = "Waiting list";
+"com.charmphr.appointments.upcomingAppointment.title" = "Upcoming Appointments";
+"com.charmphr.appointments.pastappointment.title" = "Past Appointments";
+"com.charmphr.appointments.pastappointment.VC.title" = "Past Appointments";
+"com.charmphr.appointment.video.title" = "JOIN";
+"com.charmphr.appointment.startMeeting.alert" = "Do you want to join the meeting ?";
+"com.charmphr.appointment.meeting.prior.alert" = "You can join this session 30 minutes prior to the start time";
+
+"com.charmphr.appointment.meeting.start.error" = "This meeting has not been started by the host. Please try again after some time.";
+
+"com.charmphr.appointment.list.reason.title" = "Reason";
+"com.charmphr.appointment.list.rebook.title" = "Rebook";
+"com.charmphr.appointment.list.instruction.title" = "Instruction";
+"com.charmphr.tapToAddAppointment.title" = "Appointment";
+"com.charmphr.nopastAppointments.title" = "No past appointments";
+"com.charmphr.norequestedAppointments.title" = "No requested appointments";
+"com.charmphr.nowaitlistAppointments.title" = "No wait list";
+"com.charmphr.nodeniedAppointments.title" = "No denied appointments";
+"com.charmphr.noUpcomingAppointments.title" = "No upcoming appointments";
+
+"com.charmphr.appointment.alert.delete.appointment" = "Are you sure you want to delete the appointment?";
+"com.charmphr.appointment.alert.cancel.appointment" = "Are you sure you want to cancel the appointment?";
+"com.charmphr.appointment.fillQuestionnaire.title" = "Fill Questionnaire";
+"com.charmphr.appointment.videoCall.earlyCheckIn.alert.title" = "You can join this session %@ minutes prior to the start time.";
+"com.charmphr.appointment.videoCall.expiry.alert.title" = "Sorry, the session has timed out. Please contact your practice.";
+
+
+//MARK: - Add appointment
+"com.charmphr.addAppointments.title" = "Request appointment";
+"com.charmphr.provider.title" = "Provider";
+"com.charmphr.facilityName.title" = "Facility name";
+"com.charmphr.appointments.anyDate" = "Any Date";
+"com.charmphr.appointments.anyTime" = "Any Time";
+
+"com.charmphr.appointments.visitType.title" = "Visit Type";
+
+"com.charmphr.appointments.slotDate.title" = "Slot Date";
+"com.charmphr.appointments.slotPref.title" = "Slot Preference";
+"com.charmphr.appointments.slotTime.title" = "Slot Time";
+
+"com.charmphr.appointments.datePref.title" = "Date Preference";
+"com.charmphr.appointments.timePref.title" = "Time Preference";
+
+"com.charmphr.appointments.type.title" = "Appointment Type";
+"com.charmphr.appointments.reason.title" = "Reason for Appointment";
+
+"com.charmphr.appointments.practice.select_info" = "Select a practice";
+"com.charmphr.appointments.facility.select_info" = "Select a facility";
+"com.charmphr.appointments.provider.select_info" = "Select a provider";
+"com.charmphr.appointments.visittype.select_info" = "Select visit type to book a slot";
+
+"com.charmphr.appointments.facility.empty" = "No facility found to book an appointment";
+"com.charmphr.appointments.member.empty" = "Providers are not found to book an appointment";
+
+"com.charmphr.appointments.no_slots_available" = "No Slots Available";
+"com.charmphr.appointments.waitlist.info" = "Add wait list";
+
+"com.charmphr.appointments.payment.info" = "Payment";
+
+"com.charmphr.appointments.empty_practice" = "Please choose a practice";
+"com.charmphr.appointments.empty_facility" = "Please choose a facility";
+"com.charmphr.appointments.empty_provider" = "Please choose a provider";
+"com.charmphr.appointments.empty_visit_type" = "Please choose visit type";
+"com.charmphr.appointments.telehealth_not_enabled" = "Telehealth is not enabled. Please contact your provider";
+"com.charmphr.appointments.feature_inavailability" = "Bluefin payment is not supported";
+"com.charmphr.appointments.empty_date" = "Please choose a date";
+"com.charmphr.appointments.empty_slot" = "Please select a slot to book appointment";
+
+
+"com.charmphr.appointments.timezone.info" = "Date & Time are shown here as per the selected facility timezone (%@)";
+
+"com.charmphr.appointments.patient.timezone.info" = "Date & Time shown here is based on the timezone fetched for your zipcode (%@)";
+
+"com.charmphr.appointments.uncheck_waiting_list" = "Please check add waiting list to add a waiting list appointment";
+"com.charmphr.appointments.incorrect_time" = "Selected time preference is not proper. Please select a proper time";
+"com.charmphr.appointments.empty_reason" = "Please enter the reason for the appointment";
+"com.charmphr.appointments.invalid_reason" = "Please enter at least one alphabet in the reason for the appointment";
+"com.charmphr.appointments.cancel.error" = "Please contact your practice to enable appointment cancellations.";
+
+
+
+"com.charmphr.addAppointments.fillFormFully" = "Complete the form to request appointment";
+"com.charmphr.addAppointments.select" = "Select";
+"com.charmphr.addAppointments.slotTime.forSelectedDate" = "There is no slots for selected date";
+"com.charmphr.addAppointments.slotTime.forSelectedSlotPreference" = "There is no slots for this slot prefrence";
+"com.charmphr.addAppointments.waitlist.available.title" = "Waitlist available";
+"com.charmphr.addAppointments.waitlist.available.message" = "No slots for selected data. Do you want to add waitlist ?";
+"com.charmphr.addAppointments.payment.paynow" = "Pay now";
+"com.charmphr.addAppointments.payment.alert.message" = "Pay";
+"com.charmphr.addAppointments.payment.alert.error" = "Transaction has been cancelled";
+"com.charmphr.addAppointments.timezone.title" = "Date & Time are shown here as per the selected facility timezone ";
+"com.charmphr.addAppointments.bluefin.alert.message" = "Bluefin payment is not supported";
+"com.charmphr.addAppointments.payment.alert.notSupported" = "Payment is not supported";
+"com.charmphr.addAppointments.telehealth.notenabled.error" = "Telehealth is not enabled. Please contact provider";
+
+"com.charmphr.appointment.cancel.heading" = "Cancel Appointment?";
+"com.charmphr.appointment.cancel.submit" = "Confirm Cancellation";
+"com.charmphr.appointment.cancel.info" = "You’re about to cancel this appointment. Please review the details.";
+"com.charmphr.appointment.cancel.time.error" = "Appointment cannot be cancelled before %@ day(s) from the appointment date";
+"com.charmphr.appointments.cancel.reason.title" = "Reason for Cancellation";
+
+"com.charmphr.appointments.cancel.reason.maxlength" = "%@/500";
+"com.charmphr.appointments.cancel.reason.empty.error" = "Please enter Reason for Cancellation to cancel the appointment.";
+
+"com.charmphr.appointments.cancel.reason.mincount.error" = "Please enter atleast 5 characters in Reason for Cancellation.";
+
+//MARK: - vaccine
+"com.charmphr.Immunizations.title" = "Immunization";
+"com.charmphr.Procedures.NoImmunization.message" = "vaccine";
+"com.charmphr.Immunizations.alert.edit" = "Are you sure you want to edit the vaccine?";
+"com.charmphr.Immunizations.alert.delete" = "Are you sure you want to delete the vaccine?";
+"com.charmphr.Immunization.vaccineTaken.title" = ", vaccine taken in ";
+"com.charmphr.Immunization.administeredBy.title" = "Administered by ";
+"com.charmphr.Immunization.prescribedBy.title" = "Prescribed by ";
+"com.charmphr.Immunization.manufacturer.title" = "Manufacturer ";
+"com.charmphr.Immunization.more.title" = "More...    ";
+"com.charmphr.Immunization.delete.successfull.message" = "Vaccine deleted successfully";
+
+//MARK: - add vaccine
+"com.charmphr.AddVaccine.title" = "Add Vaccine";
+"com.charmphr.EditVaccine.title" = "Edit Vaccine";
+"com.charmphr.AddVaccine.AgeCategory.title" = "Age Category";
+"com.charmphr.AddVaccine.VaccineName.title" = "Immunization Name";
+"com.charmphr.AddVaccine.Manufacturer.title" = "Manufacturer";
+"com.charmphr.AddVaccine.Manufacturer.placeHolder" = "Enter manufacturer";
+"com.charmphr.AddVaccine.Date.title" = "Date";
+"com.charmphr.AddVaccine.administered.title" = "How administered?";
+"com.charmphr.AddVaccine.administeredBy.title" = "Who gave it";
+"com.charmphr.AddVaccine.Comments.title" = "Notes";
+
+//MARK: - vaccine details
+"com.charmphr.VaccineDetail.VaccineName.title" = "Vaccine Name";
+"com.charmphr.VaccineDetail.givernBy.title" = "Given By";
+"com.charmphr.VaccineDetail.route.title" = "Route";
+"com.charmphr.VaccineDetail.site.title" = "Site";
+
+// MARK: health Passport
+"com.charmphr.healthPassport.title" = "Health Passport";
+"com.charmphr.healthPassport.back.title" = "Health passport";
+"com.charmphr.healthPassport.download.hp.title" = "View Health Passport PDF";
+
+// current Medications
+"com.charmphr.cureentMedication.title" = "Current Medication";
+
+//MARK: - Document
+"com.charmphr.Documents.title" = "Documents";
+"com.charmphr.Documents.nodata.title" = "Document";
+"com.charmphr.addDocuments.title" = "Add Document";
+"com.charmphr.Documents.alert.delete.Documents" = "Are you sure you want to delete the Document?";
+"com.charmphr.addDocuments.name.title" = "Document Name";
+"com.charmphr.addDocuments.name.placeHolder" = "Enter document name";
+"com.charmphr.addDocuments.othertype.title" = "Other type";
+"com.charmphr.addDocuments.type.title" = "Document Type";
+"com.charmphr.Documents.type.sharedByMe.title" = "Shared by Me";
+"com.charmphr.Documents.type.sharedWithMe.title" = "Shared with Me";
+"com.charmphr.Documents.NoDocuments.message" = "document";
+"com.charmphr.Document.newFolder.title" = "New Folder";
+"com.charmphr.Document.newFolder.message" = "Please enter the name of the new folder";
+"com.charmphr.Document.newFolder.placeHolder" = "Folder name";
+"com.charmphr.Document.sharedByLabel.title" = "Shared by";
+"com.charmphr.Document.sharedToLabel.title" = "Shared to";
+"com.charmphr.Document.unshare.title" = "Unshare";
+"com.charmphr.Document.rightBarButton.title" = "Share (%@)";
+"com.charmphr.Document.multipleSelect.maximum.toast.message" = "Select max of 10 documents to share at a time";
+"com.charmphr.Document.folder.more.newFolder.title" = "New Folder";
+"com.charmphr.Document.folder.more.icons.title" = "Icons";
+"com.charmphr.Document.folder.more.list.title" = "List";
+
+"com.charmphr.Document.select.error" = "Error occured while selecting a document. Please try again.";
+"com.charmphr.addDocuments.success.alert.success.message" = "Do you want to share the documents with the practice?";
+
+//MARK: - ShareDocuments
+
+"com.charmphr.sharedocuments.title" = "Share Documents";
+"com.charmphr.sharedocuments.segmentcontrolItem.practice.title" = "Practice Member";
+"com.charmphr.sharedocuments.segmentcontrolItem.others.title" = "Others";
+"com.charmphr.sharedocuments.notavailabel.title" = "The Email/Name is not available";
+"com.charmphr.sharedocuments.addToContact.title" = "Add To Contact";
+"com.charmphr.sharedocuments.enterEmail.title" = "Enter the name or email address of the recipient";
+"com.charmphr.sharedocuments.toLabel.title" = "To";
+"com.charmphr.sharedocuments.practiceField.placeHolder.title" = "Search Member";
+"com.charmphr.sharedocuments.otherField.placeHolder.title" = "Search Contact";
+"com.charmphr.sharedocuments.documentWillShareLabel.title" = "Document(s) will be shared to Practice and selected members will be notified";
+"com.charmphr.sharedocuments.expiryLabel.title" = "Expiry";
+"com.charmphr.sharedocuments.addcontactView.addmorebtn.title" = "Add More";
+"com.charmphr.sharedocuments.addcontactView.fullnameLabel.title" = "Full Name";
+"com.charmphr.sharedocuments.addcontactView.emailLabel.title" = "Email";
+"com.charmphr.sharedocuments.addcontactView.removeButton.title" = "Remove";
+"com.charmphr.sharedocuments.attachment.close.alert.message" = "Are you sure not want to share this document?";
+"com.charmphr.sharedocuments.backButton.alert.message" = "Are you sure not want to share these documents?";
+"com.charmphr.sharedocuments.provider.alert.message" = "Please select atleast 1 provider.";
+"com.charmphr.sharedocuments.pharmacy.alert.message" = "Please select atleast 1 contact";
+"com.charmphr.sharedocuments.addcontact.title" = "Add Contact";
+"com.charmphr.sharedocuments.addcontact.fullName.alert.message" = "Please enter full name";
+"com.charmphr.sharedocuments.addcontact.email.alert.message" = "Please enter email";
+"com.charmphr.sharedocuments.addcontact.alert.validEmail.message" = "Please provide valid email Id";
+"com.charmphr.sharedocuments.addcontact.email_suggestion.gmail" = "gmail.com";
+"com.charmphr.sharedocuments.addcontact.email_suggestion.apple" = "apple.com";
+"com.charmphr.sharedocuments.addcontact.email_suggestion.yahoo" = "yahoo.com";
+"com.charmphr.sharedocuments.member.noDataLabel.title" = "No results found";
+"com.charmphr.sharedocuments.navigation.title" = "Share to others";
+"com.charmphr.sharedocuments.success.message" = "Document shared successfully";
+
+//MARK: - TreatingPhysicians
+"com.charmphr.TreatingPhysicians.title" = "Treating Physicians";
+"com.charmphr.TreatingPhysicians.noData.title" = "Physician";
+"com.charmphr.TreatingPhysicians.alert.edit" = "Are you sure want to edit this Physician?";
+"com.charmphr.TreatingPhysicians.alert.delete" = "Are you sure want to delete This Physician?";
+
+"com.charmphr.addTreatingPhysicians.title" = "Add Physician";
+"com.charmphr.editTreatingPhysicians.title" = "Edit Physician";
+"com.charmphr.addTreatingPhysicians.name.title" = "Name";
+"com.charmphr.addTreatingPhysicians.phonenumber.title" = "Phone";
+"com.charmphr.addTreatingPhysicians.name.placeHolder" = "Enter the Name";
+"com.charmphr.addTreatingPhysicians.phonenumber.placeHolder" = "Enter the Number";
+
+
+//MARK: - Medical Condition
+"com.charmphr.MedicalCondition.title" = "Medical Condition";
+"com.charmphr.MedicalCondition.noData.title" = "Medical Condition";
+"com.charmphr.MedicalCondition.alert.edit" = "Are you sure you want to edit the medication?";
+"com.charmphr.MedicalCondition.alert.delete" = "Are you sure you want to delete the medication?";
+"com.charmphr.medCondition.filter.all" = "All";
+"com.charmphr.medCondition.filter.active" = "Active";
+"com.charmphr.medCondition.filterSheet.title" = "Filter by Status";
+"com.charmphr.MedicalCondition.startDate.label" = "Start  ";
+"com.charmphr.MedicalCondition.endDate.label" = "End  ";
+
+
+"com.charmphr.addMedicalCondition.title" = "Add Condition";
+"com.charmphr.editMedicalCondition.title" = "Edit Condition";
+"com.charmphr.addMedicalCondition.name.title" = "Condition Name";
+"com.charmphr.addMedicalCondition.Status.title" = "Status";
+"com.charmphr.addMedicalCondition.Date.title" = "Onset Date";
+"com.charmphr.addMedicalCondition.resolvedDate.title" = "Resolved Date";
+"com.charmphr.addMedicalCondition.notes.title" = "Notes";
+
+
+//MARK: - Hospitalization
+"com.charmphr.Hospitalization.title" = "Hospitalization";
+"com.charmphr.Hospitalization.noData.title" = "hospitalization";
+
+"com.charmphr.addHospitalization.title" = "Add Hospitalization";
+"com.charmphr.editHospitalization.title" = "Edit Hospitalization";
+"com.charmphr.addHospitalization.dateOn.title" = "On";
+"com.charmphr.addHospitalization.Outcome.title" = "Outcome";
+"com.charmphr.addHospitalization.Hospitalization.title" = "Hospitalization";
+"com.charmphr.addHospitalization.Hospitalization.PlaceHolder" = "Enter the Hospitalization";
+"com.charmphr.addHospitalization.type.title" = "Type";
+
+//MARK: - Hp Allergies VC
+"com.charmphr.hpAllergies.title" = "Allergies";
+"com.charmphr.hpAllergies.noData.title" = "allergie";
+
+"com.charmphr.hpAddAllergies.title" = "Add Allergie";
+"com.charmphr.hpEditAllergies.title" = "Edit Allergie";
+
+"com.charmphr.hpAddAllergies.AllergenName" = "Allergen";
+"com.charmphr.allergen.name.invalid" = "Please enter at least one alphabet in Allergen";
+"com.charmphr.hpAddAllergies.AllergenType" = "Type";
+"com.charmphr.hpAddAllergies.OtherType" = "Other Type";
+"com.charmphr.hpAddAllergies.Severity" = "Severity";
+"com.charmphr.hpAddAllergies.Status" = "Status";
+"com.charmphr.hpAddAllergies.ObservedOn" = "Onset Date";
+"com.charmphr.hpAddAllergies.AnyReactions" = "Reactions";
+"com.charmphr.hpAddAllergies.AllergenName.placeholder" = "Tap to enter";
+
+//MARK: -  Questionnaire
+
+"com.charmphr.Questionnaire.title" = "Questionnaire";
+"com.charmphr.consentform.info" = "Please submit the below consent form to join the video consultation.";
+
+//MARK: -  Demographics
+"com.charmphr.Demographics.title" = "Demographics";
+"com.charmphr.myProfile.title" = "My Profile";
+"com.charmphr.Demographics.blood.title" = "Blood Group";
+"com.charmphr.Demographics.ContactNo.title" = "Contact Number";
+"com.charmphr.Demographics.Address.title" = "Address";
+"com.charmphr.Demographics.CaregiverName.title" = "Caregiver Name";
+"com.charmphr.Demographics.CaregiverNo.title" = "Caregiver Number";
+"com.charmphr.Demographics.HealthURL.title" = "Health URL";
+"com.charmphr.Demographics.ViewPasscode.title" = "View Passcode";
+"com.charmphr.Demographics.EditDemographics.title" = "Edit Demographics";
+"com.charmphr.Demographics.viewHealthData.title" = "View Health Data";
+
+"com.charmphr.Demographics.passcode.Healthcard.title" = "Health Card";
+"com.charmphr.Demographics.passcode.Healthcard.subtitle" = "How to use this card during Medical Emergency?";
+"com.charmphr.Demographics.passcode.point1.title" = "Follow the instruction";
+"com.charmphr.Demographics.passcode.point2.title" = "Enter the passcode provided below";
+"com.charmphr.Demographics.passcode.point3.title" = "Access the Short URL from a web browser";
+"com.charmphr.Demographics.passcode.title" = "Pass Code";
+
+
+//MARK: - edit Demographics
+"com.charmphr.EditDemographics.title" = "Edit Demographics";
+"com.charmphr.EditDemographics.camera.title" = "Camera";
+"com.charmphr.EditDemographics.changeProfilePhoto.title" = "Change Profile Photo";
+"com.charmphr.EditDemographics.FirstName.title" = "First Name";
+"com.charmphr.EditDemographics.FirstName.empty" = "Please enter first name";
+"com.charmphr.EditDemographics.FirstName.invalid" = "Please enter at least one alphabet in first name";
+"com.charmphr.EditDemographics.LastName.title" = "Last Name";
+"com.charmphr.EditDemographics.LastName.empty" = "Please enter last name";
+"com.charmphr.EditDemographics.LastName.invalid" = "Please enter at least one alphabet in last name";
+"com.charmphr.EditDemographics.DateOfBirth.title" = "Date Of Birth";
+"com.charmphr.EditDemographics.BirthSex.title" = "Birth Sex";
+"com.charmphr.EditDemographics.genderIdentity.title" = "Gender Identity";
+"com.charmphr.EditDemographics.genderIdentity.other.title" = "Other";
+"com.charmphr.EditDemographics.BloodGroup.title" = "Blood Group";
+"com.charmphr.EditDemographics.language.title" = "Language";
+"com.charmphr.EditDemographics.Race.title" = "Race";
+"com.charmphr.EditDemographics.ethnicity.title" = "Ethinicity";
+"com.charmphr.EditDemographics.maritalstatus.title" = "Marital Status";
+"com.charmphr.EditDemographics.smokingstatus.title" = "Smoking Status";
+"com.charmphr.EditDemographics.employmentstatus.title" = "Employment Status";
+"com.charmphr.EditDemographics.ADDRESSLINE1.title" = "Address Line 1";
+"com.charmphr.EditDemographics.ADDRESSLINE2.title" = "Address Line 2";
+"com.charmphr.EditDemographics.Country.title" = "Country";
+"com.charmphr.EditDemographics.State.title" = "State";
+"com.charmphr.EditDemographics.City.title" = "City";
+"com.charmphr.EditDemographics.HomePhone.title" = "Home Phone";
+"com.charmphr.EditDemographics.MobilePhone.title" = "Mobile Phone";
+"com.charmphr.EditDemographics.CaregiverName.title" = "Caregiver Name";
+"com.charmphr.EditDemographics.CaregiverPhone.title" = "Caregiver Phone";
+"com.charmphr.EditDemographics.ContactName.title" = "Contact Name";
+"com.charmphr.EditDemographics.ContactNumber.title" = "Contact Number";
+"com.charmphr.EditDemographics.WorkPhone.title" = "Work Phone";
+"com.charmphr.EditDemographics.extension.title" = "Extn";
+"com.charmphr.EditDemographics.fax.title" = "Fax";
+"com.charmphr.EditDemographics.PrimaryPhone.title" = "Primary Phone";
+"com.charmphr.EditDemographics.email.title" = "Email";
+"com.charmphr.EditDemographics.zipCode.title" = "Zip Code";
+"com.charmphr.EditDemographics.postalCode.title" = "Postal Code";
+"com.charmphr.EditDemographics.postBox.title" = "Post Box";
+"com.charmphr.EditDemographics.emgContactName.title" = "Emergency Contact Name";
+"com.charmphr.EditDemographics.emgContactNum.title" = "Emergency Contact Number";
+
+
+//MARK: -wellness metric
+"com.charmphr.wellnessmetric.selectunit.key" = "Please select your preferred unit of measurement";
+"com.charmphr.wellnessmetric.selectunit.error" = "Please select your preferred unit to continue.";
+"com.charmphr.wellnessmetric.standard.key" = "Standard";
+"com.charmphr.wellnessmetric.metric.key" = "Metric";
+"com.charmphr.wellnessmetric.standardunit" = "Fts & Incs / Lbs / °F";
+"com.charmphr.wellnessmetric.metricunit" = "Cms / kgs / °C";
+"com.charmphr.wellnessmetric.noWellness.message" = "an entry";
+
+"com.charmphr.wellnessmetric.standard.option" = "Standard (Fts & Incs / Lbs / °F)";
+"com.charmphr.wellnessmetric.metric.option" = "Metric (Cms / kgs / °C)";
+"com.charmphr.wellnessmetric.option.label" = "Units selected";
+
+//
+//Questionnaire
+
+"com.charmphr.questionnaire.facility.hint" ="Facility Name";
+"com.charmphr.questionnaire.member.hint" ="Sender";
+"com.charmphr.questionnaire.appointmentdate.hint" ="Appointment On";
+"com.charmphr.questionnaire.status.submitted" ="Submitted";
+"com.charmphr.questionnaire.status.new" ="New";
+"com.charmphr.questionnaire.status.draft" ="Draft";
+"com.charmphr.questionnaire.status.notsubmitted" ="Not Filled";
+"com.charmphr.questionnairevc.current.title" ="Current";
+"com.charmphr.questionnairevc.past.title" ="Past";
+"com.charmphr.questionnairevc.current.nodata" = "No Current Questionnaires available";
+"com.charmphr.questionnairevc.past.nodata" = "No Past Questionnaires available";
+"com.charmphr.questionnaire.notsupported"= "The selected questionnaire is not supported";
+"com.charmphr.questionnaire.empty" = "This questionnaire doesn't have any questions";
+"com.charmphr.questionnaire.submitagain"= "Submit Again";
+"com.charmphr.questionnaire.mandatory.error" = "Please fill the mandatory fields";
+"com.charmphr.questionnaire.empty.error" = "Please fill the questionnaire";
+"com.charmphr.questionnaire.signature.placeHolder" = "Sign here...";
+"com.charmphr.questionnaire.widget.chooseFrom.title" = "Choose from Allergy Records";
+"com.charmphr.questionnaire.widget.select.title" = "Your %@ Allergies";
+
+"com.charmphr.questionnairevc.drugAllergies.title" = "Drug Allergies";
+"com.charmphr.questionnairevc.drugAllergy.title" = "Drug Allergy";
+"com.charmphr.questionnairevc.foodAllergies.title" = "Food Allergies";
+"com.charmphr.questionnairevc.foodAllergy.title" = "Food Allergy";
+"com.charmphr.questionnairevc.environmentAllergies.title" = "Environmental Allergies";
+"com.charmphr.questionnairevc.environmentAllergy.title" = "Environment Allergy";
+"com.charmphr.questionnairevc.allergen.title" = "Allergen";
+"com.charmphr.questionnairevc.severity.title" = "Severity";
+"com.charmphr.questionnairevc.reaction.title" = "Reaction";
+"com.charmphr.questionnairevc.tapToAnswer.placeholder" = "Tap to Answer";
+"com.charmphr.questionnairevc.tapToSelect.placeholder" = "Tap to Select";
+"com.charmphr.questionnairevc.entryWidget.noKnown.title" = "No Known ";
+"com.charmphr.questionnairevc.entryWidget.noActiveMedication.title" = "No Active Medication";
+
+"com.charmphr.questionnairevc.medication.title" = "Medication%@";
+"com.charmphr.questionnairevc.supplement.title" = "Supplement%@";
+"com.charmphr.questionnairevc.medication.medicationName" = "Medication Name";
+"com.charmphr.questionnairevc.supplement.supplementName" = "Supplement Name";
+"com.charmphr.questionnairevc.intakeDetails.title" = "Intake details";
+"com.charmphr.questionnairevc.addEntries.mandatory.alert.title" = "Please enter value for %@";
+
+"com.charmphr.questionnairevc.medication.addMore" = "ADD MORE MEDICATION";
+"com.charmphr.questionnairevc.supplement.addMore" = "ADD MORE SUPPLEMENT" ;
+"com.charmphr.questionnairevc.medication.name.emptyMsg" = "Please enter Drug name" ;
+"com.charmphr.questionnairevc.supplement.name.emptyMsg" = "Please enter Supplement name" ;
+"com.charmphr.questionnairevc.prescription.intakeDetail.emptyMsg" = "Please enter Intake detail" ;
+"com.charmphr.questionnairevc.signature.placeholder" = "Click to sign the questionnaire" ;
+"com.charmphr.questionnairevc.signature.clear.txt" = "Clear";
+"com.charmphr.questionnairevc.signature.save.txt" = "Save";
+"com.charmphr.questionnairevc.signature.edit.txt" = "Re-sign";
+"com.charmphr.questionnairevc.presonalDetail.title" = "Personal Details";
+"com.charmphr.questionnairevc.signature.empty.txt" = "No signature found";
+"com.charmphr.questionnairevc.soapNotesType.textBox.title" = "Notes";
+
+"com.charmphr.questionnairevc.presonalDetail.dob.empty" = "Please enter Date of Birth";
+"com.charmphr.questionnairevc.presonalDetail.genderId.empty" = "Please enter Gender Identity";
+
+"com.charmphr.questionnairevc.patContact.title" = "Primary Contact Details";
+
+"com.charmphr.questionnairevc.patContact.email.empty" = "Please enter an Email";
+"com.charmphr.questionnairevc.patContact.email.invalid" = "Please enter a valid Email";
+"com.charmphr.questionnairevc.patContact.line1.empty" = "Please enter address line 1";
+"com.charmphr.questionnairevc.patContact.line1.invalid" = "Please enter at least one alphabet in address line 1";
+
+"com.charmphr.questionnairevc.patContact.line2.invalid" = "Please enter at least one alphabet in address line 2";
+"com.charmphr.questionnairevc.patContact.country.empty" = "Please enter country";
+"com.charmphr.questionnairevc.patContact.country.invalid" = "Please enter a valid country";
+"com.charmphr.questionnairevc.patContact.city.empty" = "Please enter city";
+"com.charmphr.questionnairevc.patContact.city.invalid" = "Please enter at least one alphabet in city";
+"com.charmphr.questionnairevc.patContact.state.invalid" = "Please enter a valid state";
+"com.charmphr.questionnairevc.patContact.stateAlpha.invalid" = "Please enter at least one alphabet in state";
+"com.charmphr.questionnairevc.patContact.state.empty" = "Please enter a state";
+"com.charmphr.questionnairevc.patContact.pincode.empty" = "Please enter pincode";
+
+"com.charmphr.questionnairevc.patContact.pincode.invalid" = "Please enter a valid pincode";
+"com.charmphr.questionnairevc.patContact.postalcode.invalid" = "Please enter a valid post box";
+"com.charmphr.questionnairevc.patContact.emgContactName.invalid" = "Please enter at least one alphabet in emergency contact name";
+"com.charmphr.questionnairevc.answer.success.message" = "Questionnaire Submitted succesfully";
+
+//MARK: - Insurance
+
+"com.charmphr.payment.empty_name" = "Please enter the card holder name";
+"com.charmphr.payment.empty_number" = "Please enter the card number";
+"com.charmphr.payment.empty_month" = "Please enter the card expiry month";
+"com.charmphr.payment.invalid_month" = "Please enter a valid card expiry month";
+"com.charmphr.payment.empty_year" = "Please enter the card expiry year";
+"com.charmphr.payment.invalid_year" = "Please enter a valid card expiry year";
+"com.charmphr.payment.empty_cvv" = "Please enter the card cvv";
+"com.charmphr.payment.invalid_cvv" = "Please enter a valid card cvv";
+"com.charmphr.payment.empty_amount" = "Please enter amount payable";
+"com.charmphr.payment.min_amount.info" = "Payment amount should be more than %@";
+
+
+"com.charmphr.questionnairevc.insurance.title" = "Insurance Details";
+"com.charmphr.insurance.add.hasInsurance.txt" = "Do you have insurance ?";
+
+"com.charmphr.insurance.title" = "Insurance";
+"com.charmphr.insurance.add.title" = "Add Insurance";
+"com.charmphr.insurance.edit.title" = "Edit Insurance";
+"com.charmphr.insuranceList.questionnaire.insurance.plan.label" = "Insurance Plan Name or Program Name";
+"com.charmphr.insuranceList.plan.label" = "Insurance Plan";
+"com.charmphr.insuranceList.policyGrp.label" = "Policy Group/ FECA Number";
+"com.charmphr.insuranceList.insuredPerson.label" = "Insured Person";
+"com.charmphr.insurance.type.primary" = "Primary";
+"com.charmphr.insurance.type.secondary" = "Secondary";
+"com.charmphr.insurance.date.value.prefix" = "Valid from ";
+"com.charmphr.insurance.date.value.Label" = " Valid Until ";
+"com.charmphr.insurance.add.hint" = "Tap + to add insurance";
+"com.charmphr.insurance.delete.confirm.msg" = "Do you want to delete the insurance?";
+"com.charmphr.insurance.delete.success.msg" = "Insurance deleted successfully";
+"com.charmphr.insurance.delete.failure.msg" = "Delete insurance is unsuccessful";
+"com.charmphr.insurance.add.title" = "Add Insurance";
+"com.charmphr.insurance.add.payerName.label" = "Payer Name";
+"com.charmphr.insurance.questionnaire.payerName.label" = "Insurance Company Name";
+"com.charmphr.insurance.add.payerId.label" = "Payer Id";
+"com.charmphr.insurance.add.type.label" = "Insurance Type";
+"com.charmphr.insurance.add.memberId.label" = "ID";
+"com.charmphr.insurance.add.payerAddress.label" = "Payer Address";
+"com.charmphr.insurance.add.personDetail.label" = "Insuranced Person Details";
+"com.charmphr.insurance.add.relationship.label" = "Patient Relationship with Insured";
+"com.charmphr.insurance.add.workPhone.label" = "Work Phone";
+"com.charmphr.insurance.add.copay.label" = "Copay";
+"com.charmphr.insurance.add.deductable.label" = "Deductable";
+"com.charmphr.insurance.add.validFrom.label" = "Valid From";
+"com.charmphr.insurance.add.validTo.label" = "Valid To";
+"com.charmphr.insurance.id.member.label" = "ID";
+"com.charmphr.insurance.id.sponser.label" = "Sponsor\'s SSN";
+"com.charmphr.insurance.id.ssn.label" = "SSN";
+"com.charmphr.insurance.id.medicare.label" = "MEDICARE #";
+"com.charmphr.insurance.id.medicaid.label" = "MEDICAID #";
+"com.charmphr.insurance.id.label" = "ID";
+"com.charmphr.insurance.add.sameAddress.label" = "Same as account\'s address";
+"com.charmphr.insurance.add.empName.label" = "Employer/School Name";
+"com.charmphr.insurance.add.comment.label" = "Comments";
+"com.charmphr.insurance.add.comment.invalid" = "Please enter at least one alphabet in comments";
+"com.charmphr.insurance.add.payerName.empty" = "Please enter Payer name";
+"com.charmphr.insurance.add.payerName.invalid" = "Please enter at least one alphabet in Payer name";
+"com.charmphr.insurance.add.payerId.empty" = "Please enter Payer ID";
+"com.charmphr.insurance.add.type.empty" = "Please enter Insurance Type";
+"com.charmphr.insurance.add.id.empty" = "Please enter ";
+"com.charmphr.insurance.add.planName.empty" = "Please enter Insurance Plan";
+"com.charmphr.insurance.add.policyGrp.empty" = "Please enter Policy Group/ FECA Number";
+"com.charmphr.insurance.add.insurance.type.empty" = "Please select the Insurance Category";
+"com.charmphr.insurance.add.empName.empty" = "Please enter Employer/School Name";
+"com.charmphr.insurance.add.relationship.empty" = "Please enter Patient Relationship with Insured";
+
+"com.charmphr.insurance.add.dob.empty" = "Please enter Date of Birth";
+"com.charmphr.insurance.add.insuredPerson.birthsex.empty" = "Please enter insured person birth sex.";
+"com.charmphr.insurance.add.genderId.empty" = "Please enter Gender identity";
+"com.charmphr.insurance.add.success.msg" = "Insurance added successfully";
+"com.charmphr.insurance.add.failure.msg" = "Add Insurance operation failed";
+"com.charmphr.insurance.edit.failure.msg" = "Edit Insurance operation failed";
+"com.charmphr.insurance.add.validFrom.empty" = "Please provide insurance valid from date";
+"com.charmphr.insurance.add.validTo.empty" = "Please provide insurance valid to date";
+"com.charmphr.insurance.add.error.endDate.beforeDOB" = "Valid to date should not be before Insured Person\'s Date of birth";
+"com.charmphr.insurance.add.error.startDate.beforeDOB" = "Valid from date should not be before Insured Person\'s Date of birth";
+"com.charmphr.insurance.add.invalidPeriod" = "Valid to date should not be before Valid from date";
+
+"com.charmphr.insurance.date.msg" = "Valid from %@ Valid Until %@";
+"com.charmphr.insurance.practiceName.hint" = "Practice Name";
+"com.charmphr.insurance.type.hint" = "Insurance Category";
+"com.charmphr.search.placeholder" = "Enter minimum 3 characters to start search";
+"com.charmphr.insurance.alert.delete" = "Are you sure want to delete this insurance?";
+"com.charmphr.insurance.information.title" = "Add or Edit insurance here will not be shared to your provider or practice.";
+
+"com.charmphr.insurance.card.from.title" = "Front Page";
+"com.charmphr.insurance.card.to.title" = "Back Page";
+"com.charmphr.insurance.card.camera.title" = "Take a Photo";
+"com.charmphr.insurance.card.retakecamera.title" = "Retake a Photo";
+"com.charmphr.insurance.card.gallery.title" = "Upload from Gallery";
+"com.charmphr.insurance.card.alert.delete.message" = "Are you sure want to delete the insurance card?";
+"com.charmphr.insurance.card.title" = "Insurance Card";
+"com.charmphr.insurance.card.maxsize.info" = "Allowed file size : 10MB";
+
+//MARK: - Flowsheets
+
+"com.charmphr.flowsheet.fillfrequency.title" = "Data to be filled by Patient - ";
+"com.charmphr.flowsheetentry.observed.title" = "Observed On";
+"com.charmphr.flowsheet.title" = "Flowsheets";
+"com.charmphr.flowsheetentry.addflowsheet.title" = "Add Flowsheet Entries";
+"com.charmphr.flowsheetentry.editflowsheet.title" = "Edit Flowsheet Entries";
+"com.charmphr.flowsheetentry.title" = "Flowsheet Entries";
+"com.charmphr.flowsheetentry.noFlowsheetEntry.message" = "an entry";
+
+"com.charmphr.flowsheetaddvc.customnumber.invalid" = "Alphabet should not be given";
+"com.charmphr.flowsheetaddvc.customnumber.nil" = "Value should not be empty";
+
+"com.charmphr.add_flowsheet.alert.single_item_str" = "'s vital entry value is not normal. Are you sure want to continue?";
+
+"com.charmphr.add_flowsheet.alert.multiple_item_str" = "Some vital entry values are not normal. Are you sure want to continue?";
+
+"com.charmphr.add_flowsheet.temperature.unit_button.title_message" = "Please select the unit for temperature";
+
+"com.charmphr.add_flowsheet.temperature.unit_button.title" = "Temperature Unit";
+"com.charmphr.add_flowsheet.emptyAlert.message" = "Please fill atleast one entry.";
+
+//MARK: - Support
+
+"com.charmphr.support.title" = "Feedback";
+
+"com.charmphr.support.segment.report.title" = "Report";
+"com.charmphr.support.segment.suggest.title" = "Suggest";
+"com.charmphr.support.segment.askQuestion.title" = "Ask Question";
+"com.charmphr.support.segment.appreciate.title" = "Appreciate";
+"com.charmphr.support.subject.title" = "Subject";
+"com.charmphr.support.appreciate.description.title" = "Appreciate in your own words";
+"com.charmphr.support.problem.description.title" = "Describe your problem";
+"com.charmphr.support.suggestion.description.title" = "Describe your suggestion";
+"com.charmphr.support.question.description.title" = "Describe your question";
+"com.charmphr.support.question.subject.title" = "Enter your question";
+"com.chamrphr.support.problem.severity.title" = "Severity";
+"com.champhr.support.appreciate.button.productive.title" = "Productive";
+"com.champhr.support.appreciate.button.good.title" = "Good in Support";
+"com.champhr.support.appreciate.button.easyToUse.title" = "Easy to Use";
+"com.champhr.support.appreciate.button.wellIntegrated.title" = "Well Integrated";
+"com.champhr.support.appreciate.button.affordable.title" = "Affordable";
+"com.champhr.support.appreciate.button.robust.title" = "Robust";
+"com.champhr.support.appreciate.button.easyToCustomize.title" = "Easy to Customize";
+"com.charmphr.support.textField.placeHolder.title" = "Enter the text";
+"com.charmphr.support.appreciate.titleLabel.title" = "What do you like about ChARM PHR?";
+"com.charmphr.support.reportProblem.severity.title" = "Choose Severity";
+"com.charmphr.support.appreciate.charm_mPHR_app_is.title" = "Charm mPHR app is ";
+"com.charmphr.support.giveYourFeedback.title" = "Give your Feedback";
+"com.charmphr.support.alert.subject.title" = "Please provide subject";
+"com.charmphr.support.alert.subject.maxlength" = "provide subject field text less than 225";
+"com.charmphr.support.alert.messageContent.malength" = "provide message content less than 1000";
+"com.charmphr.support.alert.selectOrProviderData.title" = "Please select or write something";
+"com.charmphr.support.subject.answerHolder.title" = "Charm mPHR iOS :: ";
+"com.charmphr.support.messageContent.iosVersion.title" = "iOS OS version = ";
+"com.charmphr.support.messageContent.appVersion.title" = "App version = ";
+"com.charmphr.support.fileSize.alert.message.title" = "Please select the file less than %@ MB";
+"com.charmphr.suppport.duplicateFiles.alert.message.title" = "Duplicate files not allowed";
+"com.charmphr.support.supportSend.thankYouMessage.title" = "Thank you for your valuable feedback";
+"com.charmphr.support.attachment.limit.errorMessage.title" = "Only 5 documents are allowed to attach";
+"com.charmphr.support.invalidInput.error.title" = "Please enter at least one alphabet in ";
+
+//MARK: Feedback
+
+"com.charmphr.feedback.toPractice.title" = "Contact Practice";
+"com.charmphr.feedback.toPractice.description.message" = "Send messages to your practice members.";
+"com.charmphr.feedback.toCharm.title" = "Technical support";
+"com.charmphr.feedback.toCharm.descripition.message" = "Send Technical Questions, Suggestions, Complaints and Appreciation to Charm mPHR app.";
+"com.charmphr.feedback.action.proceed" = "Proceed";
+
+//MARK: - Card
+
+"com.charmphr.card.title" = "Card On File";
+"com.charmphr.card.patient.title" = "Patient Saved Cards";
+"com.charmphr.card.practice.title" = "Practice Saved Cards";
+"com.charmphr.card.nickname.label" = "Card Nick Name";
+"com.charmphr.card.expiry.label" = "Expires";
+"com.charmphr.card.number.redacted" = "xxxx xxxx xxxx %@";
+"com.charmphr.card.file.label" = "Ending with %@";
+"com.charmphr.card.file.expiry.label" = "Expires on %@";
+"com.charmphr.payment.card.title" = "Charge card on file";
+"com.charmphr.card.add.practice.header" = "Choose Practice";
+"com.charmphr.card.add.carddetails.header" = "Card Details";
+"com.charmphr.card.add.address.header" = "Address";
+"com.charmphr.card.add.nickname.title" = "Card Nick Name";
+"com.charmphr.card.add.isprimary.title" = "Make this primary card";
+"com.charmphr.card.add.title" = "Add Card";
+"com.charmphr.card.edit.title" = "Edit Card";
+
+//MARK: - Reminder
+
+"com.charmphr.reminder.title" = "Reminders";
+"com.charmphr.reminder.segment.today.title" = "Today";
+"com.charmphr.reminder.segment.all.title" = "All";
+"com.charmphr.reminder.actionSheet.medication.title" = "Medication";
+"com.charmphr.reminder.actionSheet.supplement.title" = "Supplement";
+"com.charmphr.reminder.reminders.title" = "Reminders";
+"com.charmphr.reminder.noReminders.alert.title" = "No Reminders available";
+"com.charmphr.reminder.noCompeletedReminders.alert.title" = "No Completed Reminders available";
+"com.charmphr.reminder.noUpcomingReminders.alert.title" = "No Upcoming Reminders available";
+"com.charmphr.reminder.noReminders.alert.message" = "Tap + to add Reminder";
+"com.charmphr.reminder.delete.alert.title" = "Do you want to delete the reminder?";
+"com.charmphr.reminder.all.item.history.title" = "History";
+"com.charmphr.reminder.delete.successfull.message" = "Reminder deleted successfully";
+"com.charmphr.reminder.editReminder.title" = "Edit Reminder";
+"com.charmphr.reminder.addReminder.title" = "Add Reminder";
+"com.charmphr.reminder.frequencyIntake.title" = "Frequency of Intake";
+"com.charmphr.reminder.reminderTime.duplicate.alert.title" = "Time already selected. Please select another time.";
+"com.charmphr.reminder.notification.10days.info.message" = "We maintain notification alerts for the next 10 days. Stay engaged to keep getting timely reminders.";
+"com.charmphr.reminder.notification.permission.notAllowed.alert.title" = "Enable access to send reminder notifications";
+"com.charmphr.reminder.notification.permission.notAllowed.alert.message" = "Notifications may include alerts,
+sounds and icon badges. These can be configured in Settings.";
+"com.charmphr.prescription.addReminder.alert.title" = "Would you like to add Reminder notification for the ";
+
+"com.charmphr.reminder.updateReminder.successfull.message" = "Reminder updated successfully";
+"com.charmphr.reminder.selectPrescription.medication.title" = "Select Medication";
+"com.charmphr.reminder.selectPrescripiton.supplement.title" = "Select Supplement";
+"com.charmphr.reminder.addReminder.duplicateReminder.error.title" = "Please select another.";
+"com.charmphr.reminder.detail.scheduleFor.title" = "Scheduled for ";
+"com.charmphr.reminder.detail.hi.patientName.title" = "Hi ";
+"com.charmphr.reminder.detail.taken.title" = "Taken";
+"com.charmphr.reminder.detail.skip.title" = "Skip";
+"com.charmphr.reminder.addReminder.startDate" = "Start Date";
+"com.charmphr.reminder.addReminder.endDate" = "End Date";
+"com.charmphr.reminder.addReminder.reminderdate" = "Reminder Date";
+"com.charmphr.reminder.addReminder.FrequencyOfIntake.title" = "Frequency of intake";
+"com.charmphr.reminder.addReminder.selectFrequency.title" = "Select interval";
+"com.charmphr.reminder.addReminder.enterValueN.title" = "Enter the value of n";
+"com.charmphr.reminder.addReminder.placeHolder.title" = "Tap to enter";
+"com.charmphr.reminder.addReminder.selectDays.title" = "SELECT DAYS";
+"com.charmphr.reminder.addReminder.addReminderTime.title" = "Add Reminder Time";
+"com.charmphr.reminder.today.item.selectAll.title" = "Select All";
+"com.charmphr.reminder.all.item.schedule.title" = "Schedule ";
+"com.charmphr.reminder.all.item.to.title" = " to ";
+"com.charmphr.reminder.reminderHistory.title" = "Reminder history";
+"com.charmphr.reminder.reminderHistory.edit.error.message.futureTime.title" = "Reminder History for future time cannot be added";
+"com.charmphr.reminder.reminderHistory.edit.error.message.futureDate.title" = "Only today's reminder can be edited";
+"com.charmphr.reminder.reminderHistory.edit.item.taken.title" = "Taken";
+"com.charmphr.reminder.editReminder.error.message" = "Only end date can be edited";
+"com.charmphr.reminder.reminderHistory.addOrUpdate.success.message" = "History updated succesfully for the reminder";
+"com.charmphr.reminder.addReminder.weekdays.alert.message" = "Please select at least 1 weekday";
+"com.charmphr.reminder.addReminder.reminderTime.alert.message" = "Please select at least 1 reminder time";
+"com.charmphr.reminder.addReminder.startDate.alert.message" = "Please provide start date";
+"com.charmphr.reminder.addReminder.endDate.alert.message" = "Please provide end date";
+"com.charmphr.reminder.addReminder.endDate.InvlaidAlert.message" = "Reminder end date should not be lesser than the current date";
+"com.charmphr.reminder.detailDialogue.noSelection.error.title" = "Please select atleast one item to continue.";
+"com.charmphr.reminder.coreData.delete.error.title" = "Failed to delete";
+"com.charmphr.reminder.notification.noReminder.toast.message" = "Reminder does not exist";
+"com.charmphr.reminder.notification.noMedication.noSupplement.toast.message" = "No Medication or Supplement available for this reminder";
+
+//MARK: - Card on file
+
+"com.charmphr.card.add.success.msg" = "Card added successfully.";
+"com.charmphr.card.edit.success.msg" = "Card updated successfully." ;
+
+"com.charmphr.card.alert.delete" = "Are you sure you want to delete this card?";
+"com.charmphr.card.nodata.message" = "a card";
+
+"com.charmphr.local.authentication.message" = "Please authorize yourself before using %@";
+"com.charmphr.local.authentication.unlock" = "Unlock";
+"com.charmphr.local.authentication.noauth.message" = "Your device does not have Authentication.";
+"com.charmphr.local.authentication.failed.message" = "There was a problem verifying your identity. Please try again.";
+
+"com.charmphr.local.authentication.verify.heading" = "%@ Locked";
+"com.charmphr.local.authentication.info.message" = "%@ uses built-in security options enabled on your device like Face ID, Touch ID or passcode to unlock the app.";
+"com.charmphr.local.authentication.info.heading" = "%@";
+"com.charmphr.local.authentication.notfound.error" = "It seems that you have removed your built-in security options which is used to unlock the app.Please re-login to continue.";
+"com.charmphr.local.authentication.removed.info.message" = "It seems you have not set PIN or removed your built-in security options. In this regard please verify yourself using your PHR account password to continue.";
+"com.charmphr.local.authentication.removed.pwd.failed.message" = "Your attempt to unlock has failed. Please retype the password.";
+
+"com.charmphr.patient.secondaryaccess.error" = "Secondary account access is not supported on Charm mPHR. Please use \"Charm PHR\" web portal to access your account.";
+
+"com.charmphr.ehr.login.error" = "To access this application, you need a practice-associated PHR account.";
+
+"com.charmphr.opentok.heading" = "Meeting Password";
+"com.charmphr.opentok.info" = "Copy the passcode below and click ‘Proceed’ to join your consultation. You’ll need to enter the passcode to connect securely.";
+"com.charmphr.opentok.copy.label" = "Copy";
+"com.charmphr.opentok.copied.label" = "Copied!";
+
+"com.charmphr.opentok.subheading" = "Meeting Passcode";
+"com.charmphr.opentok.error" = "Please copy the passcode and click ‘Proceed’ to continue.";
+"com.charmphr.opentok.invalidURL" = "Error occurred while starting Video Consultation. Please contact support.";
+
+"com.charmphr.scope.enhancement.msg" = "This update includes new functionality. Please verify your identity with your password to proceed.";
+//MARK: - ShareSection
+
+"com.charmphr.shareSection.title" = "Share Sections";
+"com.charmphr.shareSection.sharedHistory.title" = "Shared History";
+"com.charmphr.shareSection.sharedSection.title" = "Shared Sections";
+"com.charmphr.shareSection.addShareSection.title" = "Share Records with Practice";
+"com.charmphr.shareSection.addShareSection.info.message" = "This feature enables you to share the clinical data added in Charm PHR Patient portal to the practice members.";
+"com.charmphr.shareSection.addShareSection.selectSection.title" = "Please select the section(s) to share to the selected practice";
+"com.charmphr.shareSection.addShareSection.facility.placeholder" = "Select Practice";
+"com.charmphr.shareSection.list.noData.title" = "No Data available";
+"com.charmphr.shareSection.list.noData.message" = "Tap + to share Section";
+"com.charmphr.shareSection.addShareSection.facility.empty.error.message" = "Please select Practice";
+"com.charmphr.shareSection.addShareSection.add.success.message" = "Updated Successfully";
+
+//MARK: - Problem List
+
+"com.charmphr.problem.title" = "Problem List";
+
+//MARK: - Images
+
+"com.charmphr.images.title" = "Images";
+"com.charmphr.images.results.title" = "Results";
+"com.charmphr.images.orders.title" = "Orders";
+"com.charmphr.images.item.from.title" = "From";
+"com.charmphr.images.results.item.type.title" = "Type";
+"com.charmphr.images.results.item.reviewedBy.title" = "Reviewed By";
+"com.charmphr.images.results.item.instruction.title" = "Instruction";
+"com.charmphr.images.results.preview.title" = "Image Result";
+"com.charmphr.relogin.migration.message" = "The app has been updated. Please log in again to continue.";
+
+"com.charmphr.login.select.all.scope.message" = "All the permissions are required to use the app. Please select all the permissions to continue.";

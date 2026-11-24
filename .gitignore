@@ -1,28 +1,52 @@
+# ChARM Chart Note - XCode state files and/or Mac-Finder index files to be ignored
+	
+### Objective-C ###
+# OS X
+.DS_Store
+
 # Xcode
-*.xcodeproj/xcuserdata/
-*.xcworkspace/xcuserdata/
-xcuserdata/
-DerivedData/
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+profile
+*.moved-aside
+DerivedData
 *.hmap
 *.ipa
-*.dSYM.zip
-*.dSYM
-
-# Swift Package Manager
-.build/
-.swiftpm/
 
 # CocoaPods
-Pods/
+Pods
 
-# Carthage
-Carthage/Build/
 
-# fastlane
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
+### Xcode ###
+build
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcworkspace/contents.xcworkspacedata
 
-# macOS
-.DS_Store
+## library ##
+lib/
+LIB/
+
+## Font ##
+Font/
+Fonts/
+Frameworks/
+
+.idea/
+.claude/
+
+native/ChARM_PHR/PHR/SupportingFiles/mPHR-Secrets.plist
+
+# Analytics configs with API keys (keep local only)
+native/ChARM_PHR/PHR/SupportingFiles/ZAnalytics-Config.plist
+native/ChARM_PHR/PHR/SupportingFiles/charm-apptics-config.plist
+native/ChARM_PHR/PHR/SupportingFiles/charm-dev-apptics-config.plist

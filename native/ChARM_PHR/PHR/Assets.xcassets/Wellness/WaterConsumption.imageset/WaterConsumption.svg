@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+  <g id="Water_Consumption" data-name="Water Consumption" transform="translate(-14455 -6332)">
+    <rect id="Rectangle_4276" data-name="Rectangle 4276" width="36" height="36" transform="translate(14455 6332)" fill="rgba(0,0,0,0)"/>
+    <g id="Group_21030" data-name="Group 21030" transform="translate(3)">
+      <g id="Group_21027" data-name="Group 21027" transform="translate(14456.773 6336.72)" opacity="0.1">
+        <g id="Group_21026" data-name="Group 21026" transform="translate(0 0)">
+          <path id="Path_12534" data-name="Path 12534" d="M23.536,27.993c2.543-.72,5.258-1.942,6.277-4.376.949-2.262.121-4.868-1.009-7.046-2.449-4.723-6.237-8.6-10.036-12.33C16.662,2.171,14.212-.012,11.255,0A8.131,8.131,0,0,0,7.343,1.185,15.3,15.3,0,0,0,.006,14.809c.428,14.36,12.081,16.423,23.529,13.184" transform="translate(-1.773 -1.72)" fill="#4074d9"/>
+        </g>
+      </g>
+      <g id="Group_21029" data-name="Group 21029" transform="translate(14463 6340)">
+        <g id="Group_21028" data-name="Group 21028" transform="translate(0)">
+          <path id="Path_12535" data-name="Path 12535" d="M492.028,10.211a.657.657,0,0,0-.473-.211H477.816a.63.63,0,0,0-.63.685l1.865,18.762a.61.61,0,0,0,.63.553h9.983a.648.648,0,0,0,.63-.553l1.865-18.762A.458.458,0,0,0,492.028,10.211Zm-1.655,6.14a5.415,5.415,0,0,1-5.28-.58,6.6,6.6,0,0,0-6.2-.87l-.368-3.636h12.347Z" transform="translate(-477.181 -10)" fill="#4074d9"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

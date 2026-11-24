@@ -1,0 +1,980 @@
+{
+  "unit": [
+    "-",
+    "mg/mL",
+    "application",
+    "applicatorful",
+    "cap(s)",
+    "centimeter(s)",
+    "day(s)",
+    "dose(s)",
+    "drop(s)",
+    "each",
+    "film(s)",
+    "g/kg",
+    "gel",
+    "gram(s)",
+    "gram/m2",
+    "granules",
+    "gum",
+    "hour(s)",
+    "inch(es)",
+    "inhalation",
+    "inhaler(s)",
+    "insert",
+    "international unit(s)",
+    "international units/kg",
+    "international units/m2",
+    "kit",
+    "liter(s)",
+    "lozenge",
+    "mcg/day",
+    "mcg/hr",
+    "mcg/kg",
+    "mcg/m2",
+    "megabecquerel(s)",
+    "mEq/kg",
+    "mg/24h",
+    "mg/hr",
+    "mg/kg",
+    "mg/kg/day",
+    "mg/m2",
+    "mg/m2/day",
+    "mgPE",
+    "mgPE/kg",
+    "microcurie",
+    "microgram(s)",
+    "millicurie",
+    "milliequivalent(s)",
+    "milligram(s)",
+    "milliliter(s)",
+    "millimole(s)",
+    "million plaque-forming units",
+    "million unit(s)",
+    "million units/m2",
+    "minute(s)",
+    "mL/kg",
+    "mL/m2",
+    "mL/min",
+    "mmol/kg",
+    "month(s)",
+    "nanogram(s)",
+    "ng/kg",
+    "packet(s)",
+    "parts per million",
+    "patch",
+    "protein nitrogen unit",
+    "puff(s)",
+    "pump(s)",
+    "scoop(s)",
+    "spray(s)",
+    "square centimeter",
+    "suppository(ies)",
+    "tab(s)",
+    "unit(s)",
+    "units/kg",
+    "units/kg/day",
+    "units/m2",
+    "week(s)"
+  ],
+  "route": [
+    "buccal",
+    "compounding",
+    "enteral",
+    "extra-amniotic",
+    "implant",
+    "inhalation",
+    "injectable",
+    "intra-amniotic",
+    "intra-articular",
+    "intrabiliary",
+    "intradermal",
+    "intralymphatic",
+    "intramuscular",
+    "intraocular",
+    "intraperitoneal",
+    "intrapleural",
+    "intrathecal",
+    "intratracheal",
+    "intrauterine",
+    "intravenous",
+    "intravesical",
+    "intravitreal",
+    "irrigation",
+    "mucous membrane",
+    "nasal",
+    "ophthalmic",
+    "oral",
+    "oral and injectable",
+    "oral and rectal",
+    "oral and topical",
+    "oral transmucosal",
+    "otic",
+    "parenteral",
+    "percutaneous",
+    "rectal",
+    "spinal",
+    "subcutaneous",
+    "sublingual",
+    "topical",
+    "transdermal",
+    "transurethral",
+    "vaginal"
+  ],
+  "dose": [
+    "aerosol",
+    "aerosol powder",
+    "aerosol with adapter",
+    "bar",
+    "capsule",
+    "capsule, extended release",
+    "concentrate",
+    "cream",
+    "cream with applicator",
+    "crystal",
+    "delayed release capsule",
+    "delayed release tablet",
+    "device",
+    "disintegrating strip",
+    "dispersion",
+    "dressing",
+    "drops",
+    "elixir",
+    "emulsion",
+    "enema",
+    "film",
+    "film, extended release",
+    "foam",
+    "foam with applicator",
+    "gas",
+    "gel",
+    "gel forming solution",
+    "gel with applicator",
+    "granule",
+    "granule for reconstitution",
+    "granule, effervescent",
+    "granule, enteric coated",
+    "granule, extended release",
+    "gum",
+    "implant",
+    "injection",
+    "insert",
+    "kit",
+    "liquid",
+    "liquid, extended release",
+    "lotion",
+    "lozenge",
+    "oil",
+    "ointment",
+    "ointment w/applicator",
+    "pad",
+    "paste",
+    "powder",
+    "powder for injection",
+    "powder for injection, extended release",
+    "powder for reconstitution",
+    "powder for reconstitution, delayed release",
+    "powder for reconstitution, extended release",
+    "ring",
+    "shampoo",
+    "soap",
+    "solution",
+    "solution, extended release",
+    "sponge",
+    "spray",
+    "stick",
+    "suppository",
+    "suspension",
+    "suspension, extended release",
+    "swab",
+    "syrup",
+    "tablet",
+    "tablet, chewable",
+    "tablet, chewable, extended release",
+    "tablet, coated particles",
+    "tablet, disintegrating",
+    "tablet, disintegrating, extended release",
+    "tablet, dispersible",
+    "tablet, effervescent",
+    "tablet, extended release",
+    "tablet, soluble",
+    "tampon",
+    "tape",
+    "test",
+    "tincture",
+    "wafer"
+  ],
+  "units_in_charm": [
+    {
+      "DOSAGE_UNIT_ID": "2000000003203",
+      "DOSAGE_UNIT_NAME": "tablet(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003201",
+      "DOSAGE_UNIT_NAME": "capsule(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003211",
+      "DOSAGE_UNIT_NAME": "ml"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003193",
+      "DOSAGE_UNIT_NAME": "mg"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003213",
+      "DOSAGE_UNIT_NAME": "mcg"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003215",
+      "DOSAGE_UNIT_NAME": "gram"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003205",
+      "DOSAGE_UNIT_NAME": "drop(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003195",
+      "DOSAGE_UNIT_NAME": "teaspoon"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003197",
+      "DOSAGE_UNIT_NAME": "tablespoon"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003221",
+      "DOSAGE_UNIT_NAME": "unit(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003207",
+      "DOSAGE_UNIT_NAME": "IU"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003225",
+      "DOSAGE_UNIT_NAME": "puff(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003227",
+      "DOSAGE_UNIT_NAME": "mg/gk"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003229",
+      "DOSAGE_UNIT_NAME": "mg/m2"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003231",
+      "DOSAGE_UNIT_NAME": "mcg/kg"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003233",
+      "DOSAGE_UNIT_NAME": "mcg/m2"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003235",
+      "DOSAGE_UNIT_NAME": "mEq"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003237",
+      "DOSAGE_UNIT_NAME": "mEq/kg"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003239",
+      "DOSAGE_UNIT_NAME": "Tbsp"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003241",
+      "DOSAGE_UNIT_NAME": "tsp"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003243",
+      "DOSAGE_UNIT_NAME": "inhalation(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003245",
+      "DOSAGE_UNIT_NAME": "neb(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003247",
+      "DOSAGE_UNIT_NAME": "gtt(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003249",
+      "DOSAGE_UNIT_NAME": "supp(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003251",
+      "DOSAGE_UNIT_NAME": "applicatorful"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003253",
+      "DOSAGE_UNIT_NAME": "cartridge(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003255",
+      "DOSAGE_UNIT_NAME": "cloth(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003257",
+      "DOSAGE_UNIT_NAME": "device(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003259",
+      "DOSAGE_UNIT_NAME": "kit(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003261",
+      "DOSAGE_UNIT_NAME": "L"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003263",
+      "DOSAGE_UNIT_NAME": "lozenge(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003265",
+      "DOSAGE_UNIT_NAME": "mask(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003267",
+      "DOSAGE_UNIT_NAME": "ng"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003269",
+      "DOSAGE_UNIT_NAME": "pack(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003271",
+      "DOSAGE_UNIT_NAME": "packet(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003273",
+      "DOSAGE_UNIT_NAME": "pad"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003275",
+      "DOSAGE_UNIT_NAME": "patch(es)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003277",
+      "DOSAGE_UNIT_NAME": "piece(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003279",
+      "DOSAGE_UNIT_NAME": "ring(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003281",
+      "DOSAGE_UNIT_NAME": "strip(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003283",
+      "DOSAGE_UNIT_NAME": "system(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003285",
+      "DOSAGE_UNIT_NAME": "troche(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003287",
+      "DOSAGE_UNIT_NAME": "vial(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003289",
+      "DOSAGE_UNIT_NAME": "units/kg"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003291",
+      "DOSAGE_UNIT_NAME": "units/m2"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003293",
+      "DOSAGE_UNIT_NAME": "wafer(s)"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003295",
+      "DOSAGE_UNIT_NAME": "cream"
+    },
+    {
+      "DOSAGE_UNIT_ID": "2000000003297",
+      "DOSAGE_UNIT_NAME": "ounces"
+    }
+  ],
+  "frequency": [
+    {
+      "DISP": "1.00000",
+      "VALUE": "QD",
+      "NAME": "once a day"
+    },
+    {
+      "DISP": "",
+      "VALUE": "1X",
+      "NAME": "once"
+    },
+    {
+      "DISP": "0.14286",
+      "VALUE": "1X/W",
+      "NAME": "once a week"
+    },
+    {
+      "DISP": "0.03333",
+      "VALUE": "Q1MO",
+      "NAME": "once a month"
+    },
+    {
+      "DISP": "0.50000",
+      "VALUE": "QOD",
+      "NAME": "every other day"
+    },
+    {
+      "DISP": "2.00000",
+      "VALUE": "BID",
+      "NAME": "2 times a day"
+    },
+    {
+      "DISP": "",
+      "VALUE": "2X",
+      "NAME": "twice"
+    },
+    {
+      "DISP": "0.28571",
+      "VALUE": "2X/W",
+      "NAME": "2 times a week"
+    },
+    {
+      "DISP": "0.06666",
+      "VALUE": "2X/MO",
+      "NAME": "2 times a month"
+    },
+    {
+      "DISP": "3.00000",
+      "VALUE": "TID",
+      "NAME": "3 times a day"
+    },
+    {
+      "DISP": "",
+      "VALUE": "3X",
+      "NAME": "3 times"
+    },
+    {
+      "DISP": "0.42857",
+      "VALUE": "3X/W",
+      "NAME": "3 times a week"
+    },
+    {
+      "DISP": "4.00000",
+      "VALUE": "QID",
+      "NAME": "4 times a day"
+    },
+    {
+      "DISP": "0.57142",
+      "VALUE": "4X/W",
+      "NAME": "4 times a week"
+    },
+    {
+      "DISP": "5.00000",
+      "VALUE": "5X/D",
+      "NAME": "5 times a day"
+    },
+    {
+      "DISP": "6.00000",
+      "VALUE": "Q4H",
+      "NAME": "every 4 hours"
+    },
+    {
+      "DISP": "0.71429",
+      "VALUE": "5X/W",
+      "NAME": "5 times a week"
+    },
+    {
+      "DISP": "",
+      "VALUE": "PRN",
+      "NAME": "As needed"
+    },
+    {
+      "DISP": "2.00000",
+      "VALUE": "1-2X/D",
+      "NAME": "1 to 2 times a day"
+    },
+    {
+      "DISP": "3.00000",
+      "VALUE": "1-3X/D",
+      "NAME": "1 to 3 times a day"
+    },
+    {
+      "DISP": "4.00000",
+      "VALUE": "1-4X/D",
+      "NAME": "1 to 4 times a day"
+    },
+    {
+      "DISP": "4.00000",
+      "VALUE": "2-4X/D",
+      "NAME": "2 to 4 times a day"
+    },
+    {
+      "DISP": "4.00000",
+      "VALUE": "3-4X/D",
+      "NAME": "3 to 4 times a day"
+    },
+    {
+      "DISP": "6.00000",
+      "VALUE": "4-6X/D",
+      "NAME": "4 to 6 times a day"
+    },
+    {
+      "DISP": "6.00000",
+      "VALUE": "6X/D",
+      "NAME": "6 times a day"
+    },
+    {
+      "DISP": "7.00000",
+      "VALUE": "7X/D",
+      "NAME": "7 times a day"
+    },
+    {
+      "DISP": "8.00000",
+      "VALUE": "8X/D",
+      "NAME": "8 times a day"
+    },
+    {
+      "DISP": "9.00000",
+      "VALUE": "9X/D",
+      "NAME": "9 times a day"
+    },
+    {
+      "DISP": "10.00000",
+      "VALUE": "10X/D",
+      "NAME": "10 times a day"
+    },
+    {
+      "DISP": "12.00000",
+      "VALUE": "12X/D",
+      "NAME": "12 times a day"
+    },
+    {
+      "DISP": "16.00000",
+      "VALUE": "16X/D",
+      "NAME": "16 times a day"
+    },
+    {
+      "DISP": "0.85714",
+      "VALUE": "6X/W",
+      "NAME": "6 times a week"
+    },
+    {
+      "DISP": "1.33333",
+      "VALUE": "Q18H",
+      "NAME": "every 18 hours"
+    },
+    {
+      "DISP": "0.66667",
+      "VALUE": "Q36H",
+      "NAME": "every 36 hours"
+    },
+    {
+      "DISP": "0.50000",
+      "VALUE": "Q48H",
+      "NAME": "every 48 hours"
+    },
+    {
+      "DISP": "0.33333",
+      "VALUE": "Q72H",
+      "NAME": "every 72 hours"
+    },
+    {
+      "DISP": "0.14286    ",
+      "VALUE": "Q7D",
+      "NAME": "every 7 days"
+    },
+    {
+      "DISP": "96.00000",
+      "VALUE": "Q15MIN",
+      "NAME": "every 15 minutes"
+    },
+    {
+      "DISP": "24.00000",
+      "VALUE": "Q1H",
+      "NAME": "every hour"
+    },
+    {
+      "DISP": "1.50000",
+      "VALUE": "Q16H",
+      "NAME": "every 16 hours"
+    },
+    {
+      "DISP": "0.07143",
+      "VALUE": "Q2W",
+      "NAME": "every 2 weeks"
+    },
+    {
+      "DISP": "48.00000",
+      "VALUE": "Q30MIN",
+      "NAME": "every 30 minutes"
+    },
+    {
+      "DISP": "0.60000",
+      "VALUE": "Q40H",
+      "NAME": "every 40 hours"
+    },
+    {
+      "DISP": "0.00274",
+      "VALUE": "QY",
+      "NAME": "yearly"
+    },
+    {
+      "DISP": "0.04762",
+      "VALUE": "Q3W",
+      "NAME": "every 3 weeks"
+    },
+    {
+      "DISP": "0.20000",
+      "VALUE": "Q5D",
+      "NAME": "every 5 days"
+    },
+    {
+      "DISP": "0.40000",
+      "VALUE": "Q60H",
+      "NAME": "every 60 hours"
+    },
+    {
+      "DISP": "0.02381",
+      "VALUE": "Q6W",
+      "NAME": "every 6 weeks"
+    },
+    {
+      "DISP": "144.00000",
+      "VALUE": "Q10MIN",
+      "NAME": "every 10 minutes"
+    },
+    {
+      "DISP": "2.00000",
+      "VALUE": "Q12H",
+      "NAME": "every 12 hours"
+    },
+    {
+      "DISP": "12.00000",
+      "VALUE": "Q2H",
+      "NAME": "every 2 hours"
+    },
+    {
+      "DISP": "1.00000",
+      "VALUE": "Q24H",
+      "NAME": "every 24 hours"
+    },
+    {
+      "DISP": "0.33333",
+      "VALUE": "Q3D",
+      "NAME": "every 3 days"
+    },
+    {
+      "DISP": "8.00000",
+      "VALUE": "Q3H",
+      "NAME": "every 3 hours"
+    },
+    {
+      "DISP": "0.25000",
+      "VALUE": "Q4D",
+      "NAME": "every 4 days"
+    },
+    {
+      "DISP": "288.00000",
+      "VALUE": "Q5MIN",
+      "NAME": "every 5 minutes"
+    },
+    {
+      "DISP": "4.00000",
+      "VALUE": "Q6H",
+      "NAME": "every 6 hours"
+    },
+    {
+      "DISP": "3.00000",
+      "VALUE": "Q8H",
+      "NAME": "every 8 hours"
+    },
+    {
+      "DISP": "0.25000",
+      "VALUE": "Q96H",
+      "NAME": "every 96 hours"
+    },
+    {
+      "DISP": "24.00000",
+      "VALUE": "Q1-2H",
+      "NAME": "every 1 to 2 hours"
+    },
+    {
+      "DISP": "0.01111",
+      "VALUE": "Q3MO",
+      "NAME": "every 3 months"
+    },
+    {
+      "DISP": "48.00000",
+      "VALUE": "Q30-60MIN",
+      "NAME": "every 30 to 60 minutes"
+    },
+    {
+      "DISP": "240.00000",
+      "VALUE": "Q6-15MIN",
+      "NAME": "every 6 to 15 minutes"
+    },
+    {
+      "DISP": "144.00000",
+      "VALUE": "Q10-15MIN",
+      "NAME": "every 10 to 15 minutes"
+    },
+    {
+      "DISP": "6.00000",
+      "VALUE": "Q4-6H",
+      "NAME": "every 4 to 6 hours"
+    },
+    {
+      "DISP": "4.00000",
+      "VALUE": "Q6-8H",
+      "NAME": "every 6 to 8 hours"
+    },
+    {
+      "DISP": "0.00667",
+      "VALUE": "Q5-8MO",
+      "NAME": "every 5 to 8 months"
+    },
+    {
+      "DISP": "144.00000",
+      "VALUE": "Q10-30MIN",
+      "NAME": "every 10 to 30 minutes"
+    },
+    {
+      "DISP": "12.00000",
+      "VALUE": "Q2-3H",
+      "NAME": "every 2 to 3 hours"
+    },
+    {
+      "DISP": "720.00000",
+      "VALUE": "Q2-3MIN",
+      "NAME": "every 2 to 3 minutes"
+    },
+    {
+      "DISP": "12.00000",
+      "VALUE": "Q2-4H",
+      "NAME": "every 2 to 4 hours"
+    },
+    {
+      "DISP": "57.60000",
+      "VALUE": "Q25-60MIN",
+      "NAME": "every 25 to 60 minutes"
+    },
+    {
+      "DISP": "57.60000",
+      "VALUE": "Q25MIN",
+      "NAME": "every 25 minutes"
+    },
+    {
+      "DISP": "720.00000",
+      "VALUE": "Q2-5MIN",
+      "NAME": "every 2 to 5 minutes"
+    },
+    {
+      "DISP": "720.00000",
+      "VALUE": "Q2MIN",
+      "NAME": "every 2 minutes"
+    },
+    {
+      "DISP": "8.00000",
+      "VALUE": "Q3-4H",
+      "NAME": "every 3 to 4 hours"
+    },
+    {
+      "DISP": "8.00000",
+      "VALUE": "Q3-5H",
+      "NAME": "every 3 to 5 hours"
+    },
+    {
+      "DISP": "8.00000",
+      "VALUE": "Q3-6H",
+      "NAME": "every 3 to 6 hours"
+    },
+    {
+      "DISP": "0.03571",
+      "VALUE": "Q4W",
+      "NAME": "every 4 weeks"
+    },
+    {
+      "DISP": "288.00000",
+      "VALUE": "Q5-15MIN",
+      "NAME": "every 5 to 15 minutes"
+    },
+    {
+      "DISP": "0.00556",
+      "VALUE": "Q6MO",
+      "NAME": "every 6 months"
+    },
+    {
+      "DISP": "3.00000",
+      "VALUE": "Q8-12H",
+      "NAME": "every 8 to 12 hours"
+    },
+    {
+      "DISP": "0.07143",
+      "VALUE": "QOW",
+      "NAME": "every other week"
+    },
+    {
+      "DISP": "72.00000",
+      "VALUE": "Q20MIN",
+      "NAME": "every 20 minutes"
+    },
+    {
+      "DISP": "4.80000",
+      "VALUE": "Q5H",
+      "NAME": "every 5 hours"
+    },
+    {
+      "DISP": "288.00000",
+      "VALUE": "Q5-10MIN",
+      "NAME": "every 5 to 10 minutes"
+    },
+    {
+      "DISP": "0.04762",
+      "VALUE": "Q3-4W",
+      "NAME": "every 3 to 4 weeks"
+    },
+    {
+      "DISP": "0.42857",
+      "VALUE": "3-4X/W",
+      "NAME": "3 to 4 times a week"
+    },
+    {
+      "DISP": "5.00000",
+      "VALUE": "Q4HWA",
+      "NAME": "every 4 hours while awake"
+    },
+    {
+      "DISP": "1440.00000",
+      "VALUE": "Q1MIN",
+      "NAME": "every minute"
+    },
+    {
+      "DISP": "0.00833",
+      "VALUE": "Q4MO",
+      "NAME": "every 4 months"
+    },
+    {
+      "DISP": "16.00000",
+      "VALUE": "Q90MIN",
+      "NAME": "every 90 minutes"
+    },
+    {
+      "DISP": "2.40000",
+      "VALUE": "Q10H",
+      "NAME": "every 10 hours"
+    },
+    {
+      "DISP": "2.00000",
+      "VALUE": "M-F",
+      "NAME": "Monday through Friday"
+    },
+    {
+      "DISP": "0.42857",
+      "VALUE": "MWF",
+      "NAME": "Monday, Wednesday, and Friday"
+    },
+    {
+      "DISP": "2.00000",
+      "VALUE": "AMHS",
+      "NAME": "in the morning and at bedtime"
+    },
+    {
+      "DISP": "1.00000",
+      "VALUE": "NOW",
+      "NAME": "now"
+    },
+    {
+      "DISP": "6.00000",
+      "VALUE": "Q4-8H",
+      "NAME": "every 4 to 8 hours"
+    },
+    {
+      "DISP": "0.01111",
+      "VALUE": "Q3-6MO",
+      "NAME": "every 3 to 6 months"
+    },
+    {
+      "DISP": "0.33333",
+      "VALUE": "Q3-4D",
+      "NAME": "every 3 to 4 days"
+    },
+    {
+      "DISP": "480.00000",
+      "VALUE": "Q3MIN",
+      "NAME": "every 3 minutes"
+    },
+    {
+      "DISP": "0.01786",
+      "VALUE": "Q8W",
+      "NAME": "every 8 weeks"
+    },
+    {
+      "DISP": "0.01667",
+      "VALUE": "Q2MO",
+      "NAME": "every 2 months"
+    },
+    {
+      "DISP": "360.00000",
+      "VALUE": "Q4MIN",
+      "NAME": "every 4 minutes"
+    }
+  ],
+  "dispense": [],
+  "priorAuthorizationStatus": [
+    {
+      "VALUE": "A",
+      "NAME": "Approved"
+    },
+    {
+      "VALUE": "D",
+      "NAME": "Denied"
+    },
+    {
+      "VALUE": "F",
+      "NAME": "Deferred"
+    },
+    {
+      "VALUE": "N",
+      "NAME": "Not Required"
+    },
+    {
+      "VALUE": "R",
+      "NAME": "Requested"
+    }
+  ],
+  "directions": [
+    {
+      "VALUE": "AC",
+      "NAME": "before a meal"
+    },
+    {
+      "VALUE": "PC",
+      "NAME": "after a meal"
+    },
+    {
+      "VALUE": "WM",
+      "NAME": "with meals"
+    },
+    {
+      "VALUE": "AM",
+      "NAME": "in the morning"
+    },
+    {
+      "VALUE": "PM",
+      "NAME": "in the evening"
+    },
+    {
+      "VALUE": "HS",
+      "NAME": "at bedtime"
+    },
+    {
+      "VALUE": "AMAC",
+      "NAME": "in the morning before meals"
+    },
+    {
+      "VALUE": "HSAC",
+      "NAME": "at bedtime before meals"
+    }
+  ]
+}

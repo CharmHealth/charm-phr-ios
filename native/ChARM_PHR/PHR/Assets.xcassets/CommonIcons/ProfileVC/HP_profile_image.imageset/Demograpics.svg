@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+  <g id="Demograpics" transform="translate(-299 -682)">
+    <g id="Rectangle_4165" data-name="Rectangle 4165" transform="translate(299 682)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+      <rect width="36" height="36" stroke="none"/>
+      <rect x="0.5" y="0.5" width="35" height="35" fill="none"/>
+    </g>
+    <g id="Group_20411" data-name="Group 20411" transform="translate(21 -27)">
+      <g id="Group_20410" data-name="Group 20410" transform="translate(-55 -32)">
+        <path id="Path_12259" data-name="Path 12259" d="M15.8,3.5H11.2c-4.338,0-6.507,0-7.855,1.348S2,8.364,2,12.7v1.15c0,4.338,0,6.507,1.348,7.855s3.517,1.348,7.855,1.348h4.6c4.338,0,6.507,0,7.855-1.348s1.348-3.517,1.348-7.855V12.7c0-4.338,0-6.507-1.348-7.855S20.142,3.5,15.8,3.5Z" transform="translate(338 745.5)" fill="#6765e7"/>
+        <path id="Path_12260" data-name="Path 12260" d="M14,8.5h5.752M14,12.526h5.752M14,16.552h2.876" transform="translate(339.804 746.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+        <g id="Group_20409" data-name="Group 20409" transform="translate(338 750)">
+          <path id="Path_12261" data-name="Path 12261" d="M12.513,5.256A2.256,2.256,0,1,1,10.256,3,2.256,2.256,0,0,1,12.513,5.256Z" transform="translate(-1.308 1)" fill="#fff"/>
+          <path id="Path_12262" data-name="Path 12262" d="M10.077,14H7.821A2.821,2.821,0,0,0,5,16.821a1.128,1.128,0,0,0,1.128,1.128h5.641A1.128,1.128,0,0,0,12.9,16.821,2.821,2.821,0,0,0,10.077,14Z" transform="translate(0 -4.359)" fill="#fff"/>
+        </g>
+      </g>
+      <g id="Rectangle_4166" data-name="Rectangle 4166" transform="translate(283 713)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+        <rect width="28" height="28" stroke="none"/>
+        <rect x="0.5" y="0.5" width="27" height="27" fill="none"/>
+      </g>
+      <path id="Path_12263" data-name="Path 12263" d="M30.327,10.137c.482-2.672.6-5.733-1.066-7.8C27.71.42,25.088-.028,22.707,0,17.542.063,12.529,1.748,7.639,3.511,4.926,4.49,1.965,5.729.689,8.452A8.814,8.814,0,0,0,.015,12.6,15.8,15.8,0,0,0,8.646,25.654C21.3,31.916,28.157,22.16,30.327,10.137" transform="translate(281 713)" fill="#6765e7" opacity="0.15"/>
+    </g>
+  </g>
+</svg>

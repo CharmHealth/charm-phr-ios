@@ -1,0 +1,5 @@
+[submodule "native/ChARM_PHR/charm-mobile-auth-sdk"]
+	path = native/ChARM_PHR/charm-mobile-auth-sdk
+	url = https://github.com/CharmHealth/charm-mobile-auth-sdk.git
+	branch = ch1575-chis-mode
+	ignore = untracked

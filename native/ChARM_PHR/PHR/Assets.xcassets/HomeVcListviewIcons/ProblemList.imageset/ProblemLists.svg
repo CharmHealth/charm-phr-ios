@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="31.208" height="30.271" viewBox="0 0 31.208 30.271">
+  <g id="Problem_Lists" data-name="Problem Lists" transform="translate(-2068.189 -14190)">
+    <g id="Rectangle_25962" data-name="Rectangle 25962" transform="translate(2069.792 14190)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+      <rect width="28" height="28" stroke="none"/>
+      <rect x="0.5" y="0.5" width="27" height="27" fill="none"/>
+    </g>
+    <path id="Path_30547" data-name="Path 30547" d="M24.3,1.372c2.626.743,5.429,2.005,6.481,4.518.979,2.336.125,5.026-1.041,7.275C27.21,18.04,23.3,22.043,19.377,25.894c-2.175,2.136-4.7,4.391-7.757,4.378a8.394,8.394,0,0,1-4.039-1.223A15.8,15.8,0,0,1,.007,14.983C.448.158,12.48-1.973,24.3,1.372" transform="translate(2068.189 14190)" fill="#6765e7" opacity="0.15"/>
+    <g id="Group_28821" data-name="Group 28821" transform="translate(58.292 199.896)">
+      <path id="Subtraction_59" data-name="Subtraction 59" d="M8.719,19.9H4a4,4,0,0,1-4-4V4A4,4,0,0,1,4,0h8.279a4,4,0,0,1,4,4V9.309a3.545,3.545,0,0,0-.526.433L9.48,16.016a3.566,3.566,0,0,0-1.038,2.5,3.52,3.52,0,0,0,.277,1.375ZM3.825,8.026a.678.678,0,1,0,0,1.356H7.442a.678.678,0,1,0,0-1.356Zm0-3.617a.678.678,0,1,0,0,1.356H11.06a.678.678,0,0,0,0-1.356Z" transform="translate(2015.5 13994.104)" fill="#6765e7"/>
+      <path id="Subtraction_58" data-name="Subtraction 58" d="M2.57,10.088l-.092,0A2.652,2.652,0,0,1,.762,5.5L2.475,3.9,6,7.861,4.379,9.375A2.642,2.642,0,0,1,2.57,10.088Zm4.9-3.593h0L3.941,2.533,5.621.967A2.642,2.642,0,0,1,7.429.254l.092,0a2.652,2.652,0,0,1,1.716,4.59L7.469,6.494Z" transform="translate(2025.581 14005)" fill="#6765e7"/>
+    </g>
+  </g>
+</svg>

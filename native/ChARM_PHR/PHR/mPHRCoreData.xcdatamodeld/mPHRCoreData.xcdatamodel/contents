@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="PatientMObj" representedClassName="PatientMObj" syncable="YES">
+        <attribute name="medicationPOJOArr" optional="YES" attributeType="Transformable" valueTransformerName="CustomObjectTransformer" customClassName="[MedicationPOJO]"/>
+        <attribute name="patientData" optional="YES" attributeType="Transformable" valueTransformerName="CustomObjectTransformer" customClassName="PatientData"/>
+        <attribute name="patientId" optional="YES" attributeType="Transformable" valueTransformerName="EncryptionValueTransformer" customClassName="String"/>
+        <attribute name="reminderArr" optional="YES" attributeType="Transformable" valueTransformerName="CustomObjectTransformer" customClassName="[Reminder]"/>
+        <attribute name="supplementPOJOArr" optional="YES" attributeType="Transformable" valueTransformerName="CustomObjectTransformer" customClassName="[SupplementPOJO]"/>
+    </entity>
+    <entity name="ReminderNotificationMObj" representedClassName="ReminderNotificationMObj" syncable="YES">
+        <attribute name="createdDate" optional="YES" attributeType="Transformable" valueTransformerName="EncryptionValueTransformer" customClassName="Date"/>
+        <attribute name="notificationId" optional="YES" attributeType="Transformable" valueTransformerName="EncryptionValueTransformer" customClassName="String"/>
+        <attribute name="reminderIdList" optional="YES" attributeType="Transformable" valueTransformerName="EncryptionValueTransformer" customClassName="String"/>
+    </entity>
+</model>

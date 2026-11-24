@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+  <g id="Share_Sections" data-name="Share Sections" transform="translate(-6107 -12191)">
+    <g id="Immunisations" transform="translate(-5093 9209)">
+      <g id="Rectangle_5294" data-name="Rectangle 5294" transform="translate(11200 2982)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+        <rect width="36" height="36" stroke="none"/>
+        <rect x="0.5" y="0.5" width="35" height="35" fill="none"/>
+      </g>
+    </g>
+    <g id="Group_23016" data-name="Group 23016" transform="translate(-1.396 -22.136)">
+      <g id="Rectangle_5295" data-name="Rectangle 5295" transform="translate(6114 12216)" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+        <rect width="28" height="28" stroke="none"/>
+        <rect x="0.5" y="0.5" width="27" height="27" fill="none"/>
+      </g>
+      <path id="Path_30079" data-name="Path 30079" d="M24.3,1.372c2.626.743,5.429,2.005,6.481,4.518.979,2.336.125,5.026-1.041,7.275C27.21,18.04,23.3,22.043,19.377,25.894c-2.175,2.136-4.7,4.391-7.757,4.378a8.394,8.394,0,0,1-4.039-1.223A15.8,15.8,0,0,1,.007,14.983C.448.158,12.48-1.973,24.3,1.372" transform="translate(6110.792 12216)" fill="#31d158" opacity="0.1"/>
+      <g id="Group_22826" data-name="Group 22826" transform="translate(884.48 -1055)">
+        <path id="Subtraction_52" data-name="Subtraction 52" d="M11.251,19.9H9.286a12.386,12.386,0,0,1,1.854-4.733,6.94,6.94,0,0,1,4.207-2.877V10.414a.692.692,0,0,1,.931-.649V13.5a.7.7,0,0,1-.132.034,5.565,5.565,0,0,0-3.873,2.417A9.017,9.017,0,0,0,11.2,18.092c1.81-1.493,3.436-2.256,4.832-2.267h.007a.684.684,0,0,1,.238.043V15.9a4,4,0,0,1-.931,2.566V17.3a10.19,10.19,0,0,0-4.1,2.6Zm-3.344,0H4a4,4,0,0,1-4-4V4A4,4,0,0,1,4,0h8.279a4,4,0,0,1,4,4V8.379a2.049,2.049,0,0,0-2.288,2.035v.863a8.3,8.3,0,0,0-3.962,3.107,13.882,13.882,0,0,0-2.108,5.422l0,.011q-.007.039-.012.078ZM3.825,8.026a.678.678,0,1,0,0,1.356H7.442a.678.678,0,1,0,0-1.356Zm0-3.617a.678.678,0,1,0,0,1.356H11.06a.678.678,0,0,0,0-1.356Zm9.866,15.23v0c.118-.085.235-.166.348-.241.006.03.014.06.02.083A3.989,3.989,0,0,1,13.691,19.639Z" transform="translate(5233.021 13275)" fill="#31d158"/>
+        <path id="Path_29974" data-name="Path 29974" d="M9.054,4V6.422C5.073,7.044,3.593,10.531,3,13.687c-.022.125,3.26-3.609,6.054-3.632v2.422L13.9,8.238Z" transform="translate(5239.973 13281.467)" fill="#31d158" stroke="#31d158" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      </g>
+    </g>
+  </g>
+</svg>
