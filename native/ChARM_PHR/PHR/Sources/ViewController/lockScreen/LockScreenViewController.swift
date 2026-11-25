@@ -315,7 +315,8 @@ class LockScreenViewController: UIViewController, CharmConnectionV2HandlerDelega
             Patient.selectedPatientInstance = Patient.patientList?.getElement(at: 0)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             if let homeVC = storyboard.instantiateViewController(withIdentifier: "homeVC") as? HomeViewController {
-                self.navigationController?.setViewControllers([homeVC], animated: true)
+                let mainVC = MainViewController(homeVC: homeVC)
+                self.navigationController?.setViewControllers([mainVC], animated: true)
             }
         }
         else{

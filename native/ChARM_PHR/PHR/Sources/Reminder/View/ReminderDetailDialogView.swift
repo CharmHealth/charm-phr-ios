@@ -31,8 +31,7 @@ class ReminderDetailDialogView: UIView{
     private let skipView = UIView()
     let skipBtn = UIButton()
     let activityIndicator = UIActivityIndicatorView()
-    var reminderItemHeight: CGFloat = 0
-    
+
     weak var delegate: ReminderDetailDialogViewController?
     
     init(delegate: ReminderDetailDialogViewController, patientId: String?){
@@ -79,21 +78,19 @@ class ReminderDetailDialogView: UIView{
         activityIndicator.setCenterX()
         activityIndicator.setCenterY()
         
+        // Width comes from the dialog's own width (set by the presenting VC), not the launch-time
+        // screen width, so every row follows fold/unfold and rotation. Rows fill via .fill alignment.
         containterView.setLeft(offSet: 0)
         containterView.setRight(offSet: 0)
-        containterView.setWidth(constant: REMINDER_POPVC_WIDTH)
         containterView.setTop(offSet: 0)
         containterView.setBottom(offSet: 0)
-        
-        scheduleView.setLeft(offSet: 0)
-        scheduleView.setWidth(constant: REMINDER_POPVC_WIDTH)
-        
+
         stackView.setLeft(offSet: X_SPACE)
         stackView.setTop(offSet: REMINDER_Y_SPACE_14)
         stackView.setBottom(offSet: -REMINDER_Y_SPACE_14)
-        
+
         patientNameLabel.setLeft(offSet: 0)
-        patientNameLabel.setWidth(constant: REMINDER_POPVC_WIDTH - X_SPACE - BUTTON_HEIGHT_20 - (CARD_PADDING * 3))
+        patientNameLabel.setRight(offSet: 0)
         
         scheduleSubView.setLeft(offSet: 0)
         scheduleSubView.setRight(offSet: 0)
@@ -123,21 +120,23 @@ class ReminderDetailDialogView: UIView{
         closeBtn.setHeight(constant: BUTTON_HEIGHT_20 + (CARD_PADDING * 2))
         closeBtn.setRight(offSet: -PADDING_5)
         
-        reminderItemView.setLeft(offSet: 0)
-        reminderItemView.setWidth(constant: REMINDER_POPVC_WIDTH)
-        
         scrollView.setLeft(offSet: 0)
         scrollView.setRight(offSet: 0)
         scrollView.setTop(offSet: 0)
         scrollView.setBottom(offSet: 0)
-        
+
         reminderItemStackView.setLeft(offSet: 0)
-        reminderItemStackView.setWidth(constant: REMINDER_POPVC_WIDTH)
+        reminderItemStackView.setRight(offSet: 0)
         reminderItemStackView.setTop(offSet: 0)
         reminderItemStackView.setBottom(offSet: 0)
-        
-        takenView.setLeft(offSet: 0)
-        takenView.setWidth(constant: REMINDER_POPVC_WIDTH)
+        // Edge pins inside a scroll view only set content bounds; tie the width to the visible area.
+        reminderItemStackView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor).isActive = true
+        // The list wants its full height; the presenting VC caps the dialog to the safe area,
+        // so beyond that the list scrolls (replaces the launch-time applicationFrame.height cap).
+        let fitContent = scrollView.frameLayoutGuide.heightAnchor.constraint(equalTo: scrollView.contentLayoutGuide.heightAnchor)
+        fitContent.priority = .defaultHigh
+        fitContent.isActive = true
+
         takenView.setHeight(constant: reminderPopSubviewHeight)
         
         takenBtn.setLeft(offSet: CARD_PADDING)
@@ -145,8 +144,6 @@ class ReminderDetailDialogView: UIView{
         takenBtn.setTop(offSet: CELL_PADDING)
         takenBtn.setBottom(offSet: -CELL_PADDING)
         
-        skipView.setLeft(offSet: 0)
-        skipView.setWidth(constant: REMINDER_POPVC_WIDTH)
         skipView.setHeight(constant: reminderPopSubviewHeight)
         
         skipBtn.setLeft(offSet: CARD_PADDING)
@@ -161,7 +158,7 @@ class ReminderDetailDialogView: UIView{
         self.backgroundColor = .white
         
         containterView.axis = .vertical
-        containterView.alignment = .leading
+        containterView.alignment = .fill
         containterView.spacing = 0
         
         stackView.axis = .vertical
@@ -204,7 +201,7 @@ class ReminderDetailDialogView: UIView{
         closeBtn.addTarget(self, action: #selector(onClickCloseBtn), for: .touchUpInside)
         
         reminderItemStackView.axis = .vertical
-        reminderItemStackView.alignment = .leading
+        reminderItemStackView.alignment = .fill
         reminderItemStackView.spacing = 0
         
         takenBtn.setProperties(titleStrKey: getString(key: "com.charmphr.reminder.detail.taken.title"), fontsize: FONT_SIZE_TWENTY, weight: .medium, fontcolor: TEXT_COLOR_BLUE)
@@ -309,10 +306,6 @@ class ReminderDetailDialogView: UIView{
         checkBoxBtn.setRight(offSet: 0)
         checkBoxBtn.setWidth(constant: reminderCheckBoxSize)
         checkBoxBtn.setHeight(constant: reminderCheckBoxSize)
-        
-        let height = CARD_PADDING + X_SPACE + titleLabel.sizeThatFits(CGSize(width: REMINDER_POPVC_WIDTH - reminderImageSize - (X_SPACE * 2) - reminderCheckBoxSize - (CARD_PADDING * 2), height: applicationFrame.height)).height + ITEM_VERTICAL_MARGIN + descriptionLabel.sizeThatFits(CGSize(width: REMINDER_POPVC_WIDTH - reminderImageSize - (X_SPACE * 2) - reminderCheckBoxSize - (CARD_PADDING * 2), height: applicationFrame.height)).height
-        
-        reminderItemHeight += height
     }
     
     func setTimeLabelText(str: String?){

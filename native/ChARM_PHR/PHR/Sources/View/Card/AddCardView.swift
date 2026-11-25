@@ -277,17 +277,23 @@ class AddCardView: UIView , UITextFieldDelegate, MDTextFieldDelegate {
         activityIndicator.setCenterY()
         
         containerScrollView.setSafeAreaTop(offset: Y_SPACE)
-        containerScrollView.setLeft(offSet: 0)
-        containerScrollView.setRight(offSet: 0)
+        // Safe-area edges keep the form clear of the Dynamic Island and the iOS 27.1 landscape side bar.
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
         containerScrollView.setBottomRelatedToView(offSet: -Y_SPACE, relatedView: payBtn, relatedAttribute: .top)
         
         containerStackView.setTop(offSet: 0)
         containerStackView.setBottom(offSet: 0)
         containerStackView.setLeft(offSet: 0)
-        containerStackView.setWidth(constant: applicationFrame.width)
+        containerStackView.setRight(offSet: 0)
+        // Edge pins inside a scroll view only set content bounds; tie the width to the visible area so the
+        // form follows fold/unfold and rotation (was the launch-time applicationFrame.width).
+        containerStackView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor).isActive = true
+        // Cards are pinned X_SPACE from both stack edges below; the "primary" checkbox keeps its own width.
+        containerStackView.alignment = .leading
         
-        payBtn.setLeft(offSet: X_SPACE)
-        payBtn.setRight(offSet: -X_SPACE)
+        payBtn.setSafeAreaLeft(offset: X_SPACE)
+        payBtn.setSafeAreaRight(offset: -X_SPACE)
         payBtn.setSafeAreaBottom(offset: -Y_SPACE)
         payBtn.setHeight(constant: payBtnHeight)
         
@@ -296,27 +302,27 @@ class AddCardView: UIView , UITextFieldDelegate, MDTextFieldDelegate {
         //isPrimaryBtn.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         isPrimaryBtn.setLeft(offSet: 4)
         
-        cardDetailsLayout.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         cardDetailsLayout.setLeft(offSet: X_SPACE)
+        cardDetailsLayout.setRight(offSet: -X_SPACE)
             
-        cardNickName.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         cardNickName.setLeft(offSet: 0)
+        cardNickName.setRight(offSet: 0)
         
         if let cardHolderName = cardHolderName, let cardNumber = cardNumber , let cardCvv = cardCvv , let cardExpiry = cardExpiry{
-            cardHolderName.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
             cardHolderName.setLeft(offSet: 0)
+            cardHolderName.setRight(offSet: 0)
             cardHolderName.setTop(offSet: 0)
             
-            cardNumber.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
             cardNumber.setLeft(offSet: 0)
+            cardNumber.setRight(offSet: 0)
             cardNumber.setTopRelatedToView(offSet: 0, relatedView: cardHolderName, relatedAttribute: .bottom)
            
-            cardExpiry.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
             cardExpiry.setLeft(offSet: 0)
+            cardExpiry.setRight(offSet: 0)
             cardExpiry.setTopRelatedToView(offSet: 0, relatedView: cardNickName, relatedAttribute: .bottom)
 
-            cardCvv.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
             cardCvv.setLeft(offSet: 0)
+            cardCvv.setRight(offSet: 0)
             cardCvv.setTopRelatedToView(offSet: 0, relatedView: cardExpiry, relatedAttribute: .bottom)
             cardCvv.setBottom(offSet: 0)
             
@@ -329,53 +335,53 @@ class AddCardView: UIView , UITextFieldDelegate, MDTextFieldDelegate {
         }
      
         if let practiceLayout = practiceLayout {
-            practiceLayout.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
             practiceLayout.setLeft(offSet: X_SPACE)
+            practiceLayout.setRight(offSet: -X_SPACE)
         }
     
 
         if let practiceHeader = practiceHeader {
-            practiceHeader.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
             practiceHeader.setLeft(offSet: X_SPACE)
+            practiceHeader.setRight(offSet: -X_SPACE)
         }
         
-        cardDetailsHeader.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         cardDetailsHeader.setLeft(offSet: X_SPACE)
+        cardDetailsHeader.setRight(offSet: -X_SPACE)
         
-        addressHeader.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         addressHeader.setLeft(offSet: X_SPACE)
+        addressHeader.setRight(offSet: -X_SPACE)
         
-        addressLayout.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         addressLayout.setLeft(offSet: X_SPACE)
+        addressLayout.setRight(offSet: -X_SPACE)
         
-        line1.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         line1.setLeft(offSet: 0)
+        line1.setRight(offSet: 0)
         line1.setTop(offSet: 0)
         
-        line2.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         line2.setLeft(offSet: 0)
+        line2.setRight(offSet: 0)
         line2.setTopRelatedToView(offSet: 0, relatedView: line1, relatedAttribute: .bottom)
         
-        city.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         city.setLeft(offSet: 0)
+        city.setRight(offSet: 0)
         city.setTopRelatedToView(offSet: 0, relatedView: line2, relatedAttribute: .bottom)
         
-        state.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         state.setLeft(offSet: 0)
+        state.setRight(offSet: 0)
         state.setTopRelatedToView(offSet: 0, relatedView: city, relatedAttribute: .bottom)
         
-        country.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         country.setLeft(offSet: 0)
+        country.setRight(offSet: 0)
         country.setTopRelatedToView(offSet: 0, relatedView: state, relatedAttribute: .bottom)
 
-        pinCode.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         pinCode.setLeft(offSet: 0)
+        pinCode.setRight(offSet: 0)
         pinCode.setTopRelatedToView(offSet: 0, relatedView: country, relatedAttribute: .bottom)
         pinCode.setBottom(offSet: 0)
         
         if let infoView = infoView {
-            infoView.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
             infoView.setLeft(offSet: X_SPACE)
+            infoView.setRight(offSet: -X_SPACE)
         }
         
 //        cardHolderName?.textField?.text = "ipad Test"

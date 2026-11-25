@@ -212,7 +212,6 @@ class DocumentsViewController: CustomViewControllerWithTableView , CharmConnecti
         {
             if !isCustomApp()
             {
-                bottomImageView.image = nil
                 if isSharedByMe()
                 {
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
@@ -227,13 +226,11 @@ class DocumentsViewController: CustomViewControllerWithTableView , CharmConnecti
                 }
             }else
             {
-                bottomImageView.isHidden = true
                 self.noDataBackGroundView.backgroundColor =  UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
             }
         }else
         {
-            bottomImageView.image = #imageLiteral(resourceName: "Document_HP_BG")
             self.noDataBackGroundView.hideSubView(bool: true)
         }
         return arrayOfDocument.count

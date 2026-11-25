@@ -33,6 +33,10 @@ class PatContactDetailView: UIStackView, UITextFieldDelegate, MDTextFieldDelegat
     private var customPickerView = UIPickerView()
     
     private var viewWidth: CGFloat = 0
+    /// Gap between this view's edges and its fields: 0 at the questionnaire's top level (the container already
+    /// insets widgets by X_SPACE), X_SPACE - CARD_PADDING inside a section card. Fields are sized relative to
+    /// this view so they follow fold/unfold and rotation (were fixed from the build-time width).
+    private var horizontalInset: CGFloat = 0
     private var addShadow = true
     private let primaryPhoneArr = [getString(key: "com.charmphr.EditDemographics.HomePhone.title"), getString(key: "com.charmphr.EditDemographics.MobilePhone.title"), getString(key: "com.charmphr.EditDemographics.WorkPhone.title")]
     private let primaryDataHandler = PrimaryDataHandler.sharedInstance
@@ -51,6 +55,11 @@ class PatContactDetailView: UIStackView, UITextFieldDelegate, MDTextFieldDelegat
         self.axis = .vertical
         self.spacing = CARD_PADDING
         self.alignment = .center
+        horizontalInset = addShadow ? 0 : max(X_SPACE - CARD_PADDING, 0)
+        // `width` is only a fallback; the questionnaire's .fill stacks normally set our width.
+        let fallbackWidth = self.widthAnchor.constraint(equalToConstant: width)
+        fallbackWidth.priority = UILayoutPriority(999)
+        fallbackWidth.isActive = true
         
         customPickerView.delegate = self
         customPickerView.dataSource = self
@@ -60,7 +69,7 @@ class PatContactDetailView: UIStackView, UITextFieldDelegate, MDTextFieldDelegat
         
         patContactDetailHeading.setProperties(textKey: "com.charmphr.questionnairevc.patContact.title", fontsize: FONT_SIZE_LARGE, weight: .semibold, fontcolor: TEXT_COLOR_HEAVYDARK)
         
-        patContactDetailHeading.setWidth(constant: viewWidth - (2*X_SPACE))
+        patContactDetailHeading.setWidth(constant: -(2 * horizontalInset), relatedView: self)
 
         homePhoneMDTF = getMDFLTextField(keyStr: "com.charmphr.EditDemographics.HomePhone.title")
         homePhoneMDTF?.keyboardType = .numberPad
@@ -442,7 +451,7 @@ class PatContactDetailView: UIStackView, UITextFieldDelegate, MDTextFieldDelegat
         
         self.addArrangedSubview(tfView)
         tfView.backgroundColor = UIColor.white
-        tfView.setWidth(constant: viewWidth - (2 * X_SPACE))
+        tfView.setWidth(constant: -(2 * horizontalInset), relatedView: self)
         tfView.setHeight(constant: MDFLTEXTFIELD_HEIGHT)
         
         if addShadow {

@@ -72,12 +72,10 @@ class VisitSummaryViewController: CustomViewControllerWithTableView , UITableVie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if arrayOfPatientEncounter.isEmpty
         {
-            bottomImageView.image = nil
             self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
         }
         else
         {
-            bottomImageView.image = #imageLiteral(resourceName: "VisitSummary_BG")
             self.noDataBackGroundView.hideSubView(bool: true)
         }
         return arrayOfPatientEncounter.count

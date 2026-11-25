@@ -198,16 +198,17 @@ class HealthPassportHomeViewController: UIViewController , CharmConnectionHandle
         containerView.setTop(offSet: 0)
         containerView.setBottom(offSet: 0)
         containerView.setLeft(offSet: 0)
-        containerView.setWidth(constant: applicationFrame.width)
-        //containerView.setRight(offSet: 0)
-        
+        containerView.setRight(offSet: 0)
+        // Edge pins inside a scroll view only set content bounds; tie the width to the visible area so the
+        // cards follow fold/unfold and rotation (was the launch-time applicationFrame.width).
+        containerView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor).isActive = true
+
+        // Safe-area edges keep the cards clear of the Dynamic Island and the iOS 27.1 landscape side bar.
         containerScrollView.setSafeAreaTop(offset: 0)
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-X_SPACE-[containerScrollView]-X_SPACE-|", options: [], metrics:["X_SPACE":0], views: ["containerScrollView":containerScrollView]))
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
         containerScrollView.setSafeAreaBottom(offset: 0)
     }
-    
-    
-    
     
     //MARK: - action calles
     
@@ -250,7 +251,9 @@ class HealthPassportHomeViewController: UIViewController , CharmConnectionHandle
     
     @objc func viewPasscodeClicked()
     {
-        backgroundView.frame = self.view.frame
+        backgroundView.frame = self.view.bounds
+        // Keeps the dimmed backdrop covering the screen after rotation / fold / unfold.
+        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         backgroundView.backgroundColor = UIColor.black
         self.backgroundView.alpha = 0.6
         backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTappedOnBackgroundView)))
@@ -267,10 +270,11 @@ class HealthPassportHomeViewController: UIViewController , CharmConnectionHandle
                 self.view.addSubview(self.healthPassportDetailView.passcodeView)
                 self.view.bringSubviewToFront(self.healthPassportDetailView.passcodeView!)
                 self.healthPassportDetailView.passcodeView?.setCenterY()
-                self.healthPassportDetailView.passcodeView?.setCenterX()
             })
-        self.healthPassportDetailView.passcodeView?.setLeft(offSet: X_SPACE)
-        self.healthPassportDetailView.passcodeView?.setRight(offSet: -X_SPACE)
+        // Safe-area edges (no separate centre-X, which would conflict when the landscape side bar makes
+        // the left/right insets unequal) keep the passcode card clear of the side bar and Dynamic Island.
+        self.healthPassportDetailView.passcodeView?.setSafeAreaLeft(offset: X_SPACE)
+        self.healthPassportDetailView.passcodeView?.setSafeAreaRight(offset: -X_SPACE)
 //        healthPassportDetailView.passcodeView.showAsModalView(animated: true)
 //        if self.healthPassportDetailView.patientDetailContainerView.isUserInteractionEnabled
 //        {
@@ -358,7 +362,7 @@ class HealthPassportHomeViewController: UIViewController , CharmConnectionHandle
     }
     
     func charmConnectionHandlerDidFailWithError(error: Error, identificationKey: String) {
-        CharmUtil.createOkayAlertWith(error: error)
+        charmConnectionV2HandlerDidFailWithError(error: error, identificationKey: identificationKey)
     }
     
     func charmConnectionV2HandlerDidRecieve(response: Any, identificationKey: String) {
@@ -376,9 +380,9 @@ class HealthPassportHomeViewController: UIViewController , CharmConnectionHandle
             {
                 for viewConstroller in self.navigationController?.viewControllers ?? []
                 {
-                    if let homeViewController = viewConstroller as? HomeViewController
+                    if let mainViewController = viewConstroller as? MainViewController
                     {
-                        homeViewController.setTitleName(name: "Hi \(Patient.selectedPatientInstance?.firstName ?? "")")
+                        mainViewController.setTitleName(name: "Hi \(Patient.selectedPatientInstance?.firstName ?? "")")
                     }
                 }
             }

@@ -59,26 +59,31 @@ class SupportView: UIView{
         
         containerView.setSafeAreaTop(offset: CARD_PADDING)
         containerView.setSafeAreaBottom(offset: 0)
-        containerView.setLeft(offSet: 0)
-        containerView.setRight(offSet: 0)
-        
+        containerView.setSafeAreaLeft(offset: 0)
+        containerView.setSafeAreaRight(offset: 0)
+
         activityIndicator.setCenterX()
         activityIndicator.setCenterY()
-        
+
         supportSegmentControl.setLeft(offSet: X_SPACE)
         supportSegmentControl.setRight(offSet: -X_SPACE)
         supportSegmentControl.setTop(offSet: CARD_PADDING)
         supportSegmentControl.setHeight(constant: SEGMENTCONTROL_HEIGHT)
-        supportSegmentControl.setWidth(constant: SUPPORT_FRAME_WIDTH)
-        
+        matchVisibleWidth(supportSegmentControl)
+
         descriptionView.setLeft(offSet: X_SPACE)
         descriptionView.setTopRelatedToView(offSet: CARD_PADDING + 1, relatedView: supportSegmentControl, relatedAttribute: .bottom)
-        descriptionView.setWidth(constant: SUPPORT_FRAME_WIDTH)
-        
+        matchVisibleWidth(descriptionView)
+
         attachmentView.setLeft(offSet: X_SPACE)
         attachmentView.setTopRelatedToView(offSet: CARD_PADDING, relatedView: descriptionView, relatedAttribute: .bottom)
         attachmentView.setBottom(offSet: -CARD_PADDING)
-        attachmentView.setWidth(constant: SUPPORT_FRAME_WIDTH)
+        matchVisibleWidth(attachmentView)
+    }
+
+    // Edge pins inside a scroll view only set content bounds; this ties the width to the visible area.
+    private func matchVisibleWidth(_ view: UIView){
+        view.widthAnchor.constraint(equalTo: containerView.frameLayoutGuide.widthAnchor, constant: -2 * X_SPACE).isActive = true
     }
 }
 

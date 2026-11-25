@@ -8,8 +8,6 @@
 
 import UIKit
 
-private let allergyParentWidth: CGFloat = applicationFrame.width - (2 * X_SPACE) - CARD_PADDING
-
 class AllergiesItemView: UIView{
 
     private let verticalStackView = UIStackView()
@@ -37,8 +35,6 @@ class AllergiesItemView: UIView{
     private var editIconWidthConstraint: NSLayoutConstraint? = nil
     private var editIconHeightConstraint: NSLayoutConstraint? = nil
     private var sepatorHeightConstraint: NSLayoutConstraint? = nil
-    
-    private var allergyParentWidthConstraint: NSLayoutConstraint? = nil
     
     init(){
         super.init(frame: .zero)
@@ -74,7 +70,8 @@ class AllergiesItemView: UIView{
         verticalStackView.setLeft(offSet: CARD_PADDING)
         verticalStackView.setTop(offSet: CARD_PADDING)
         verticalStackView.setBottom(offSet: -CARD_PADDING)
-        allergyParentWidthConstraint = verticalStackView.setAndReturnWidth(constant: allergyParentWidth)
+        // Width comes from the card itself: stack right == deleteLabel left, deleteLabel right == card right
+        // (see checkAndCreateDeleteLabel). Was a launch-time width, which left the card half empty when unfolded/rotated.
         
         dateLabel.setLeft(offSet: 0)
         dateLabel.setTop(offSet: 0)
@@ -241,7 +238,6 @@ class AllergiesItemView: UIView{
             
             UIView.animate(withDuration: duration, delay: 0, animations: { [self] in
                 deleteLabelConstraint?.constant = SWIPE_LABEL_HEIGHT_CONSTRAINT
-                allergyParentWidthConstraint?.constant = allergyParentWidth - SWIPE_LABEL_HEIGHT_CONSTRAINT
                 self.layoutIfNeeded()
             })
             
@@ -259,7 +255,6 @@ class AllergiesItemView: UIView{
     func setRowActionForSwipeRight(duration: TimeInterval){
         UIView.animate(withDuration: duration, delay: 0, animations: { [self] in
             deleteLabelConstraint?.constant = 0
-            allergyParentWidthConstraint?.constant = allergyParentWidth
             self.layoutIfNeeded()
         })
     }
@@ -303,8 +298,7 @@ class AllergiesItemView: UIView{
                 
                     let practice = Patient.selectedPatientInstance?.getPracticeWith(practiceId: patientAllergyMap.practiceId ?? "")
                     facilityListLabel.text = practice?.practiceName
-                    let facilityListLabelHeight = facilityListLabel.sizeThatFits(CGSize(width: 500, height: applicationFrame.height)).height
-                    facilityListLabel.setHeight(constant: facilityListLabelHeight)
+                    // Multi-line label sizes itself to the current width (a fixed height was measured at 500pt and piled up on reuse).
                 }
             }
         }

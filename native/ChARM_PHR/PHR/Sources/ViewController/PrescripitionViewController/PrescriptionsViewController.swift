@@ -743,17 +743,14 @@ class PrescriptionsViewController: CustomViewControllerWithTableView , UITableVi
         {
             if !AppConfig.sharedInstance.isCustomBrandApp
             {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: "\(getString(key: "com.charmphr.action.noData.message"))\(getString(key: "com.charmphr.prescriptions.nomedications.title"))")
             }else
             {
-                bottomImageView.isHidden = true
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
             }
         }
         else
         {
-            bottomImageView.image = #imageLiteral(resourceName: "Medication_HP_BG")
             self.noDataBackGroundView.hideSubView(bool: true)
         }
         return arrayOfMedicationPOJO.count
@@ -765,17 +762,14 @@ class PrescriptionsViewController: CustomViewControllerWithTableView , UITableVi
         {
             if !AppConfig.sharedInstance.isCustomBrandApp
             {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: "\(getString(key: "com.charmphr.action.noData.message"))\(getString(key: "com.charmphr.prescriptions.nosupplements.title"))")
             }else
             {
-                bottomImageView.isHidden = true
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
             }
         }
         else
         {
-            bottomImageView.image = #imageLiteral(resourceName: "Medication_HP_BG")
             self.noDataBackGroundView.hideSubView(bool: true)
         }
         return arrayOfSupplementPOJO.count

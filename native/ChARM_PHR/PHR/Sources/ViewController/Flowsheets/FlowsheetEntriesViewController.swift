@@ -100,12 +100,10 @@ class FlowsheetEntriesViewController: CustomViewControllerWithTableView, CharmCo
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if flowsheetEntriesList.count == 0{
-            bottomImageView.isHidden = true
             self.noDataBackGroundView.backgroundColor =  UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
             self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: "\(getString(key: "com.charmphr.action.noData.message"))\(getString(key: "com.charmphr.flowsheetentry.noFlowsheetEntry.message"))")
         }
         else{
-            bottomImageView.image = UIImage(named: "Flowsheet_BG")
             self.noDataBackGroundView.hideSubView(bool: true)
         }
         return flowsheetEntriesList.count

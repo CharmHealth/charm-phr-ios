@@ -17,7 +17,6 @@ class InsuranceListView: UIView{
 //
 //    let activityIndicatorView = UIActivityIndicatorView()
 //
-//    let bottomImageView = UIImageView()
 //
 //    init() {
 //        super.init(frame: .zero)
@@ -31,7 +30,6 @@ class InsuranceListView: UIView{
 //
 //    func setSubViews() {
 //
-//        self.addSubview(bottomImageView)
 //        self.addSubview(insuranceListTableView)
 //        self.addSubview(activityIndicatorView)
 //        self.addSubview(insuranceNoData)
@@ -46,16 +44,12 @@ class InsuranceListView: UIView{
 ////
 //        insuranceListTableView.separatorStyle = .none
 //        insuranceListTableView.backgroundColor = .clear
-//        bottomImageView.image = #imageLiteral(resourceName: "insurance_healthPassport")
 //        //constraints
 //
 //
 ////        headerLayout.setTop(offSet: 64)
 //
 //
-//        bottomImageView.setLeft(offSet: 0)
-//        bottomImageView.setRight(offSet: 0)
-//        bottomImageView.setSafeAreaBottom(offset: 0)
 //
 //        insuranceListTableView.setRight(offSet: 0)
 //        insuranceListTableView.setLeft(offSet: 0)
@@ -77,7 +71,6 @@ class InsuranceListView: UIView{
 //    func showActivityIndicator()
 //    {
 //        activityIndicatorView.startAnimating()
-//        bottomImageView.isHidden = true
 //        insuranceListTableView.isHidden = true
 //        insuranceNoData.isHidden = true
 //        self.isUserInteractionEnabled = false
@@ -86,7 +79,6 @@ class InsuranceListView: UIView{
 //    func showNoDataPage() {
 //        hideActivityIndicator()
 //        insuranceListTableView.isHidden = true
-//        bottomImageView.isHidden = true
 //        insuranceNoData.isHidden = false
 //        insuranceNoData.setImage(enum: .noData , title: getString(key: "com.charmphr.action.noData.title"), message: nil)
 //    }
@@ -94,7 +86,6 @@ class InsuranceListView: UIView{
 //    func showErrorPage(error: Error) {
 //        hideActivityIndicator()
 //        insuranceListTableView.isHidden = true
-//        bottomImageView.isHidden = true
 //        insuranceNoData.isHidden = false
 //        insuranceNoData.setImage(enum: .oops, title: CharmUtil.getErrorMsg(forCode: CharmUtil.getErrorCode(error: error)), message: nil)
 //    }

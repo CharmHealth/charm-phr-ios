@@ -324,17 +324,14 @@ class MessagesViewController: CustomViewControllerWithTableView , UITableViewDat
             {
                 if allowMessaging
                 {
-                    bottomImageView.image = nil
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
                 }else
                 {
-                    bottomImageView.isHidden = true
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
                 }
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Messages_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return arrayOfUnread.count
@@ -345,17 +342,14 @@ class MessagesViewController: CustomViewControllerWithTableView , UITableViewDat
             {
                 if allowMessaging
                 {
-                    bottomImageView.image = nil
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
                 }else
                 {
-                    bottomImageView.isHidden = true
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
                 }
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Messages_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return arrayOfInbox.count
@@ -365,17 +359,14 @@ class MessagesViewController: CustomViewControllerWithTableView , UITableViewDat
             {
                 if allowMessaging
                 {
-                    bottomImageView.image = nil
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
                 }else
                 {
-                    bottomImageView.isHidden = true
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
                 }
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Messages_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return arrayOfSent.count

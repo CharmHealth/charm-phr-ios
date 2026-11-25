@@ -24,8 +24,9 @@ class DashboardView: UIView{
     let scrollView = UIScrollView()
     private let stackView : UIStackView = {
         let stackView   = UIStackView()
-        stackView.axis  = NSLayoutConstraint.Axis.vertical
-        stackView.alignment = UIStackView.Alignment.center
+        stackView.axis  = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fill
         
         return stackView
     }()
@@ -45,7 +46,7 @@ class DashboardView: UIView{
     
     private weak var homeVCDelegate: HomeViewControllerNavigationDelegate? = nil
     private weak var delegate: DashBoardViewController? = nil
-    private let TOP_AND_BOTTOM_SPACE_BW_SECTIONS = 7
+    private let TOP_AND_BOTTOM_SPACE_BW_SECTIONS: CGFloat = 7
     private let weightBGColor : UInt = 0xD7E9E6FF
     private let heightBGColor : UInt = 0xF2E3DCFF
     private let bpBGColor : UInt = 0xEDD8DBFF
@@ -55,18 +56,25 @@ class DashboardView: UIView{
         
         self.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
         self.addSubview(scrollView)
-        scrollView.addSubview(stackView)
         
+        let containerView = UIView()
+        scrollView.addSubview(containerView)
+        containerView.addSubview(stackView)
+                
         scrollView.setLeft(offSet: 0)
         scrollView.setRight(offSet: 0)
         scrollView.setTop(offSet: 0)
         scrollView.setBottom(offSet: 0)
         
+        containerView.setTop(offSet: 12)
+        containerView.setBottom(offSet: -12)
+        containerView.setSafeAreaRight(offset: -X_SPACE)
+        containerView.setSafeAreaLeft(offset: X_SPACE)
+        
         stackView.setLeft(offSet: 0)
         stackView.setRight(offSet: 0)
         stackView.setTop(offSet: 0)
         stackView.setBottom(offSet: -8)
-        stackView.setWidth(constant: applicationFrame.width)
     }
     
     //MARK: - Create Subviews
@@ -83,11 +91,8 @@ class DashboardView: UIView{
             virtualContainer.tag = delegate.VITALS_VIEW_TAG
             virtualContainer.translatesAutoresizingMaskIntoConstraints = false
             stackView.insertArrangedSubview(virtualContainer, at: vitalsIndex)
-            
-            virtualContainer.setRelativeWidth(multiplier: 1, constant: 0)
         }
     }
-    
     func createSubViews(appointmentSection: Section?, dashboardModel: DashboardModel, delegate: DashBoardViewController, homeVCDelegate: HomeViewControllerNavigationDelegate?){
         
         self.delegate = delegate
@@ -102,10 +107,7 @@ class DashboardView: UIView{
             virtualContainer.tag = delegate.VITALS_VIEW_TAG
             virtualContainer.translatesAutoresizingMaskIntoConstraints = false
             stackView.addArrangedSubview(virtualContainer)
-            
-            virtualContainer.setRelativeWidth(multiplier: 1, constant: 0)
         }
-        
         if RbacUtil.checkPrivilege(privilege: .VIEW_APPOINTMENT) && isModuleEnabled(moduleId: appointmentModelId){
             todayAppointmentView = createTodayAppointment(todayAppointmentList: dashboardModel.todayAppointmentList)
             
@@ -127,8 +129,6 @@ class DashboardView: UIView{
                     }
                 }
             }
-            todayAppointmentView.setRelativeWidth(multiplier: 1, constant: -(X_SPACE*2))
-            upcomingAppointmentView.setRelativeWidth(multiplier: 1, constant: -(X_SPACE*2))
         }
         
         if RbacUtil.checkPrivilege(privilege: .VIEW_MESSAGES) && isModuleEnabled(moduleId: messageModuleId){
@@ -137,7 +137,6 @@ class DashboardView: UIView{
             recentMessageView.translatesAutoresizingMaskIntoConstraints = false
             
             stackView.addArrangedSubview(recentMessageView)
-            recentMessageView.setRelativeWidth(multiplier: 1, constant: -(X_SPACE*2))
             recentMessageTableView.reloadData()
         }
         
@@ -148,7 +147,6 @@ class DashboardView: UIView{
             activeInvoiceView.translatesAutoresizingMaskIntoConstraints = false
             
             stackView.addArrangedSubview(activeInvoiceView)
-            activeInvoiceView.setRelativeWidth(multiplier: 1, constant: -(X_SPACE*2))
             activeInvoiceTableView.reloadData()
         }
         
@@ -158,7 +156,6 @@ class DashboardView: UIView{
             questionnaireView.translatesAutoresizingMaskIntoConstraints = false
             
             stackView.addArrangedSubview(questionnaireView)
-            questionnaireView.setRelativeWidth(multiplier: 1, constant: -(X_SPACE*2))
             questionnaireTableView.reloadData()
         }
         
@@ -168,7 +165,6 @@ class DashboardView: UIView{
             activeMedicationView.translatesAutoresizingMaskIntoConstraints = false
             
             stackView.addArrangedSubview(activeMedicationView)
-            activeMedicationView.setRelativeWidth(multiplier: 1, constant: -(X_SPACE*2))
             
             if dashboardModel.medicationList.isEmpty{
                 activeMedicationView.isHidden = true
@@ -183,14 +179,19 @@ class DashboardView: UIView{
     
     private func createVirtual(vitalsList: [Vital]) -> UIView
     {
-        
-        // x space of starting and space between two vistual containers
-        let virtualSigleWidth = (appDelegate.screenWidth - CGFloat((X_SPACE * 2 ) + (11 * 2)))/3
-        
         let virtualContainer = UIView()
-        
-        var previousView = virtualContainer
-        
+
+        let virtualsStackView = UIStackView()
+        virtualsStackView.axis = .horizontal
+        virtualsStackView.distribution = .fillEqually
+        virtualsStackView.spacing = 11
+        virtualContainer.addSubview(virtualsStackView)
+
+        virtualsStackView.setTop(offSet: TOP_SPACE_FROM_NAVIGATION)
+        virtualsStackView.setBottom(offSet: -TOP_AND_BOTTOM_SPACE_BW_SECTIONS)
+        virtualsStackView.setLeft(offSet: 0)
+        virtualsStackView.setRight(offSet: 0)
+
         for vital in vitalsList
         {
             let virtualView = DashBoardVirtualsView()
@@ -239,27 +240,12 @@ class DashboardView: UIView{
             valueString  =  NSMutableAttributedString(string: "\(vital.vitalValue) \(vital.valueUnit ?? "-")")
             
             valueString?.addAttributes(boldFontAtributes, range: NSRange(location: 0, length: vital.vitalValue.count))
+            valueString?.addAttributes(boldFontAtributes, range: NSRange(location: 0, length: vital.vitalValue.count))
             virtualView.virtualsValueLabel.attributedText = valueString!
             
             
             virtualView.translatesAutoresizingMaskIntoConstraints = false
-            virtualContainer.addSubview(virtualView)
-            virtualContainer.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-TOP_SPACE-[virtualView]-Y_SPACE-|", options: [], metrics:["Y_SPACE":TOP_AND_BOTTOM_SPACE_BW_SECTIONS,"TOP_SPACE":TOP_SPACE_FROM_NAVIGATION], views: ["virtualView":virtualView]))
-            
-            if previousView == virtualContainer
-            {
-                virtualContainer.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-X_SPACE-[virtualView(virtualSigleWidth)]", options: [], metrics: ["virtualSigleWidth":virtualSigleWidth,"X_SPACE":X_SPACE], views: ["virtualView":virtualView]))
-            }else
-            {
-                virtualContainer.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[previousView]-11-[virtualView(virtualSigleWidth)]", options: [], metrics: ["virtualSigleWidth":virtualSigleWidth], views: ["virtualView":virtualView , "previousView":previousView]))
-            }
-            
-            previousView = virtualView
-            
-            if (vitalsList.last === vital)
-            {
-                virtualContainer.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[previousView]-X_SPACE-|", options: [], metrics: ["X_SPACE":X_SPACE], views: [ "previousView":previousView]))
-            }
+            virtualsStackView.addArrangedSubview(virtualView)
         }
         return virtualContainer
     }

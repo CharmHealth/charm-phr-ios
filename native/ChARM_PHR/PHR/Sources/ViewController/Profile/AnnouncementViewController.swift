@@ -43,9 +43,9 @@ class AnnouncementViewController: CustomViewControllerWithTableView, CharmConnec
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         customTableView.reloadData()
-        if let homeViewController = self.parent as? HomeViewController
+        if let mainViewController = self.parent as? MainViewController
         {
-            homeViewController.setTitleName(name: getString(key: "com.charmphr.Announcement.title"))
+            mainViewController.setTitleName(name: getString(key: "com.charmphr.Announcement.title"))
         }
     }
     
@@ -71,12 +71,10 @@ class AnnouncementViewController: CustomViewControllerWithTableView, CharmConnec
         
         if arrayOfAnnouncement.isEmpty
         {
-            bottomImageView.image = nil
             self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: "")
         }
         else
         {
-            bottomImageView.image = #imageLiteral(resourceName: "Annoncement_BG")
             self.noDataBackGroundView.hideSubView(bool: true)
         }
         return arrayOfAnnouncement.count

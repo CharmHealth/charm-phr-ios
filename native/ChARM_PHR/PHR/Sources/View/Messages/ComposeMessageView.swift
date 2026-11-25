@@ -23,7 +23,7 @@ class ComposeMessageView: UIView, UITextViewDelegate, DropDownViewDelegate{
     let subContainerView = UIView()
     private let toView = UIView()
     private let toLabel = UILabel()
-    let toValueView = UIView()
+    let toValueView = WidthObservingView()
     let toValueTextField = CustomTextField()
     private let verticalStackView = UIStackView()
     let providerListTableView = MDAutoGrowingTableView()
@@ -45,8 +45,16 @@ class ComposeMessageView: UIView, UITextViewDelegate, DropDownViewDelegate{
     private var MAX_CHARACTER_CAN_BE_USED : Int = 10000
     
     var selectedPractice: Practice? = nil
-    var toValueViewWidth: CGFloat = applicationFrame.width
-    
+    private var toLabelWidth: CGFloat = 0
+
+    // Live width of the "To" field, so recipient chips wrap to the current screen size.
+    var toValueViewWidth: CGFloat {
+        if toValueView.bounds.width > 0 {
+            return toValueView.bounds.width
+        }
+        return max(bounds.width - (X_SPACE * 2) - toLabelWidth - 10, 0)
+    }
+
     init(contentFile: String, practiceList: [Practice], delegate: ComposeMessageViewController, selectedPractice: Practice? = nil){
         self.contentFile = contentFile
         self.practiceList = practiceList
@@ -118,7 +126,8 @@ class ComposeMessageView: UIView, UITextViewDelegate, DropDownViewDelegate{
         containerView.setLeft(offSet: 0)
         containerView.setRight(offSet: 0)
         containerView.setBottom(offSet: 0)
-        containerView.setWidth(constant: applicationFrame.width)
+        // Edge pins inside a scroll view only set content bounds; this ties the width to the visible area.
+        containerView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor).isActive = true
         
         activityIndicator.setCenterX()
         activityIndicator.setCenterY()
@@ -137,23 +146,17 @@ class ComposeMessageView: UIView, UITextViewDelegate, DropDownViewDelegate{
         toView.setLeft(offSet: X_SPACE)
         toView.setRight(offSet: -X_SPACE)
         toView.setTop(offSet: 0)
-        
-        toValueViewWidth -= (X_SPACE * 2)
-        
+
         toLabel.setLeft(offSet: 0)
         toLabel.setTop(offSet: 12)
-        let toLabelWidth = toLabel.sizeThatFits(CGSize(width: 1000, height: 1000)).width
+        toLabelWidth = toLabel.sizeThatFits(CGSize(width: 1000, height: 1000)).width
         toLabel.setWidth(constant:toLabelWidth)
-        
-        toValueViewWidth -= toLabelWidth
-        
+
         toValueView.setLeftRelatedToView(offSet: 10, relatedView: toLabel, relatedAttribute: .right)
         toValueView.setTop(offSet: 8)
         toValueView.setBottom(offSet: -8)
         toValueView.setRight(offSet: 0)
-        
-        toValueViewWidth -= 10
-        
+
         toValueTextField.setLeft(offSet: 0)
         toValueTextField.setRight(offSet: 0)
         toValueTextField.setTop(offSet: 0)
@@ -375,7 +378,7 @@ class ComposeMessageView: UIView, UITextViewDelegate, DropDownViewDelegate{
                 subViews.removeFromSuperview()
             }
         }
-        setToTextFieldConstraint(hasSpace: false, beforeView: nil, width: applicationFrame.width - 100)
+        setToTextFieldConstraint(hasSpace: false, beforeView: nil, width: toValueViewWidth)
         subContainerView.isHidden = true
         bottomView.isHidden = true
     }
@@ -479,8 +482,22 @@ fileprivate class BottomCharView: UIView {
         characterLabel.setTop(offSet: 14.5)
         characterLabel.setCenterX()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// Reports width changes (rotation, fold/unfold) so hand-wrapped content inside can re-flow.
+final class WidthObservingView: UIView {
+
+    var onWidthChange: (() -> Void)?
+    private var lastWidth: CGFloat = 0
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard bounds.width > 0, bounds.width != lastWidth else { return }
+        lastWidth = bounds.width
+        onWidthChange?()
     }
 }

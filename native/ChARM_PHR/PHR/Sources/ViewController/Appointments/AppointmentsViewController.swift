@@ -84,7 +84,8 @@ class AppointmentsViewController: CustomViewControllerWithTableView , UITableVie
         customTableView.removeConstraint(attribute: .left)
         customTableView.removeConstraint(attribute: .right)
         
-        customTableView.setHorizontal(offSet: X_SPACE)
+        customTableView.setSafeAreaLeft(offset: X_SPACE)
+        customTableView.setSafeAreaRight(offset: -X_SPACE)
 
         pastAppointmentView = pastAppintmentView()
         upComingAppointmentLabelView = upComingAppointmentLabel()
@@ -466,7 +467,6 @@ class AppointmentsViewController: CustomViewControllerWithTableView , UITableVie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if appointmentSegmentControl.selectedSegmentIndex == 0 && isUpComingAppointmentFetched
         {
-            bottomImageView.image = #imageLiteral(resourceName: "Appointment_BG")
             self.noDataBackGroundView.hideSubView(bool: true)
             return arrayOfUpComingAppointment.isEmpty ? 1 : arrayOfUpComingAppointment.count
         }
@@ -474,12 +474,10 @@ class AppointmentsViewController: CustomViewControllerWithTableView , UITableVie
         {
             if arrayOfRequestedAppointment.isEmpty
             {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .appointment, title: getString(key: "com.charmphr.norequestedAppointments.title"), message: nil)
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Appointment_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return arrayOfRequestedAppointment.count
@@ -488,12 +486,10 @@ class AppointmentsViewController: CustomViewControllerWithTableView , UITableVie
         {
             if arrayOfWaitingListAppointment.isEmpty
             {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .appointment, title: getString(key: "com.charmphr.nowaitlistAppointments.title"), message: nil)
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Appointment_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return arrayOfWaitingListAppointment.count
@@ -502,18 +498,15 @@ class AppointmentsViewController: CustomViewControllerWithTableView , UITableVie
         {
             if arrayOfDeniedAppointment.isEmpty
             {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .appointment, title: getString(key: "com.charmphr.nodeniedAppointments.title"), message: nil)
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Appointment_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return arrayOfDeniedAppointment.count
         }
         else{
-            bottomImageView.image = nil
             self.noDataBackGroundView.hideSubView(bool: true)
             return 0
         }

@@ -46,6 +46,8 @@ class AddInsuranceViewController: UIViewController , PatInsuranceViewDelegate, C
         
         self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneBtnClicked)), animated: true)
         
+        // View background too, so nothing below the safe area (home indicator) shows black.
+        self.view.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
         scrollView.setBackgroundColor(bgColor: APPLICATION_BACKGROUND_COLOR)
         self.view.addSubview(scrollView)
         self.view.addSubview(activityIndicator)
@@ -57,8 +59,9 @@ class AddInsuranceViewController: UIViewController , PatInsuranceViewDelegate, C
         
         scrollView.setSafeAreaTop(offset: 0)
         scrollView.setSafeAreaBottom(offset: 0)
-        scrollView.setLeft(offSet: 0)
-        scrollView.setRight(offSet: 0)
+        // Safe-area edges keep the form clear of the iOS 27.1 landscape side bar / Dynamic Island.
+        scrollView.setSafeAreaLeft(offset: 0)
+        scrollView.setSafeAreaRight(offset: 0)
         
         if !PrimaryDataHandler.hasAllData()
         {
@@ -93,7 +96,9 @@ class AddInsuranceViewController: UIViewController , PatInsuranceViewDelegate, C
             patInsuranceView.setTop(offSet: 0)
             patInsuranceView.setBottom(offSet: 0)
             patInsuranceView.setLeft(offSet: 0)
-            patInsuranceView.setWidth(constant: applicationFrame.width)
+            patInsuranceView.setRight(offSet: 0)
+            // Form follows the visible width (fold/unfold, rotation); vertical scrolling only.
+            patInsuranceView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor).isActive = true
         }
     }
     

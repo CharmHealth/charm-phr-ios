@@ -79,17 +79,14 @@ class SelectPrescriptionViewController: CustomViewControllerWithTableView, UITab
             {
                 if !AppConfig.sharedInstance.isCustomBrandApp
                 {
-                    bottomImageView.image = nil
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
                 }else
                 {
-                    bottomImageView.isHidden = true
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
                 }
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Medication_HP_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return arrayOfMedication.count
@@ -99,17 +96,14 @@ class SelectPrescriptionViewController: CustomViewControllerWithTableView, UITab
             {
                 if !AppConfig.sharedInstance.isCustomBrandApp
                 {
-                    bottomImageView.image = nil
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
                 }else
                 {
-                    bottomImageView.isHidden = true
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
                 }
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Medication_HP_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return arrayOfSupplement.count

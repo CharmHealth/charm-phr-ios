@@ -176,11 +176,8 @@ class MedicalConditionsViewController: CustomViewControllerWithTableView,
                 title: getString(key: "com.charmphr.action.noData.title"),
                 message: nil
             )
-            bottomImageView.isHidden = true
         } else {
             noDataBackGroundView.hideSubView(bool: true)
-            bottomImageView.image = UIImage(named: "MedicalCondition_HP_BG")
-            bottomImageView.isHidden = false
         }
     }
 

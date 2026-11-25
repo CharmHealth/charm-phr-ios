@@ -319,11 +319,14 @@ class AddSupplementViewController: AddDataUIViewController , CharmConnectionV2Ha
         containerView.setTop(offSet: 0)
         containerView.setBottom(offSet: 0)
         containerView.setLeft(offSet: 0)
-        containerView.setWidth(constant: applicationFrame.width)
+        containerView.setRight(offSet: 0)
+        // Content follows the visible width (fold/unfold, rotation, iOS 27.1 landscape side bar), so it only scrolls vertically.
+        containerView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor).isActive = true
         
         
         containerScrollView.setSafeAreaTop(offset: 0)
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-X_SPACE-[containerScrollView]-X_SPACE-|", options: [], metrics:["X_SPACE":0], views: ["containerScrollView":containerScrollView]))
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
         containerScrollView.setSafeAreaBottom(offset: 0)
     
     }

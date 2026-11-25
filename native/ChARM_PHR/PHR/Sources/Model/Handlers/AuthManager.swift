@@ -78,16 +78,17 @@ struct AuthManager {
         CharmConnectionHandler.invalidateSession()
         AppDataHandler.resetInstance()
         
-        if let homeVC = topViewController as? HomeViewController{
-            homeVC.appDataHandler = AppDataHandler.sharedInstance()
-            homeVC.hideAddBtn()
-            homeVC.loadSubView()
+        if let mainVC = topViewController as? MainViewController{
+            mainVC.appDataHandler = AppDataHandler.sharedInstance()
+            mainVC.hideAddBtn()
+            mainVC.loadSubView()
             NotificationHandler.presentNotification()
         }
         else{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             if let homeVC = storyboard.instantiateViewController(withIdentifier: "homeVC") as? HomeViewController {
-                appDelegate.navigationController?.setViewControllers([homeVC], animated: false)
+                let mainVC = MainViewController(homeVC: homeVC)
+                appDelegate.navigationController?.setViewControllers([mainVC], animated: false)
             }
         }
     }

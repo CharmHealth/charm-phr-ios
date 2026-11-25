@@ -8,8 +8,6 @@
 
 import UIKit
 
-fileprivate let ADD_REMINDER_WIDTH = applicationFrame.width - 32
-
 class AddReminderView: UIView{
     
     let activityIndicator = UIActivityIndicatorView()
@@ -92,20 +90,21 @@ class AddReminderView: UIView{
         activityIndicator.setCenterX()
         activityIndicator.setCenterY()
         
-        scrollView.setLeft(offSet: 0)
-        scrollView.setRight(offSet: 0)
+        // Safe-area edges keep the form clear of the Dynamic Island, rounded corners and the
+        // iOS 27.1 landscape side bar on the iPhone Duo.
+        scrollView.setSafeAreaLeft(offset: 0)
+        scrollView.setSafeAreaRight(offset: 0)
         scrollView.setSafeAreaTop(offset: 0)
         scrollView.setSafeAreaBottom(offset: 0)
-        
+
         stackView.setLeft(offSet: X_SPACE)
         stackView.setRight(offSet: -X_SPACE)
         stackView.setTop(offSet: CARD_PADDING)
         stackView.setBottom(offSet: -CARD_PADDING)
-        stackView.setWidth(constant: ADD_REMINDER_WIDTH)
-        
-        titleInstructionDetailView.setLeft(offSet: 0)
-        titleInstructionDetailView.setWidth(constant: ADD_REMINDER_WIDTH)
-        
+        // Edge pins inside a scroll view only set content bounds; this ties the width to the visible
+        // area so it follows fold/unfold and rotation. Rows fill it via the stacks' .fill alignment.
+        stackView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -(X_SPACE * 2)).isActive = true
+
         titleLabel.setLeft(offSet: CELL_PADDING)
         titleLabel.setRight(offSet: -CELL_PADDING)
         titleLabel.setTop(offSet: CARD_PADDING)
@@ -115,43 +114,10 @@ class AddReminderView: UIView{
         descriptionLabel.setTopRelatedToView(offSet: ITEM_VERTICAL_MARGIN, relatedView: titleLabel, relatedAttribute: .bottom)
         descriptionLabel.setBottom(offSet: -CARD_PADDING)
         
-        dateStackView.setLeft(offSet: 0)
-        dateStackView.setWidth(constant: ADD_REMINDER_WIDTH)
-        
-        startDateView.setLeft(offSet: 0)
-        startDateView.setRight(offSet: 0)
-  
-        endDateView.setLeft(offSet: 0)
-        endDateView.setRight(offSet: 0)
-        
-        reminderDateView.setLeft(offSet: 0)
-        reminderDateView.setRight(offSet: 0)
-        
-        frequencyIntakeStackView.setLeft(offSet: 0)
-        frequencyIntakeStackView.setWidth(constant: ADD_REMINDER_WIDTH)
-        
-        frequencyIntakeView.setLeft(offSet: 0)
-        frequencyIntakeView.setWidth(constant: ADD_REMINDER_WIDTH)
-        
-        selectIntervalView.setLeft(offSet: 0)
-        selectIntervalView.setWidth(constant: ADD_REMINDER_WIDTH)
-        
-        enterValueView.setLeft(offSet: 0)
-        enterValueView.setWidth(constant: ADD_REMINDER_WIDTH)
-        
-        selectDaysLabelView.setLeft(offSet: 0)
-        selectDaysLabelView.setWidth(constant: ADD_REMINDER_WIDTH)
-        
         selectDaysLabel.setLeft(offSet: 5)
         selectDaysLabel.setRight(offSet: 0)
         selectDaysLabel.setTop(offSet: 0)
         selectDaysLabel.setBottom(offSet: 0)
-        
-        weekDaysStackView.setLeft(offSet: 0)
-        weekDaysStackView.setWidth(constant: ADD_REMINDER_WIDTH)
-        
-        addReminderView.setLeft(offSet: 0)
-        addReminderView.setWidth(constant: ADD_REMINDER_WIDTH)
         
         addReminderStackView.setLeft(offSet: 0)
         addReminderStackView.setRight(offSet: 0)

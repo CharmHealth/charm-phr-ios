@@ -46,6 +46,10 @@ class PersonalDetailsView: UIStackView, UITextFieldDelegate, UIPickerViewDelegat
     private let datepicker = UIDatePicker()
     private let primaryDataHandler = PrimaryDataHandler.sharedInstance
     private var viewWidth: CGFloat = 0
+    /// Gap between this view's edges and its fields: 0 at the questionnaire's top level (the container already
+    /// insets widgets by X_SPACE), X_SPACE - CARD_PADDING inside a section card. Fields are sized relative to
+    /// this view so they follow fold/unfold and rotation (were fixed from the build-time width).
+    private var horizontalInset: CGFloat = 0
     private var addShadow: Bool = true
 
 //MARK: - init
@@ -60,6 +64,11 @@ class PersonalDetailsView: UIStackView, UITextFieldDelegate, UIPickerViewDelegat
         self.axis = .vertical
         self.spacing = 10
         self.alignment = .center
+        horizontalInset = addShadow ? 0 : max(X_SPACE - CARD_PADDING, 0)
+        // `width` is only a fallback; the questionnaire's .fill stacks normally set our width.
+        let fallbackWidth = self.widthAnchor.constraint(equalToConstant: width)
+        fallbackWidth.priority = UILayoutPriority(999)
+        fallbackWidth.isActive = true
         
         birthSexPickerView.delegate = self
         birthSexPickerView.dataSource = self
@@ -81,7 +90,7 @@ class PersonalDetailsView: UIStackView, UITextFieldDelegate, UIPickerViewDelegat
         
         personalDetailHeading.setProperties(textKey: "com.charmphr.questionnairevc.presonalDetail.title", fontsize: FONT_SIZE_LARGE, weight: .semibold, fontcolor: TEXT_COLOR_HEAVYDARK)
         
-        personalDetailHeading.setWidth(constant: viewWidth - (2*X_SPACE))
+        personalDetailHeading.setWidth(constant: -(2 * horizontalInset), relatedView: self)
         
         self.firstNameMDTF = getMDFLTextField(keyStr: "com.charmphr.EditDemographics.FirstName.title")
         self.firstNameMDTF?.isMandatoryField = true
@@ -253,6 +262,8 @@ class PersonalDetailsView: UIStackView, UITextFieldDelegate, UIPickerViewDelegat
         tf.textColor = UIColorFromRGB(rgbValueWithAlpha: TEXT_COLOR_BLACK87)
         tf.autocorrectionType = UITextAutocorrectionType.no
         tf.delegate = self
+        // Without this the floated label fell back to a serif default font.
+        tf.floatingLabelFont = .systemFont(ofSize: 12, Weight: .regular)
         tf.floatingLabelTextColor = UIColorFromRGB(rgbValueWithAlpha: TEXT_COLOR_BLACK70)
         tf.floatingLabelActiveTextColor = UIColorFromRGB(rgbValueWithAlpha: THEME_COLOR)
         tf.placeholderColor = UIColorFromRGB(rgbValueWithAlpha: TEXT_COLOR_BLACK70)
@@ -265,7 +276,7 @@ class PersonalDetailsView: UIStackView, UITextFieldDelegate, UIPickerViewDelegat
         
         self.addArrangedSubview(tfView)
         tfView.backgroundColor = UIColor.white
-        tfView.setWidth(constant: viewWidth - (2 * X_SPACE))
+        tfView.setWidth(constant: -(2 * horizontalInset), relatedView: self)
         tfView.setHeight(constant: MDFLTEXTFIELD_HEIGHT)
         if addShadow {
             tfView.addShadowAndCornerRadius(.SMALL)

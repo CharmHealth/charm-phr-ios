@@ -197,8 +197,7 @@ class SectionView: UIStackView{
     private var collapseBtn: UIImageView? = nil
     weak var delegate: QuestionnaireAnswerView? = nil
     private var questionnaireEntryPOJO: QuestionnaireEntryPOJO? = nil
-    private var SECTION_HEADER_HEIGHT: CGFloat = 0
-    
+
     init(questionnaireEntryPOJO: QuestionnaireEntryPOJO, delegate: QuestionnaireAnswerView?){
         super.init(frame: .zero)
         
@@ -266,15 +265,20 @@ class SectionView: UIStackView{
         sectionLabel.setLeft(offSet: 0)
         sectionLabel.setTop(offSet: PADDING_8)
         sectionLabel.setBottom(offSet: -PADDING_8)
-        
-        SECTION_HEADER_HEIGHT = sectionLabel.sizeThatFits(CGSize(width: applicationFrame.width - (2 * X_SPACE) - buttonSize - PADDING_4, height: 200)).height + (PADDING_8 * 2)
-        sectionHeaderView.setHeight(constant: SECTION_HEADER_HEIGHT)
+        if collapseBtn == nil {
+            sectionLabel.setRight(offSet: 0, relatedBy: .lessThanOrEqual)
+        }
+        // Header height follows the (wrapping) title; at least tall enough for the collapse arrow.
+        sectionHeaderView.heightAnchor.constraint(greaterThanOrEqualToConstant: buttonSize + (PADDING_8 * 2)).isActive = true
     }
-    
-    func setConstraints(width: CGFloat){
-        stackView.setWidth(constant: width - (2 * CARD_PADDING))
-        separator.setWidth(constant: width)
-        sectionHeaderView.setWidth(constant: width - (2 * CARD_PADDING))
+
+    // Widths follow the section itself, so its contents stretch on rotation and iPhone Duo fold/unfold.
+    func setConstraints(){
+        NSLayoutConstraint.activate([
+            stackView.widthAnchor.constraint(equalTo: widthAnchor, constant: -(2 * CARD_PADDING)),
+            separator.widthAnchor.constraint(equalTo: widthAnchor),
+            sectionHeaderView.widthAnchor.constraint(equalTo: widthAnchor, constant: -(2 * CARD_PADDING))
+        ])
     }
     
     @objc func onAnimateSectionView(recognizer: UIGestureRecognizer){
@@ -310,7 +314,7 @@ class SectionView: UIStackView{
         if let tag = tag{
             if let view = self.viewWithTag(tag){
                 let superViewPoint = view.superview?.superview?.frame.minY ?? 0
-                delegate?.scrollToViewWithTag(view: stackView, isSectionScroll: true, y_point: superViewPoint + SECTION_HEADER_HEIGHT)
+                delegate?.scrollToViewWithTag(view: stackView, isSectionScroll: true, y_point: superViewPoint + sectionHeaderView.frame.height)
             }
         }
         else if !toHide{
@@ -408,9 +412,40 @@ class SOAPTableView: UIView, UIScrollViewDelegate{
     private let soapWidgetTableStackView = UIStackView()
     private let scrollView = UIScrollView()
     private var width: CGFloat = 0
-    
+    private var table: [[[String: Any]]]? = nil
+    private var tableHeightConstraint: NSLayoutConstraint? = nil
+    private var lastLayoutWidth: CGFloat = 0
+
     init() {
         super.init(frame: .zero)
+    }
+
+    // Column widths and row heights are calculated from the width, so the table is rebuilt at the new
+    // width on rotation and fold/unfold. Typed values are carried over so nothing the user entered is lost.
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let newWidth = bounds.width
+        guard newWidth > 0, abs(newWidth - lastLayoutWidth) > 0.5 else { return }
+        lastLayoutWidth = newWidth
+        guard abs(newWidth - width) > 0.5 else { return }
+
+        captureEnteredValues()
+        width = newWidth
+        soapWidgetTableStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        tableHeightConstraint?.isActive = false
+        buildTable()
+    }
+
+    private func captureEnteredValues() {
+        guard var table else { return }
+        for (rowIndex, rowView) in soapWidgetTableStackView.arrangedSubviews.enumerated() where rowIndex < table.count {
+            for (colIndex, colView) in rowView.subviews.enumerated() where colIndex < table[rowIndex].count {
+                if let textView = colView.subviews.first(where: { $0 is UITextView }) as? UITextView {
+                    table[rowIndex][colIndex]["value"] = textView.text ?? ""
+                }
+            }
+        }
+        self.table = table
     }
     
     func initView(isSectionPresent: Bool, soapWidgetEntry: SOAPWidgetEntry, viewWidth: CGFloat){
@@ -471,8 +506,13 @@ class SOAPTableView: UIView, UIScrollViewDelegate{
             }
         }
         
-        if let table = convertToArrayOfDictionary(text: tableStr) {
-            
+        table = convertToArrayOfDictionary(text: tableStr)
+        buildTable()
+    }
+
+    private func buildTable(){
+        if let table {
+
             var tableContainerViewHeight: CGFloat = (separatorWidth * CGFloat((table.count - 1))) + 0.5
             for tableRow in table{
                 
@@ -588,7 +628,7 @@ class SOAPTableView: UIView, UIScrollViewDelegate{
                 tableContainerViewHeight += rowHeight
                 prevView = nil
             }
-            tableContainerView.setHeight(constant: tableContainerViewHeight)
+            tableHeightConstraint = tableContainerView.setAndReturnHeight(constant: tableContainerViewHeight)
         }
     }
     

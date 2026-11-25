@@ -158,10 +158,13 @@ class AddMedicalConditionViewController: AddDataUIViewController,
         containerView.setTop(offSet: 0)
         containerView.setBottom(offSet: 0)
         containerView.setLeft(offSet: 0)
-        containerView.setWidth(constant: applicationFrame.width)
+        containerView.setRight(offSet: 0)
+        // Content follows the visible width (fold/unfold, rotation, iOS 27.1 landscape side bar); vertical scrolling only.
+        containerView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor).isActive = true
 
         containerScrollView.setSafeAreaTop(offset: 0)
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[containerScrollView]-0-|", options: [], metrics: nil, views: ["containerScrollView": containerScrollView]))
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
         containerScrollView.setSafeAreaBottom(offset: 0)
 
         // Stack constraints

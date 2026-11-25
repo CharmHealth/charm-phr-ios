@@ -45,10 +45,15 @@ class ReminderViewController: CustomViewControllerWithTableView , UITableViewDat
         self.title = getString(key: "com.charmphr.reminder.title")
         self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonClicked)), animated: true)
         
-        bottomImageView.image = UIImage(named: "Reminder_BG")
         createView()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Keep the base class's scroll offset maths in sync with the content-driven header height.
+        topViewHeight = titleCustomView.frame.height
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -106,8 +111,11 @@ class ReminderViewController: CustomViewControllerWithTableView , UITableViewDat
         reminderSegmentControl.setSafeAreaRight(offset: -X_SPACE)
         reminderSegmentControl.setHeight(constant: SEGMENTCONTROL_HEIGHT)
         
-        changeCustomTitleViewHeight(height: SEGMENTCONTROL_HEIGHT + noteView.frame.height + PADDING + SEGMENTCONTROL_CUSTOMVIEW_TOP_SPACING)
-        
+        // No fixed height: the header is sized by its content (note top → segment bottom), so the
+        // info message can wrap to more lines when the width shrinks (iPhone Duo fold, rotation, side bar).
+        titleCustomView.removeConstraint(attribute: .height)
+
+
         self.customTableView.delegate = self
         self.customTableView.dataSource = self
         customTableView.separatorColor = .clear
@@ -307,19 +315,16 @@ class ReminderViewController: CustomViewControllerWithTableView , UITableViewDat
         
         if let futureDateAlert = futureDateAlert{
             self.noDataBackGroundView.setImage(enum: .oops, title: futureDateAlert.domain, message: nil)
-            bottomImageView.image = nil
             todayReminderArray = []
         }
         else{
             if reminderSegmentControl.selectedSegmentIndex == 0{
                 if todayReminderArray.count == 0
                 {
-                    bottomImageView.image = nil
                     self.noDataBackGroundView.backgroundColor =  UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.reminder.noReminders.alert.title"), message: getString(key: "com.charmphr.reminder.noReminders.alert.message"))
                 }else
                 {
-                    bottomImageView.image = UIImage(named: "Reminder_BG")
                     self.noDataBackGroundView.hideSubView(bool: true)
                 }
                 return todayReminderArray.count
@@ -327,7 +332,6 @@ class ReminderViewController: CustomViewControllerWithTableView , UITableViewDat
             else{
                 if reminderArrayToLoad.count == 0
                 {
-                    bottomImageView.image = nil
                     self.noDataBackGroundView.backgroundColor =  UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
                     if selectedFilter == .Active || selectedFilter == .All{
                         self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.reminder.noReminders.alert.title"), message: getString(key: "com.charmphr.reminder.noReminders.alert.message"))
@@ -340,7 +344,6 @@ class ReminderViewController: CustomViewControllerWithTableView , UITableViewDat
                     }
                 }else
                 {
-                    bottomImageView.image = UIImage(named: "Reminder_BG")
                     self.noDataBackGroundView.hideSubView(bool: true)
                 }
                 return reminderArrayToLoad.count

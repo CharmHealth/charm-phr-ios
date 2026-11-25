@@ -13,10 +13,10 @@ class MDCalendarCell: JTACDayCell {
     
     
     let calendarItem = MDCalendarItem()
-    
-    
-    
-    
+
+    private var highlightWidthConstraint: NSLayoutConstraint?
+    private var highlightHeightConstraint: NSLayoutConstraint?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initViews()
@@ -39,11 +39,24 @@ class MDCalendarCell: JTACDayCell {
     
     private func addConstraints(){
         calendarItem.equalsTheContainerView()
-        
-        let highlightViewSize =  (contentView.frame.width * 4 ) / 5
-        calendarItem.highlightView.setWidth(constant: highlightViewSize )
-        calendarItem.highlightView.setHeight(constant: highlightViewSize)
-        calendarItem.highlightView.layer.cornerRadius = highlightViewSize/2
+
+        let highlightView = calendarItem.highlightView
+        highlightView.translatesAutoresizingMaskIntoConstraints = false
+        highlightWidthConstraint = highlightView.widthAnchor.constraint(equalToConstant: 0)
+        highlightHeightConstraint = highlightView.heightAnchor.constraint(equalToConstant: 0)
+        highlightWidthConstraint?.isActive = true
+        highlightHeightConstraint?.isActive = true
+    }
+
+    // Cells are resized and reused when the calendar width changes, so the circle is sized on every layout
+    // and capped by the height so it never gets clipped on wide screens.
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let size = min((contentView.bounds.width * 4) / 5, contentView.bounds.height)
+        guard size > 0, size != highlightWidthConstraint?.constant else { return }
+        highlightWidthConstraint?.constant = size
+        highlightHeightConstraint?.constant = size
+        calendarItem.highlightView.layer.cornerRadius = size / 2
     }
     
     func setValue(calendarData: MDCalendarData){

@@ -32,7 +32,6 @@ class SectionsView: UIView, UITableViewDataSource, UITableViewDelegate {
 
 
     let scrollView = UIScrollView()
-    private let sectionStack = UIStackView()
 
     private let noDataView = NoDataView()
 
@@ -49,19 +48,21 @@ class SectionsView: UIView, UITableViewDataSource, UITableViewDelegate {
 
     private func setSubViews(){
 
-        let itemWidth = applicationFrame.width - (2 * X_SPACE)
+//        let itemWidth = applicationFrame.width - (2 * X_SPACE)
         
         self.addSubview(scrollView)
         self.addSubview(noDataView)
         self.addSubview(activityIndicator)
 
-        scrollView.addSubview(sectionStack)
+        let containerView = UIView()
+        let sectionStack = UIStackView()
+        scrollView.addSubview(containerView)
+        containerView.addSubview(sectionStack)
 
         sectionStack.axis = .vertical
-        sectionStack.alignment = .center
+        sectionStack.alignment = .fill
+        sectionStack.distribution = .fill
         sectionStack.spacing = 12
-        sectionStack.layoutMargins = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        sectionStack.isLayoutMarginsRelativeArrangement = true
 
         sectionStack.addArrangedSubview(engagementLabel)
         sectionStack.addArrangedSubview(engagementTableView)
@@ -75,10 +76,8 @@ class SectionsView: UIView, UITableViewDataSource, UITableViewDelegate {
         resourceLabel.setProperties(textKey: "com.charmphr.home.subheading.resource", fontsize: FONT_SIZE_NORMAL, weight: .semibold, fontcolor: TEXT_COLOR_BLACK87)
         setupTableView(resourceTableView)
         
-        resourceLabel.setWidth(constant: itemWidth)
-        resourceTableView.setWidth(constant: itemWidth)
         resourceTableView.heightConstraint = resourceTableView.setAndReturnHeight(constant: 0)
-
+        
         billingLabelView.addSubview(billingLabel)
         billingLabelView.addSubview(billingNotificationLabel)
 
@@ -116,21 +115,21 @@ class SectionsView: UIView, UITableViewDataSource, UITableViewDelegate {
         scrollView.setRight(offSet: 0)
         scrollView.setBottom(offSet: 0)
 
+        containerView.setTop(offSet: 12)
+        containerView.setBottom(offSet: -12)
+        containerView.setSafeAreaRight(offset: -X_SPACE)
+        containerView.setSafeAreaLeft(offset: X_SPACE)
+        
         sectionStack.setTop(offSet: 0)
         sectionStack.setBottom(offSet: 0)
         sectionStack.setLeft(offSet: 0)
-        sectionStack.setWidth(constant: applicationFrame.width)
+        sectionStack.setRight(offSet: 0)
+//        sectionStack.setWidth(constant: applicationFrame.width)
 
-        engagementLabel.setWidth(constant: itemWidth)
-        engagementTableView.setWidth(constant: itemWidth)
         engagementTableView.heightConstraint = engagementTableView.setAndReturnHeight(constant: 0)
 
-        billingLabelView.setWidth(constant: itemWidth)
-        billingTableView.setWidth(constant: itemWidth)
         billingTableView.heightConstraint = billingTableView.setAndReturnHeight(constant: 0)
 
-        recordsLabel.setWidth(constant: itemWidth)
-        recordsTableView.setWidth(constant: itemWidth)
         recordsTableView.heightConstraint = recordsTableView.setAndReturnHeight(constant: 0)
 
         activityIndicator.setCenterX()

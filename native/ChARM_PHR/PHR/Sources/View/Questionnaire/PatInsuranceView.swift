@@ -102,6 +102,11 @@ class PatInsuranceView: UIStackView, UITextFieldDelegate, MDTextFieldDelegate, U
     private var isPatient = false
     private var viewWidth:CGFloat = 0
     private var addShadow = true
+    /// Gap between this view's edges and its cards, chosen so the cards line up with the fields around them:
+    /// - Add Insurance screen: X_SPACE from the safe area, like the other add forms.
+    /// - Questionnaire (top level): 0, the questionnaire container already insets every widget by X_SPACE.
+    /// - Questionnaire section card: X_SPACE - CARD_PADDING, matching the other widgets inside sections.
+    private var horizontalInset: CGFloat = X_SPACE
     
     private var selectedPraticeIndex: Int = 0
     private var selectedBirthSexIndex: Int = 0
@@ -117,12 +122,20 @@ class PatInsuranceView: UIStackView, UITextFieldDelegate, MDTextFieldDelegate, U
         self.viewWidth = width
         self.addShadow = addShadow
         self.isQuestionnaireInsurance = isQuestionnaireInsurance
+        if isQuestionnaireInsurance {
+            horizontalInset = addShadow ? 0 : max(X_SPACE - CARD_PADDING, 0)
+        }
         self.backgroundColor = .clear
         
         self.translatesAutoresizingMaskIntoConstraints = false
         self.axis = .vertical
         self.spacing = 10
         self.alignment = .center
+        // Children are sized relative to this view, so it follows its container (iPhone Duo fold/unfold,
+        // rotation, side bar). `width` is only a fallback for containers that don't set our width.
+        let fallbackWidth = self.widthAnchor.constraint(equalToConstant: width)
+        fallbackWidth.priority = UILayoutPriority(999)
+        fallbackWidth.isActive = true
         
         hasMoreLayout = CommonQuestionnaireLayout(notes: getString(key: "com.charmphr.insurance.add.hasInsurance.txt"), addShadow: addShadow)
         
@@ -244,7 +257,7 @@ class PatInsuranceView: UIStackView, UITextFieldDelegate, MDTextFieldDelegate, U
             primaryBtnView.setTopRelatedToView(offSet: 10, relatedView: insuranceCategoryLabel, relatedAttribute: .bottom)
             primaryBtnView.setBottom(offSet: -10)
             primaryBtnView.setHeight(constant: 24)
-            primaryBtnView.setWidth(constant: ((viewWidth - (2 * X_SPACE)) / 2) - CARD_PADDING)
+            primaryBtnView.widthAnchor.constraint(equalTo: insuranceCategoryView.widthAnchor, multiplier: 0.5, constant: -CARD_PADDING).isActive = true
             
             insuranceCategoryView.addSubview(secondaryBtnView)
             
@@ -252,7 +265,7 @@ class PatInsuranceView: UIStackView, UITextFieldDelegate, MDTextFieldDelegate, U
             secondaryBtnView.setTopRelatedToView(offSet: 10, relatedView: insuranceCategoryLabel, relatedAttribute: .bottom)
             secondaryBtnView.setBottom(offSet: -10)
             secondaryBtnView.setHeight(constant: 24)
-            secondaryBtnView.setWidth(constant: (viewWidth - (2 * X_SPACE)) / 2)
+            secondaryBtnView.widthAnchor.constraint(equalTo: insuranceCategoryView.widthAnchor, multiplier: 0.5, constant: -10).isActive = true
         }
         
         validFromMDTF = getMDFLTextField(keyStr: "com.charmphr.insurance.add.validFrom.label")
@@ -298,7 +311,7 @@ class PatInsuranceView: UIStackView, UITextFieldDelegate, MDTextFieldDelegate, U
             
             payerAddressHeading.setProperties(textKey: "com.charmphr.insurance.add.payerAddress.label", fontsize: FONT_SIZE_LARGE, weight: .semibold, fontcolor: TEXT_COLOR_HEAVYDARK)
             
-            payerAddressHeading.setWidth(constant: viewWidth - (2*X_SPACE))
+            // Width comes from the .fill stacks it sits in (was a fixed launch-time width).
             
             payerLine1MDTF = getMDFLTextField(keyStr: "com.charmphr.EditDemographics.ADDRESSLINE1.title" , parentView: payerAddressView)
             payerLine1MDTF?.maxLength = ADDRESS_LINE_1_SIZE
@@ -394,19 +407,19 @@ class PatInsuranceView: UIStackView, UITextFieldDelegate, MDTextFieldDelegate, U
         totoolbar.done?.action = #selector(donedatePicker)
         dobtoolbar.done?.action = #selector(donedatePicker)
         
-        patInsuranceHeading.setWidth(constant: viewWidth - (2*X_SPACE))
+        patInsuranceHeading.setWidth(constant: -(2 * horizontalInset), relatedView: self)
         
-        topSpace.setWidth(constant: viewWidth)
+        topSpace.setWidth(constant: 0, relatedView: self)
         topSpace.setHeight(constant: CARD_PADDING)
         
         topSpace.isHidden = true
         
-        bottomSpace.setWidth(constant: viewWidth)
+        bottomSpace.setWidth(constant: 0, relatedView: self)
         bottomSpace.setHeight(constant: CARD_PADDING)
         bottomSpace.isHidden = true
         
-        hasMoreLayout?.setWidth(constant: viewWidth - (2*X_SPACE))
-        patInsuranceMainView.setWidth(constant: viewWidth - (2*X_SPACE))
+        hasMoreLayout?.setWidth(constant: -(2 * horizontalInset), relatedView: self)
+        patInsuranceMainView.setWidth(constant: -(2 * horizontalInset), relatedView: self)
         
         if isQuestionnaireInsurance{
             
@@ -1624,13 +1637,13 @@ class InsuranceCardView: UIStackView {
         lastPageLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onBackCardGetClicked)))
 
         
-        separator.setWidth(constant: viewWidth - X_SPACE)
+        separator.setWidth(constant: -X_SPACE, relatedView: self)
         separator.setHeight(constant: 0.5)
         
-        fromLabel.setWidth(constant: viewWidth - (X_SPACE*2))
-        frontPageView.setWidth(constant: viewWidth - (X_SPACE*2))
+        fromLabel.setWidth(constant: -(X_SPACE*2), relatedView: self)
+        frontPageView.setWidth(constant: -(X_SPACE*2), relatedView: self)
         frontPageView.setHeight(constant: 50)
-        frontActionView.setWidth(constant: viewWidth - (X_SPACE*2))
+        frontActionView.setWidth(constant: -(X_SPACE*2), relatedView: self)
 
         
         frontPageCamera.setLeft(offSet: 0)
@@ -1655,10 +1668,10 @@ class InsuranceCardView: UIStackView {
         frontPageLabel.setRightRelatedToView(offSet: -12, relatedView: frontPageDelete, relatedAttribute: .left)
         frontPageLabel.setCenterY()
         
-        lastLabel.setWidth(constant: viewWidth - (X_SPACE*2))
-        lastPageView.setWidth(constant: viewWidth - (X_SPACE*2))
+        lastLabel.setWidth(constant: -(X_SPACE*2), relatedView: self)
+        lastPageView.setWidth(constant: -(X_SPACE*2), relatedView: self)
         lastPageView.setHeight(constant: 50)
-        lastActionView.setWidth(constant: viewWidth - (X_SPACE*2))
+        lastActionView.setWidth(constant: -(X_SPACE*2), relatedView: self)
 
         
         lastPageCamera.setLeft(offSet: 0)

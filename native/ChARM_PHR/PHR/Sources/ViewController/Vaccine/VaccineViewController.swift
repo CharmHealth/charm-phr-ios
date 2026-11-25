@@ -73,16 +73,13 @@ class VaccineViewController: CustomViewControllerWithTableView  , UITableViewDat
         {
             if !AppConfig.sharedInstance.isCustomBrandApp
             {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: "\(getString(key: "com.charmphr.action.noData.message"))\(getString(key: "com.charmphr.Procedures.NoImmunization.message"))")
             }else
             {
-                bottomImageView.isHidden = true
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
             }
         }
         else{
-            bottomImageView.image = #imageLiteral(resourceName: "Vaccine_BG")
             self.noDataBackGroundView.hideSubView(bool: true)
         }
         return arrayOfVaccine.count

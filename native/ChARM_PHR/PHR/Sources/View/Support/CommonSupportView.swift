@@ -26,7 +26,7 @@ class CommonSupportView: UIStackView, UITextViewDelegate , UITextFieldDelegate{
     let descriptionTextView = UITextView()
     let descriptionLabel = UILabel()
     let titleLabel = UILabel()
-    let buttonView = UIView()
+    let buttonView = SupportChipFlowView()
     var severityHeightConstraint: NSLayoutConstraint?
     var subjectHeightConstraint: NSLayoutConstraint?
     var line1HeightConstraint: NSLayoutConstraint?
@@ -129,10 +129,6 @@ class CommonSupportView: UIStackView, UITextViewDelegate , UITextFieldDelegate{
         titleLabel.lineBreakMode = .byTruncatingTail
         titleLabel.textColor = UIColorFromRGB(rgbValueWithAlpha: TEXT_COLOR_BLACK87)
         
-        var hasSpace = false
-        var prevButton: UIButton? = nil
-        var buttonFrame = SUPPORT_FRAME_WIDTH
-        
         for buttonArrayObj in buttonArray {
             
             let button = UIButton()
@@ -150,42 +146,6 @@ class CommonSupportView: UIStackView, UITextViewDelegate , UITextFieldDelegate{
             button.layer.borderWidth = BORDER_WIDTH
             
             button.addTarget(self, action: #selector(onButtonClick(btn:)), for: .touchUpInside)
-            
-            let buttonWidth = button.sizeThatFits(CGSize(width: 300, height: 50)).width + (CARD_PADDING * 2)
-            
-            if buttonWidth <= buttonFrame{
-                hasSpace = true
-            }
-            else{
-                hasSpace = false
-                buttonFrame = SUPPORT_FRAME_WIDTH
-            }
-            if hasSpace{
-                if let prevButton = prevButton {
-                    button.setLeftRelatedToView(offSet: CARD_PADDING, relatedView: prevButton, relatedAttribute: .right)
-                    button.setTopRelatedToView(offSet: 0, relatedView: prevButton, relatedAttribute: .top)
-                }
-                else{
-                    button.setTop(offSet: CARD_PADDING)
-                }
-            }
-            else{
-                button.setLeft(offSet: 0)
-                if let prevButton = prevButton {
-                    button.setTopRelatedToView(offSet: CARD_PADDING, relatedView: prevButton, relatedAttribute: .bottom)
-                }
-                else{
-                    button.setTop(offSet: CARD_PADDING)
-                }
-            }
-            buttonFrame = buttonFrame - buttonWidth
-            prevButton = button
-            
-            if (buttonArray[buttonArray.count - 1] == button.currentTitle){
-                button.setBottom(offSet: -CARD_PADDING)
-            }
-            button.setWidth(constant: buttonWidth)
-            button.setHeight(constant: BUTTON_HEIGHT_32)
         }
  
         descriptionLabel.textAlignment = .left
@@ -207,17 +167,16 @@ class CommonSupportView: UIStackView, UITextViewDelegate , UITextFieldDelegate{
     private func addConstraints(){
         
         severityMainView.setLeft(offSet: 0)
-        severityMainView.setWidth(constant: SUPPORT_FRAME_WIDTH)
         severityHeightConstraint = severityMainView.setAndReturnHeight(constant: 0)
-        
+
         severityView.setLeft(offSet: 0)
+        severityView.setRight(offSet: 0)
         severityView.setTop(offSet: 0)
-        severityView.setWidth(constant: SUPPORT_FRAME_WIDTH)
-        
+
         chooseSeverityLabel.setLeft(offSet: CELL_PADDING)
         chooseSeverityLabel.setTop(offSet: CARD_PADDING)
         chooseSeverityLabel.setBottom(offSet: -CARD_PADDING)
-        chooseSeverityLabel.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - (CARD_PADDING * 7))
+        chooseSeverityLabel.widthAnchor.constraint(equalTo: severityView.widthAnchor, multiplier: 0.5, constant: -(CARD_PADDING * 7)).isActive = true
         
         severityValueTextField.setLeftRelatedToView(offSet: PADDING_5, relatedView: chooseSeverityLabel, relatedAttribute: .right)
         severityValueTextField.setTop(offSet: CARD_PADDING)
@@ -232,29 +191,28 @@ class CommonSupportView: UIStackView, UITextViewDelegate , UITextFieldDelegate{
 //        arrowIcon.setWidth(constant: CARD_PADDING + 1)
         
         line1.setLeft(offSet: 0)
+        line1.setRight(offSet: 0)
         line1.setTopRelatedToView(offSet: 0, relatedView: severityView, relatedAttribute: .bottom)
         line1.setBottom(offSet: 0)
-        line1.setWidth(constant: SUPPORT_FRAME_WIDTH)
         line1HeightConstraint = line1.setAndReturnHeight(constant: 0)
 
         subjectMainView.setLeft(offSet: 0)
-        subjectMainView.setWidth(constant: SUPPORT_FRAME_WIDTH)
         subjectHeightConstraint = subjectMainView.setAndReturnHeight(constant: 0)
-        
+
         subjectView.setLeft(offSet: 0)
+        subjectView.setRight(offSet: 0)
         subjectView.setTop(offSet: 0)
-        subjectView.setWidth(constant: SUPPORT_FRAME_WIDTH)
-        
+
         line2.setLeft(offSet: 0)
+        line2.setRight(offSet: 0)
         line2.setTopRelatedToView(offSet: 0, relatedView: subjectView, relatedAttribute: .bottom)
         line2.setBottom(offSet: 0)
-        line2.setWidth(constant: SUPPORT_FRAME_WIDTH)
         line2HeightConstraint = line2.setAndReturnHeight(constant: 0)
-                
+
         subjectLabel.setLeft(offSet: CELL_PADDING)
         subjectLabel.setTop(offSet: CARD_PADDING)
         subjectLabel.setBottom(offSet: -CARD_PADDING)
-        subjectLabel.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - (CARD_PADDING * 7))
+        subjectLabel.widthAnchor.constraint(equalTo: subjectView.widthAnchor, multiplier: 0.5, constant: -(CARD_PADDING * 7)).isActive = true
         
         subjectField.setLeftRelatedToView(offSet: PADDING_5, relatedView: subjectLabel, relatedAttribute: .right)
         subjectField.setRight(offSet: -PADDING_5)
@@ -262,20 +220,17 @@ class CommonSupportView: UIStackView, UITextViewDelegate , UITextFieldDelegate{
         subjectField.setBottom(offSet: -CARD_PADDING)
         
         appreciateView.setLeft(offSet: 0)
-        appreciateView.setWidth(constant: SUPPORT_FRAME_WIDTH)
         appreciateHeightConstraint = appreciateView.setAndReturnHeight(constant: 0)
-        debugPrintLog("Appreciate Height: \(appreciateView.sizeThatFits(CGSize(width: applicationFrame.width, height: 500)).height)")
-        
+
         titleLabel.setLeft(offSet: 0)
         titleLabel.setTop(offSet: CARD_PADDING)
 
         buttonView.setLeft(offSet: 0)
-        buttonView.setWidth(constant: SUPPORT_FRAME_WIDTH)
+        buttonView.setRight(offSet: 0)
         buttonView.setTopRelatedToView(offSet: CARD_PADDING, relatedView: titleLabel, relatedAttribute: .bottom)
-        
+
         descriptionView.setLeft(offSet: 0)
-        descriptionView.setWidth(constant: SUPPORT_FRAME_WIDTH)
-       
+
         descriptionLabel.setLeft(offSet: CELL_PADDING)
         descriptionLabel.setRight(offSet: -(CARD_PADDING + 1))
         descriptionLabel.setTop(offSet: CARD_PADDING)
@@ -360,7 +315,6 @@ class CommonSupportView: UIStackView, UITextViewDelegate , UITextFieldDelegate{
         self.setRight(offSet: 0)
         self.setTop(offSet: 0)
         self.setBottom(offSet: 0)
-        self.setWidth(constant: SUPPORT_FRAME_WIDTH)
     }
     
     func checkPreviuouslySelectedButtons(buttonList: [UIButton]){
@@ -518,5 +472,41 @@ class CommonSupportView: UIStackView, UITextViewDelegate , UITextFieldDelegate{
             answerString = "\(getString(key: "com.charmphr.support.appreciate.charm_mPHR_app_is.title"))\(newArray.joined(separator: " and "))."
         }
         return answerString?.count ?? 0
+    }
+}
+
+// Wraps its buttons into rows from its current width, so the chips re-flow on rotation and fold/unfold.
+final class SupportChipFlowView: UIView {
+
+    private let spacing: CGFloat = CARD_PADDING
+    private let chipHeight: CGFloat = BUTTON_HEIGHT_32
+    private var contentHeight: CGFloat = 0
+
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: UIView.noIntrinsicMetric, height: contentHeight)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        let maxWidth = bounds.width
+        var x: CGFloat = 0
+        var y: CGFloat = spacing
+
+        for chip in subviews {
+            let chipWidth = min(chip.sizeThatFits(CGSize(width: maxWidth, height: chipHeight)).width + (CARD_PADDING * 2), maxWidth)
+            if x > 0 && x + chipWidth > maxWidth {
+                x = 0
+                y += chipHeight + spacing
+            }
+            chip.frame = CGRect(x: x, y: y, width: chipWidth, height: chipHeight)
+            x += chipWidth + spacing
+        }
+
+        let newHeight = subviews.isEmpty ? 0 : y + chipHeight + spacing
+        if newHeight != contentHeight {
+            contentHeight = newHeight
+            invalidateIntrinsicContentSize()
+        }
     }
 }

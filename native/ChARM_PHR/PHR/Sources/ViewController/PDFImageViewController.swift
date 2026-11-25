@@ -25,7 +25,9 @@ class PDFImageViewController: AddDataUIViewController, UIScrollViewDelegate, WKN
     private var imageView: UIImageView? = nil
     private var webView: WKWebView? = nil
     private let activityIndicator = UIActivityIndicatorView()
-    
+    private weak var imageScrollView: UIScrollView?
+    private var lastPDFFitWidth: CGFloat = 0
+
     private var fileName: String? = nil
     private var data: Data? = nil
     private var url: URL? = nil
@@ -92,7 +94,11 @@ class PDFImageViewController: AddDataUIViewController, UIScrollViewDelegate, WKN
         }
         if let data{
             if let image = UIImage(data: data){
-                let targetSize = CGSize(width: applicationFrame.width, height: applicationFrame.height)
+                // Downscale to the screen's longest side in both directions so the image stays sharp in
+                // every orientation and when the iPhone Duo is unfolded (was the launch-time portrait size).
+                let screenBounds = view.window?.windowScene?.screen.bounds ?? UIScreen.main.bounds
+                let longestSide = max(screenBounds.width, screenBounds.height, applicationFrame.width, applicationFrame.height)
+                let targetSize = CGSize(width: longestSide, height: longestSide)
                 let scaledImage = image.scalePreservingAspectRatio(targetSize: targetSize)
                 
                 imageView = UIImageView(image: scaledImage)
@@ -166,9 +172,7 @@ class PDFImageViewController: AddDataUIViewController, UIScrollViewDelegate, WKN
             
             self.view.backgroundColor = .black
             
-            let safeAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
-            let safeAreaBottom = UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0
-            
+            imageScrollView = scrollView
             scrollView.delegate = self
             scrollView.minimumZoomScale = 1.0
             scrollView.maximumZoomScale = 4.0
@@ -186,8 +190,12 @@ class PDFImageViewController: AddDataUIViewController, UIScrollViewDelegate, WKN
             imageView.setLeft(offSet: 0)
             imageView.setRight(offSet: 0)
             imageView.setTop(offSet: 0)
-            imageView.setHeight(constant: applicationFrame.height - safeAreaTop - safeAreaBottom)
-            imageView.setWidth(constant: applicationFrame.width)
+            imageView.setBottom(offSet: 0)
+            // At zoom 1 the image fills the visible area (aspect-fit), whatever the current size is.
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+                imageView.heightAnchor.constraint(equalTo: scrollView.frameLayoutGuide.heightAnchor)
+            ])
         }
         else if let pdfView{
             self.view.addSubview(pdfView)
@@ -202,13 +210,7 @@ class PDFImageViewController: AddDataUIViewController, UIScrollViewDelegate, WKN
             pdfView.setSafeAreaBottom(offset: 0)
             
             self.view.layoutIfNeeded()
-            
-            if let page = pdfView.document?.page(at: 0) {
-                let pageWidth = page.bounds(for: .mediaBox).size.width
-                let viewWidth = pdfView.bounds.size.width - 10
-                
-                pdfView.scaleFactor = viewWidth / pageWidth
-            }
+            fitPDFToWidth(pdfView)
         }
         else if let webView{
             
@@ -218,11 +220,36 @@ class PDFImageViewController: AddDataUIViewController, UIScrollViewDelegate, WKN
             webView.scrollView.bounces = true
             self.view.addSubview(webView)
             
-            webView.setLeft(offSet: 0)
-            webView.setRight(offSet: 0)
+            // Safe-area edges keep the document clear of the iOS 27.1 landscape side bar / Dynamic Island.
+            webView.setSafeAreaLeft(offset: 0)
+            webView.setSafeAreaRight(offset: 0)
             webView.setSafeAreaTop(offset: 0)
             webView.setSafeAreaBottom(offset: 0)
         }
+    }
+
+    /// Zooms the PDF so the first page fills the current width (minus a small margin).
+    private func fitPDFToWidth(_ pdfView: PDFView) {
+        guard let page = pdfView.document?.page(at: 0) else { return }
+        let pageWidth = page.bounds(for: .mediaBox).size.width
+        let viewWidth = pdfView.bounds.size.width - 10
+        guard pageWidth > 0, viewWidth > 0 else { return }
+        pdfView.scaleFactor = viewWidth / pageWidth
+        lastPDFFitWidth = pdfView.bounds.size.width
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Re-fit after rotation / fold / unfold / side-bar changes so the page keeps filling the width.
+        if let pdfView, pdfView.bounds.width > 0, pdfView.bounds.width != lastPDFFitWidth {
+            fitPDFToWidth(pdfView)
+        }
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        // Reset zoom so the image re-fits the new visible area instead of keeping a stale zoomed frame.
+        imageScrollView?.setZoomScale(1, animated: false)
     }
     
     override func onBackClick() {

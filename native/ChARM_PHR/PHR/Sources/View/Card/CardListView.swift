@@ -58,16 +58,17 @@ class CardListView: UIView {
         cardSegmentControl.addProperties(fontSize: 13)
         
         headerLayout.setSafeAreaTop(offset: 0)
-        headerLayout.setRight(offSet: 0)
-        headerLayout.setLeft(offSet: 0)
+        // Safe-area edges keep the segment control and cards clear of the iOS 27.1 landscape side bar.
+        headerLayout.setSafeAreaRight(offset: 0)
+        headerLayout.setSafeAreaLeft(offset: 0)
        
         cardSegmentControl.setRight(offSet: -16)
         cardSegmentControl.setLeft(offSet: 16)
         cardSegmentControl.setHeight(constant: SEGMENTCONTROL_HEIGHT)
         cardSegmentControl.setCenterY()
 
-        mainLayout.setRight(offSet: 0)
-        mainLayout.setLeft(offSet: 0)
+        mainLayout.setSafeAreaRight(offset: 0)
+        mainLayout.setSafeAreaLeft(offset: 0)
         mainLayout.setTopRelatedToView(offSet: 0, relatedView: headerLayout , relatedAttribute: .bottom)
         mainLayout.setSafeAreaBottom(offset: 0)
         

@@ -42,11 +42,13 @@ class MessageDetailViewController: UIViewController , CharmConnectionHandlerDele
     private var pdfImageVC: PDFImageViewController? = nil
     
     private var heightConstraintOfWebView : NSLayoutConstraint?
+    private weak var contentWebView: WKWebView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: APPLICATION_FOREGROUND_COLOR)
         self.setLargeTitle(enable: false)
+        self.navigationItem.title = getString(key: "com.charmphr.message.detail.title")
 
         createScrollView()
         charmConnectionHandler = CharmConnectionHandler(delegate: self)
@@ -86,18 +88,19 @@ class MessageDetailViewController: UIViewController , CharmConnectionHandlerDele
         self.view.addSubview(containerScrollView)
         
         containerScrollView.setSafeAreaTop(offset: Y_SPACE)
-        containerScrollView.setLeft(offSet: 0)
-        containerScrollView.setRight(offSet: -0)
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
         containerScrollView.setSafeAreaBottom(offset: -Y_SPACE)
-        
+
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerScrollView.addSubview(containerView)
-        
+
         containerView.setTop(offSet: 0)
         containerView.setRight(offSet: 0)
         containerView.setBottom(offSet: 0)
         containerView.setLeft(offSet: 0)
-        self.view.addConstraint(NSLayoutConstraint.init(item: containerView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1, constant: -0))
+        // Edge pins inside a scroll view only set content bounds; this ties the width to the visible area.
+        containerView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor).isActive = true
         
         activityIndicator.hidesWhenStopped = true
         activityIndicator.color = .gray
@@ -329,6 +332,7 @@ class MessageDetailViewController: UIViewController , CharmConnectionHandlerDele
         let headerString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>"
         contantWebView.loadHTMLString("<div id='div1'>\(headerString + (message?.contentFile ?? ""))</div>", baseURL: nil)
         messageContentView.addSubview(contantWebView)
+        contentWebView = contantWebView
 
         
         attachmentContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -367,7 +371,7 @@ class MessageDetailViewController: UIViewController , CharmConnectionHandlerDele
                     attachmentView.arrangeViews(constant: CARD_PADDING, hasSpace: hasSpace, beforeView: previousView)
                     previousView = attachmentView
                     hasSpace = !hasSpace
-                    attachmentView.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - ((CARD_PADDING * 2) + 2))
+                    attachmentView.widthAnchor.constraint(equalTo: attachmentContainer.widthAnchor, multiplier: 0.5, constant: -CARD_PADDING / 2).isActive = true
                     
                     if i == msgAttachmentList.count - 1
                     {
@@ -387,6 +391,18 @@ class MessageDetailViewController: UIViewController , CharmConnectionHandlerDele
                 hideActivityIndicator()
                 heightConstraintOfWebView?.constant = height + 30
                 setDocumentsView()
+            }
+        }
+    }
+
+    // The message text reflows to the new width on rotation and fold/unfold, so its height is measured again.
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
+            self?.contentWebView?.evaluateJavaScript("document.getElementById(\"div1\").offsetHeight;") { result, _ in
+                if let height = result as? CGFloat {
+                    self?.heightConstraintOfWebView?.constant = height + 30
+                }
             }
         }
     }

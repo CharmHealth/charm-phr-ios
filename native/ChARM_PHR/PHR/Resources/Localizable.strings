@@ -395,6 +395,7 @@
 "com.charmphr.message.alert.MessageRestrict.message" = "Sorry, you have exceeded number of messages allowed between office visits. Please contact your practice.";
 "com.charmphr.message.alert.sendMessageRestrict.message" = "Messaging is restricted by the Practice. Please email your Practice.";
 "com.charmphr.message.compose.title" = "Compose";
+"com.charmphr.message.detail.title" = "Message Details";
 
 "com.charmphr.message.reply.title" = "Reply";
 "com.charmphr.message.replyAll.title" = "Reply all";
@@ -717,7 +718,7 @@
 "com.charmphr.Immunization.delete.successfull.message" = "Vaccine deleted successfully";
 
 //MARK: - add vaccine
-"com.charmphr.AddVaccine.title" = "Add Vaccine";
+"com.charmphr.AddVaccine.title" = "Add Immunization";
 "com.charmphr.EditVaccine.title" = "Edit Vaccine";
 "com.charmphr.AddVaccine.AgeCategory.title" = "Age Category";
 "com.charmphr.AddVaccine.VaccineName.title" = "Immunization Name";
@@ -957,6 +958,7 @@
 "com.charmphr.questionnaire.status.submitted" ="Submitted";
 "com.charmphr.questionnaire.status.new" ="New";
 "com.charmphr.questionnaire.status.draft" ="Draft";
+"com.charmphr.questionnaire.savedraft" ="Save Draft";
 "com.charmphr.questionnaire.status.notsubmitted" ="Not Filled";
 "com.charmphr.questionnairevc.current.title" ="Current";
 "com.charmphr.questionnairevc.past.title" ="Past";

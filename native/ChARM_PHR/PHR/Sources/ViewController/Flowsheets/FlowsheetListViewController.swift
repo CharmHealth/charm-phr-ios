@@ -65,12 +65,10 @@ class FlowsheetListViewController: CustomViewControllerWithTableView, UITableVie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if flowsheetListArray.count == 0
         {
-            bottomImageView.isHidden = true
             self.noDataBackGroundView.backgroundColor =  UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
             self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
         }else
         {
-            bottomImageView.image = UIImage(named: "Flowsheet_BG")
             self.noDataBackGroundView.hideSubView(bool: true)
         }
         return flowsheetListArray.count

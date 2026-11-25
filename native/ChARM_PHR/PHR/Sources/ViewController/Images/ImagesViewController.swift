@@ -123,12 +123,10 @@ class ImagesViewController: CustomViewControllerWithTableView, UITableViewDataSo
         {
             if resultList.isEmpty
             {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Images_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return resultList.count
@@ -136,12 +134,10 @@ class ImagesViewController: CustomViewControllerWithTableView, UITableViewDataSo
         {
             if orderList.count == 0
             {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Images_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return orderList.count

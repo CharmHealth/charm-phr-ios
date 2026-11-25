@@ -104,9 +104,9 @@ class DashBoardViewController: UIViewController , UITableViewDelegate , UITableV
 //MARK: - Api calls
     
     func refreshDashboardData(){
-        if let homeViewController = self.parent as? HomeViewController
+        if let mainViewController = self.parent?.parent as? MainViewController
         {
-            homeViewController.demographicsViewControllerDidChangeName()
+            mainViewController.demographicsViewControllerDidChangeName()
         }
         
         //TODO: temporarily added, need to change this in proper way

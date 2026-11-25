@@ -208,8 +208,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CharmAppWindowDelegate, 
         
         if !(topViewController is LockScreenViewController) && !(topViewController is LoginViewController) && !(topViewController is JoinZoomCallViewController)
         {
-            if topViewController is HomeViewController{
-                (topViewController as? HomeViewController)?.dismissAllModalVCPresented()
+            if topViewController is MainViewController{
+                (topViewController as? MainViewController)?.dismissAllModalVCPresented()
             }
             else if topViewController is QuestionnaireAnswerViewController{
                 (topViewController as? QuestionnaireAnswerViewController)?.dismissAllModalVCPresented()

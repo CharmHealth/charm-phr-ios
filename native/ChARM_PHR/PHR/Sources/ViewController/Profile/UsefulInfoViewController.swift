@@ -57,11 +57,9 @@ class UsefulInfoViewController: CustomViewControllerWithTableView , UITableViewD
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if arrayOfUsefulInfo.isEmpty
         {
-            bottomImageView.image = nil
             self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
         }else
         {
-            bottomImageView.image = #imageLiteral(resourceName: "UsefulIInfo_BG")
             self.noDataBackGroundView.hideSubView(bool: true)
         }
         return arrayOfUsefulInfo.count

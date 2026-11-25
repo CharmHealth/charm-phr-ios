@@ -105,7 +105,11 @@ class ComposeMessageViewController: AddDataUIViewController , CharmConnectionHan
         super.viewDidLoad()
         
         self.view = composeMessageView
-        
+        composeMessageView.toValueView.onWidthChange = { [weak self] in
+            guard let self, self.composeMessageView.toValueView.subviews.contains(where: { $0 is CardViewWithCloseBtn }) else { return }
+            self.removeDeletedViewAndSetConstraints(removedView: nil)
+        }
+
         self.navigationItem.title = getString(key: "com.charmphr.message.compose.title")
         charmConnectionHandler = CharmConnectionHandler(delegate: self)
         charmConnectionHandler?.dataDelegate = self
@@ -297,7 +301,7 @@ class ComposeMessageViewController: AddDataUIViewController , CharmConnectionHan
                 attachmentView.arrangeViews(constant: CARD_PADDING, hasSpace: hasSpace, beforeView: beforeView)
                 beforeView = attachmentView
                 hasSpace = !hasSpace
-                attachmentView.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - ((CARD_PADDING * 2) + 2))
+                attachmentView.widthAnchor.constraint(equalTo: composeMessageView.documentContainerView.widthAnchor, multiplier: 0.5, constant: -CARD_PADDING / 2).isActive = true
 
                 attachmentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewAttachmentClicked(tapGesture:))))
                 
@@ -833,10 +837,15 @@ class ComposeMessageViewController: AddDataUIViewController , CharmConnectionHan
             width = viewframe - 10
         }
         else{
-            width = applicationFrame.width - 100
+            width = composeMessageView.toValueViewWidth
         }
-        
+
         composeMessageView.setToTextFieldConstraint(hasSpace: viewframe > 75, beforeView: beforeCardView, width: width)
+
+        // A locked group recipient has no text field, so the last chip must close off the field's height.
+        if !composeMessageView.toValueView.subviews.contains(where: { $0 is UITextField }) {
+            beforeCardView?.setBottom(offSet: 0)
+        }
     }
     
     private func setConstraintsToView(uiView: UIView, viewWidth: CGFloat){

@@ -42,8 +42,8 @@ class InvoiceViewController: UIViewController , CharmConnectionHandlerDelegate,C
     
     var receiptId: String = ""
     
-    var scrollViewContainerHeight: CGFloat = 0
     var statementTableView: UITableView? = nil
+    private var statementTableHeightConstraint: NSLayoutConstraint?
     let statementView = UIView()
     
    // var isRazorPay : Bool?
@@ -108,21 +108,27 @@ class InvoiceViewController: UIViewController , CharmConnectionHandlerDelegate,C
        // containerView.layer.cornerRadius = CORNER_RADIUS_5
 //        containerScrollView.addSubview(containerView)
         
+        // Safe-area edges (instead of the launch-time applicationFrame.width) so the cards follow
+        // fold/unfold and rotation and stay clear of the iOS 27.1 landscape side bar.
         containerView.setSafeAreaTop(offset: 0)
         containerView.setBottom(offSet: 0)
-        containerView.setLeft(offSet: 0)
-      //  containerView.setRight(offSet: 0)
-        containerView.setWidth(constant: applicationFrame.width)
-        
+        containerView.setSafeAreaLeft(offset: 0)
+        containerView.setSafeAreaRight(offset: 0)
+
         colorFilledBtn.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: THEME_COLOR)
         colorFilledBtn.setTitleColor(.white, for: .normal)
         colorFilledBtn.addPillCornerRadiusAndShadow(height: PILL_BTN_HEIGHT)
         self.view.addSubview(colorFilledBtn)
-        
+
         colorFilledBtn.setHeight(constant: PILL_BTN_HEIGHT)
-        colorFilledBtn.setLeft(offSet: X_SPACE)
-        colorFilledBtn.setRight(offSet: -X_SPACE)
-        
+        colorFilledBtn.setSafeAreaLeft(offset: X_SPACE)
+        colorFilledBtn.setSafeAreaRight(offset: -X_SPACE)
+
+        if invoice.isStatement {
+            // The statement card never extends under the buttons; beyond that its table scrolls.
+            statementView.bottomAnchor.constraint(lessThanOrEqualTo: colorFilledBtn.topAnchor, constant: -Y_SPACE).isActive = true
+        }
+
         if invoice.isStatement {
             if let statement = phrBillStatements {
                 if !isAmountValid(amount: statement.paymentRequest) || statement.isPaid || invoice.billType == billTypeCreditNote || invoice.gateway == "RAZORPAY" {
@@ -177,7 +183,16 @@ class InvoiceViewController: UIViewController , CharmConnectionHandlerDelegate,C
         statementHeadingView.setTop(offSet: 8)
         statementHeadingView.setHeight(constant: 18)
 
-        scrollViewContainerHeight = invoiceViewHeight + (8 + 10 + 8 + 18 + 8 + 10 + 110)
+        // Height: the card hugs its content (heading + all rows) but never grows past the visible
+        // scroll area, which in turn is capped above the buttons (see createViews). When capped, the
+        // table gives up height (its row-count height is only .defaultHigh) and scrolls internally.
+        // Replaces the old launch-time applicationFrame.height maths.
+        let hugContent = statementScrollView.frameLayoutGuide.heightAnchor.constraint(equalTo: statementScrollView.contentLayoutGuide.heightAnchor)
+        hugContent.priority = UILayoutPriority(UILayoutPriority.defaultHigh.rawValue - 1)
+        NSLayoutConstraint.activate([
+            hugContent,
+            statementCardView.heightAnchor.constraint(lessThanOrEqualTo: statementScrollView.frameLayoutGuide.heightAnchor)
+        ])
 
         statementView.addShadowAndCornerRadius(.SMALL)
 
@@ -237,6 +252,11 @@ class InvoiceViewController: UIViewController , CharmConnectionHandlerDelegate,C
             statementTableView.setRight(offSet: -8)
             statementTableView.setBottom(offSet: -10)
 
+            let tableHeight = statementTableView.heightAnchor.constraint(equalToConstant: 0)
+            tableHeight.priority = .defaultHigh
+            tableHeight.isActive = true
+            statementTableHeightConstraint = tableHeight
+
             statementTableView.separatorColor = .clear
             statementTableView.delegate = self
             statementTableView.dataSource = self
@@ -280,8 +300,8 @@ class InvoiceViewController: UIViewController , CharmConnectionHandlerDelegate,C
         colorFilledBtn.setBottomRelatedToView(offSet: -Y_SPACE, relatedView: invoiceBtn ,relatedAttribute: .top)
         
         invoiceBtn.setHeight(constant: PILL_BTN_HEIGHT)
-        invoiceBtn.setLeft(offSet: X_SPACE)
-        invoiceBtn.setRight(offSet: -X_SPACE)
+        invoiceBtn.setSafeAreaLeft(offset: X_SPACE)
+        invoiceBtn.setSafeAreaRight(offset: -X_SPACE)
         invoiceBtn.setSafeAreaBottom(offset: -Y_SPACE)
     }
     
@@ -304,21 +324,8 @@ class InvoiceViewController: UIViewController , CharmConnectionHandlerDelegate,C
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if let phrbillsList = phrBillStatements?.phrBills{
-            
-            statementTableView?.removeConstraint(attribute: .height)
-            let tableViewHeight = CGFloat(phrbillsList.count * 44)
-            if let statementTableView = statementTableView{
-                let remainingHeight = applicationFrame.height - scrollViewContainerHeight - 115
-                if tableViewHeight > remainingHeight{
-                    statementTableView.setHeight(constant: remainingHeight)
-                    statementView.setHeight(constant: remainingHeight + (8 + 18 + 8 + 10))
-                }
-                else{
-                    statementTableView.setHeight(constant: tableViewHeight + 4)
-                    statementView.setHeight(constant: tableViewHeight + 4 + (8 + 18 + 8 + 10))
-                }
-            }
-            
+            // Preferred (full) height only; the layout caps it to the space above the buttons.
+            statementTableHeightConstraint?.constant = CGFloat(phrbillsList.count * 44) + 4
             return phrbillsList.count
         }
         return 0

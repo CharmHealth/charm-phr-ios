@@ -19,46 +19,28 @@ protocol HomeViewControllerNavigationDelegate: AnyObject {
 }
 
 // this is tabbarVC there will be many VC in this tabController
-class HomeViewController: UIViewController, CharmConnectionHandlerDelegate, HomeViewControllerNavigationDelegate, CharmConnectionHandlerDataDelegate, UITabBarControllerDelegate, DemographicsViewControllerDidChangeValueDelegate, AppDataHandlerDelegate, UIViewControllerTransitioningDelegate, AddViewControllerDelegate, EasyCareBookAppointmentDelegate, SelectValueViewControllerDelagate, NoDataViewDelegate, UIScrollViewDelegate
+class HomeViewController: UITabBarController, CharmConnectionHandlerDelegate, HomeViewControllerNavigationDelegate, CharmConnectionHandlerDataDelegate, UITabBarControllerDelegate, AppDataHandlerDelegate, UIViewControllerTransitioningDelegate, AddViewControllerDelegate, EasyCareBookAppointmentDelegate, SelectValueViewControllerDelagate, NoDataViewDelegate
 {
-    private var customTopView = UIView()
-    private let titleLabel  = UILabel()
-    private var imageViewWithInitailsView = ImageViewWithInitailsView()
-    private let announcementImgBtn = UIButton()
-    private let announcementCountLabel = UILabel()
-    
     private var charmconnectionHandler: CharmConnectionHandler?
     private var selectedSectionForNavigation : Module?
     var appDataHandler = AppDataHandler.sharedInstance()
     private var dashboardVC: DashBoardViewController? = nil
     private var sectionVC: SectionsViewController? = nil
-    
-    private let bottomView = UIView()
-    private let dashboardBtn = UIButton()
-    private let sectionBtn = UIButton()
-    
-    private var dashboardNormalBtnConfig: UIButton.Configuration? = nil
-    private var dashboardSelectedBtnConfig: UIButton.Configuration? = nil
-    private var sectionNormalBtnConfig: UIButton.Configuration? = nil
-    private var sectionSelectedBtnConfig: UIButton.Configuration? = nil
-    private let ADD_BTN_TAG = 9883267
-    
+
     //MARK: - view creation
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.title = getString(key: "com.charmphr.action.back")
         self.view.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
-        createNavigationBar()
-        setBottomView()
         loadSubView()
-        
+
         NotificationHandler.presentNotification()
         // TODO(Apptics): disabled until verified; re-enable later
 //        APAppUpdateManager.check(forUpdateAvailability: nil, with: self)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -78,41 +60,23 @@ class HomeViewController: UIViewController, CharmConnectionHandlerDelegate, Home
         
         guard let patient = Patient.selectedPatientInstance else { return }
 
-        announcementImgBtn.addTarget(self, action: #selector(pushAnnouncementViewController), for: .touchUpInside)
-        announcementImgBtn.isHidden = true
-        announcementCountLabel.isHidden = true
-        
-        self.imageViewWithInitailsView.setInitialsAndImage(initials: "\(isNilOrEmpty(string: patient.firstName) == false ? "\(patient.firstName?.first, default: "")" : "")\(isNilOrEmpty(string: patient.lastName) == false ? "\(patient.lastName.first, default: "")" : "")", image: patient.patientPhoto)
-        
+        let mainVC = parent as? MainViewController
+        mainVC?.announcementImgBtn.addTarget(self, action: #selector(pushAnnouncementViewController), for: .touchUpInside)
+        mainVC?.announcementImgBtn.isHidden = true
+        mainVC?.announcementCountLabel.isHidden = true
+
+        mainVC?.imageViewWithInitailsView.setInitialsAndImage(initials: "\(isNilOrEmpty(string: patient.firstName) == false ? "\(patient.firstName?.first, default: "")" : "")\(isNilOrEmpty(string: patient.lastName) == false ? "\(patient.lastName.first, default: "")" : "")", image: patient.patientPhoto)
+
         dashboardVC = DashBoardViewController()
         sectionVC = SectionsViewController()
-        
-        dashboardVC?.dashboardView.scrollView.delegate = self
-        sectionVC?.sectionsView.scrollView.delegate = self
-        
+
         guard let dashboardVC, let sectionVC else { return }
-        
-        self.addChild(dashboardVC)
-        self.view.addSubview(dashboardVC.view)
-        dashboardVC.didMove(toParent: self)
-        
-        dashboardVC.view.setLeft(offSet: 0)
-        dashboardVC.view.setRight(offSet: 0)
-        dashboardVC.view.setTopRelatedToView(offSet: 0, relatedView: customTopView, relatedAttribute: .bottom)
-        dashboardVC.view.setBottomRelatedToView(offSet: 0, relatedView: bottomView, relatedAttribute: .top)
-        
-        self.addChild(sectionVC)
-        self.view.addSubview(sectionVC.view)
-        sectionVC.didMove(toParent: self)
-        
-        sectionVC.view.setLeft(offSet: 0)
-        sectionVC.view.setRight(offSet: 0)
-        sectionVC.view.setTopRelatedToView(offSet: 0, relatedView: customTopView, relatedAttribute: .bottom)
-        sectionVC.view.setBottomRelatedToView(offSet: 0, relatedView: bottomView, relatedAttribute: .top)
-        
+
         dashboardVC.delegate = self
         sectionVC.delegate = self
-        
+
+        setupTabs(dashboardVC: dashboardVC, sectionVC: sectionVC)
+
         if charmconnectionHandler == nil{
             charmconnectionHandler = CharmConnectionHandler(delegate: self)
         }
@@ -124,274 +88,103 @@ class HomeViewController: UIViewController, CharmConnectionHandlerDelegate, Home
         }
         appDataHandler.delegate = self
         loadAppDataHandler()
-        
-        dashboardBtn.isSelected = false
-        onClickDashboardBtn(dashboardBtn)
     }
     
-    private func setBottomView(){
-        self.view.addSubview(bottomView)
-        bottomView.addSubview(dashboardBtn)
-        bottomView.addSubview(sectionBtn)
-        
-        bottomView.setLeft(offSet: 0)
-        bottomView.setRight(offSet: 0)
-        bottomView.setBottom(offSet: 0)
-        bottomView.setHeight(constant: 75)
-        
-        dashboardBtn.setLeft(offSet: 0)
-        dashboardBtn.setWidth(constant: applicationFrame.width / 2)
-        dashboardBtn.setTop(offSet: 5)
-        dashboardBtn.setBottom(offSet: -10)
-        
-        sectionBtn.setLeftRelatedToView(offSet: 0, relatedView: dashboardBtn, relatedAttribute: .right)
-        sectionBtn.setRight(offSet: 0)
-        sectionBtn.setWidth(constant: applicationFrame.width / 2)
-        sectionBtn.setTop(offSet: 5)
-        sectionBtn.setBottom(offSet: -10)
-        
-        bottomView.addTopBorder(color: UIColorFromRGB(rgbValueWithAlpha: SEPARATOR_COLOR), borderWidth: 1)
-        
-        dashboardBtn.addTarget(self, action: #selector(onClickDashboardBtn), for: .touchUpInside)
-        sectionBtn.addTarget(self, action: #selector(onClickSectionBtn), for: .touchUpInside)
-        
-        setBottomBtn()
-    }
-    
-    func setBottomBtn() {
-        
-        if dashboardNormalBtnConfig == nil{
-            dashboardNormalBtnConfig = getBottomBtnConfig(titleKey: "com.charmphr.home.Dashboard", imgString: "DashBoard", isSelected: false)
-        }
-        if dashboardSelectedBtnConfig == nil{
-            dashboardSelectedBtnConfig = getBottomBtnConfig(titleKey: "com.charmphr.home.Dashboard", imgString: "DashBoardColorFilled", isSelected: true)
-        }
-        
-        if sectionNormalBtnConfig == nil{
-            sectionNormalBtnConfig = getBottomBtnConfig(titleKey: "com.charmphr.home.healthData", imgString: "HealthDataOutLine", isSelected: false)
-        }
-        
-        if sectionSelectedBtnConfig == nil{
-            sectionSelectedBtnConfig = getBottomBtnConfig(titleKey: "com.charmphr.home.healthData", imgString: "HealthDataColorFilled", isSelected: true)
-        }
-       
-        if dashboardBtn.isSelected{
-            dashboardBtn.configuration = dashboardSelectedBtnConfig
-        }
-        else{
-            dashboardBtn.configuration = dashboardNormalBtnConfig
-        }
-        
-        if sectionBtn.isSelected{
-            sectionBtn.configuration = sectionSelectedBtnConfig
-        }
-        else{
-            sectionBtn.configuration = sectionNormalBtnConfig
-        }
-    }
-    
-    private func getBottomBtnConfig(titleKey: String, imgString: String, isSelected: Bool) -> UIButton.Configuration{
-        
-        let font = UIFont.systemFont(ofSize: FONT_SIZE_SMALL, Weight: .medium)
-        
-        var config = UIButton.Configuration.plain()
-        config.background.backgroundColor = .clear
-        config.image = UIImage(named: imgString)
-        
-        var title = AttributedString(getString(key: titleKey))
-        title.font = font
-        if isSelected {
-            title.foregroundColor = UIColorFromRGB(rgbValueWithAlpha: THEME_COLOR)
-            config.attributedTitle = title
-            
+    private func setupTabs(dashboardVC: DashBoardViewController, sectionVC: SectionsViewController){
+        if #available(iOS 18.0, *) {
+            setupNativeTabs(dashboardVC: dashboardVC, sectionVC: sectionVC)
         } else {
-            title.foregroundColor = UIColorFromRGB(rgbValueWithAlpha: TEXT_COLOR_GREY)
-            config.attributedTitle = title
-        }
-        config.imagePlacement = .top
-        config.imagePadding = 8
-        config.titleAlignment = .center
-        
-        return config
-    }
-    
-    @objc private func onClickDashboardBtn(_ btn: UIButton){
-        if !btn.isSelected{
-            if let scrollView = dashboardVC?.dashboardView.scrollView{
-                scrollViewDidScroll(scrollView)
-            }
-            dashboardBtn.isSelected = true
-            sectionBtn.isSelected = false
-            setBottomBtn()
-            dashboardVC?.view.isHidden = false
-            sectionVC?.view.isHidden = true
+            setupLegacyTabs(dashboardVC: dashboardVC, sectionVC: sectionVC)
         }
     }
-    
-    @objc private func onClickSectionBtn(_ btn: UIButton){
-        if !btn.isSelected{
-            if let scrollView = sectionVC?.sectionsView.scrollView{
-                scrollViewDidScroll(scrollView)
-            }
-            sectionBtn.isSelected = true
-            dashboardBtn.isSelected = false
-            setBottomBtn()
-            sectionVC?.view.isHidden = false
-            dashboardVC?.view.isHidden = true
+
+    @available(iOS 18.0, *)
+    private func setupNativeTabs(dashboardVC: DashBoardViewController, sectionVC: SectionsViewController){
+        let dashboardTab = UITab(title: getString(key: "com.charmphr.home.Dashboard"), image: UIImage(named: "DashBoard")?.withRenderingMode(.alwaysTemplate), identifier: "dashboard") { _ in dashboardVC }
+        let healthTab = UITab(title: getString(key: "com.charmphr.home.healthData"), image: UIImage(named: "HealthDataOutLine")?.withRenderingMode(.alwaysTemplate), identifier: "myhealth") { _ in sectionVC }
+
+        self.tabs = [dashboardTab, healthTab]
+        self.selectedTab = dashboardTab
+        self.tabBar.tintColor = .systemBlue
+
+        if #available(iOS 27.0, *) {
+            self.delegate = self
         }
     }
-    
+
+    @available(iOS 27.0, *)
+    private func makeAddTab() -> UITab {
+        return UITab(title: getString(key: "com.charmphr.action.add"), image: UIImage(systemName: "plus"), identifier: "add") { _ in UIViewController() }
+    }
+
+    @available(iOS 18.0, *)
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelectTab tab: UITab) -> Bool {
+        if #available(iOS 27.0, *), tab.identifier == "add" {
+            presentQuickAddSheet()
+            return false
+        }
+        return true
+    }
+
+    @available(iOS 27.0, *)
+    private func updateNativeAddTab(isVisible: Bool){
+        let hasAddTab = self.tabs.contains { $0.identifier == "add" }
+        if isVisible && !hasAddTab {
+            self.tabs.append(makeAddTab())
+            self.prominentTabIdentifier = "add"
+        } else if !isVisible && hasAddTab {
+            self.tabs.removeAll { $0.identifier == "add" }
+            self.prominentTabIdentifier = nil
+        }
+    }
+
+    private func setupLegacyTabs(dashboardVC: DashBoardViewController, sectionVC: SectionsViewController){
+        dashboardVC.tabBarItem = UITabBarItem(title: getString(key: "com.charmphr.home.Dashboard"), image: UIImage(named: "DashBoard")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "DashBoardColorFilled")?.withRenderingMode(.alwaysOriginal))
+        sectionVC.tabBarItem = UITabBarItem(title: getString(key: "com.charmphr.home.healthData"), image: UIImage(named: "HealthDataOutLine")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "HealthDataColorFilled")?.withRenderingMode(.alwaysOriginal))
+
+        self.viewControllers = [dashboardVC, sectionVC]
+        self.selectedViewController = dashboardVC
+        self.tabBar.tintColor = UIColorFromRGB(rgbValueWithAlpha: THEME_COLOR)
+    }
+
     private func loadAppDataHandler(){
         showActivityIndicator()
         appDataHandler.loadAllData()
     }
     
-    func setTitleName(name : String)
-    {
-        self.titleLabel.text = name
-    }
-    
-    func hideAddBtn(){
-        if let addBtnView = self.view.viewWithTag(ADD_BTN_TAG) as? UIButton{
-            addBtnView.removeFromSuperview()
-        }
-    }
-    
     private func setAddBtn()
     {
-        var addBtnView = self.view.viewWithTag(ADD_BTN_TAG) as? UIButton
-        
-        if addBtnView == nil
-        {
-            let addBtnSize: CGFloat = 56
-            let addBtn = UIButton(type: .custom)
-            addBtn.tag = ADD_BTN_TAG
-            addBtn.setImage(#imageLiteral(resourceName: "PlusIcon"), for: .normal )
-            addBtn.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: THEME_COLOR)
-            addBtn.layer.cornerRadius = addBtnSize / 2
-            addBtn.addTarget(self, action: #selector(addBtnClicked), for: .touchUpInside)
-            addBtn.tintColor = .white
-            addBtn.setPadding(vertical: 10, horizontal: 10)
-            self.view.addSubview(addBtn)
-            
-            addBtn.setBottomRelatedToView(offSet: -20, relatedView: bottomView, relatedAttribute: .top)
-            addBtn.setRight(offSet: -20)
-            addBtn.setWidth(constant: addBtnSize)
-            addBtn.setHeight(constant: addBtnSize)
-            
-            addBtnView = addBtn
-        }
-        else{
-            addBtnView?.isHidden = false
-        }
-        
-        if appDataHandler.canAllowAppointment || (appDataHandler.canAllowMessage && canAllowComposeMessage())
-        {
-            addBtnView?.isHidden = false
-        }else
-        {
-            addBtnView?.isHidden = true
-        }
-    }
-    
-    private func createNavigationBar()
-    {
-        imageViewWithInitailsView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(profileBtnClicked)))
-        imageViewWithInitailsView.layer.cornerRadius = 20
-        imageViewWithInitailsView.layer.masksToBounds = true
-        imageViewWithInitailsView.isUserInteractionEnabled = true
-        customTopView.addSubview(imageViewWithInitailsView)
-        
-        titleLabel.font = .systemFont(ofSize: 34, Weight: .bold)
-        customTopView.addSubview(titleLabel)
-        announcementImgBtn.setImage(UIImage(named: "Announcement"), for: .normal)
-        announcementImgBtn.backgroundColor = .white
-        announcementImgBtn.addShadow()
-        announcementImgBtn.layer.cornerRadius = 40/2
-        
-        customTopView.addSubview(announcementImgBtn)
-        
-        titleLabel.setSafeAreaTop(offset: 10)
-        titleLabel.setBottom(offSet: -12)
-        titleLabel.setLeft(offSet: X_SPACE)
-        titleLabel.setRightRelatedToView(offSet: -X_SPACE, relatedView: announcementImgBtn, relatedAttribute: .left)
-        
-        let countLabelSize: CGFloat = 23
-        announcementCountLabel.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: RED_BG_COLOR)
-        announcementCountLabel.text = ""
-        announcementCountLabel.textColor = .white
-        announcementCountLabel.font = UIFont.systemFont(ofSize: FONT_SIZE_MEDIUM, Weight: .bold)
-        announcementCountLabel.textAlignment = .center
-        announcementCountLabel.layer.cornerRadius = countLabelSize/2
-        announcementCountLabel.layer.masksToBounds = true
-        
-        customTopView.addSubview(announcementCountLabel)
-        announcementCountLabel.isHidden = true
-        
-        announcementCountLabel.setHeight(constant: countLabelSize)
-        announcementCountLabel.setWidth(constant: countLabelSize)
-        announcementCountLabel.setSafeAreaTop(offset: 10)
-        announcementCountLabel.setRightRelatedToView(offSet: -(10), relatedView: imageViewWithInitailsView, relatedAttribute: .left)
-        
-        announcementImgBtn.setHeight(constant: 40)
-        announcementImgBtn.setWidth(constant: 40)
-        announcementImgBtn.setSafeAreaTop(offset: 15)
-        announcementImgBtn.setRightRelatedToView(offSet: -(X_SPACE), relatedView: imageViewWithInitailsView, relatedAttribute: .left)
-        
-        imageViewWithInitailsView.setHeight(constant: 40)
-        imageViewWithInitailsView.setWidth(constant: 40)
-        imageViewWithInitailsView.setBottom(offSet: -14)
-        imageViewWithInitailsView.setSafeAreaTop(offset: 14)
-        imageViewWithInitailsView.setRight(offSet: -X_SPACE)
-        
-        customTopView.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: LIGHT_GRAY_BG_COLOR)
-        self.view.addSubview(customTopView)
-        
-        customTopView.setTop(offSet: 0)
-        customTopView.setRight(offSet: 0)
-        customTopView.setLeft(offSet: 0)
-        customTopView.addBottomBorder()
-    }
-    
-    //MARK: - ScrollView Delegate
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let frameHeight = scrollView.frame.size.height
+        let canShowAdd = appDataHandler.canAllowAppointment || (appDataHandler.canAllowMessage && canAllowComposeMessage())
 
-        let isNearBottom = offsetY >= (contentHeight - frameHeight - 20)
-
-        if let addBtn = self.view.viewWithTag(ADD_BTN_TAG) as? UIButton{
-            UIView.animate(withDuration: 0.3) {
-                addBtn.alpha = isNearBottom ? 0 : 1
-                addBtn.transform = isNearBottom ? CGAffineTransform(scaleX: 0.8, y: 0.8) : .identity
-            }
-            addBtn.isUserInteractionEnabled = !isNearBottom
+        if #available(iOS 27.0, *) {
+            updateNativeAddTab(isVisible: canShowAdd)
+        } else {
+            guard let mainVC = parent as? MainViewController else { return }
+            mainVC.setAddButtonHidden(!canShowAdd)
         }
     }
-    
+
     //MARK: - chanmconnection handler delegate methods
-    
+
     func charmConnectionHandlerDidRecieveJsonObject(jsonObject: Dictionary<String, Any>, identificationKey: String) {
     }
-    
+
     func charmConnectionHandlerDidRecieveData(data: Data, indexPath: IndexPath?, identificationKey: String) {
         if identificationKey == "downloadPhoto"{
             if let image = UIImage(data: data){
                 Patient.selectedPatientInstance?.patientPhoto = image
-                imageViewWithInitailsView.setImage(image: image)
+                (parent as? MainViewController)?.imageViewWithInitailsView.setImage(image: image)
             }
         }
     }
-    
+
     func charmConnectionHandlerDidFailWithError(error: Error, identificationKey: String) {
         CharmUtil.createOkayAlertWith(error: error)
     }
-    
+
     //MARK: - other methods
-    
-    @objc private func pushAnnouncementViewController(){
+
+    @objc func pushAnnouncementViewController(){
         performSegue(withIdentifier: "AnnouncementList", sender: self)
     }
     
@@ -405,53 +198,60 @@ class HomeViewController: UIViewController, CharmConnectionHandlerDelegate, Home
         return CustomPresentationController(presentedViewController: presented, presenting: presentingViewController)
     }
     
-    @objc private func addBtnClicked(_ btn: UIButton)
-    {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        let addAppointmentAction = CharmUtil.getAlertAction(title: getString(key: "com.charmphr.home.Add.appointment"), style: .default) { (uialertaction) in
-            self.pushBookAppointentViewController()
-        }
-        
-        let composeMsgAction = CharmUtil.getAlertAction(title: getString(key: "com.charmphr.home.composeMsg.appointment"), style: .default) { (uialertaction) in
-            
-            let arrayOfMessageRestriction = self.appDataHandler.arrayOfMessageRestriction.filter { (messageRestriction) -> Bool in
-                if (messageRestriction.isMessageRestrict == false && messageRestriction.allowMessaging == true)
-                {
-                    return true
-                }
-                return false
-            }
-            if(arrayOfMessageRestriction.count > 0){
-                self.pushComposeMessgaeVC()
-            }
-            else{
-                let alertVC = UIAlertController(title: nil, message: getString(key: "com.charmphr.message.alert.MessageRestrict.message"), preferredStyle: .alert)
-                let okAction = CharmUtil.getAlertAction(title: getString(key: "com.charmphr.action.Ok"), style: .default, handler: nil)
-                alertVC.addAction(okAction)
-                alertVC.show()
-            }
-        }
-        
-        let cancelAction = CharmUtil.getAlertAction(title: getString(key: "com.charmphr.action.cancel"), style: .cancel, handler: nil)
-        
+    // iOS 26 and below: triggered by MainViewController's floating Add button (target-action).
+    @objc func addBtnClicked(_ sender: UIButton) {
+        presentQuickAddSheet()
+    }
+
+    private func makeQuickAddOptions() -> [QuickAddOption] {
+        var options: [QuickAddOption] = []
+
         if appDataHandler.canAllowAppointment
         {
-            alertController.addAction(addAppointmentAction)
+            options.append(QuickAddOption(title: getString(key: "com.charmphr.home.Add.appointment"),
+                                          image: UIImage(systemName: "calendar.badge.plus")) { [weak self] in
+                self?.pushBookAppointentViewController()
+            })
         }
+
         if appDataHandler.canAllowMessage && canAllowComposeMessage()
         {
-            alertController.addAction(composeMsgAction)
+            options.append(QuickAddOption(title: getString(key: "com.charmphr.home.composeMsg.appointment"),
+                                          image: UIImage(systemName: "square.and.pencil")) { [weak self] in
+                self?.composeMessageTapped()
+            })
         }
-        alertController.addAction(cancelAction)
-        
-        if let popover = alertController.popoverPresentationController {
-            popover.sourceView = btn
-            popover.permittedArrowDirections = .down
-        }
-        alertController.show()
+
+        return options
     }
- 
+
+    private func presentQuickAddSheet(){
+        let options = makeQuickAddOptions()
+        guard !options.isEmpty else { return }
+
+        let sheetVC = QuickAddSheetViewController(options: options)
+        present(sheetVC, animated: true)
+    }
+
+    private func composeMessageTapped(){
+        let arrayOfMessageRestriction = appDataHandler.arrayOfMessageRestriction.filter { (messageRestriction) -> Bool in
+            if (messageRestriction.isMessageRestrict == false && messageRestriction.allowMessaging == true)
+            {
+                return true
+            }
+            return false
+        }
+        if(arrayOfMessageRestriction.count > 0){
+            pushComposeMessgaeVC()
+        }
+        else{
+            let alertVC = UIAlertController(title: nil, message: getString(key: "com.charmphr.message.alert.MessageRestrict.message"), preferredStyle: .alert)
+            let okAction = CharmUtil.getAlertAction(title: getString(key: "com.charmphr.action.Ok"), style: .default, handler: nil)
+            alertVC.addAction(okAction)
+            alertVC.show()
+        }
+    }
+
     private func canAllowComposeMessage() -> Bool
     {
         var canAllow = false
@@ -465,34 +265,36 @@ class HomeViewController: UIViewController, CharmConnectionHandlerDelegate, Home
         return canAllow
     }
     
-    @objc private func profileBtnClicked()
+    @objc func profileBtnClicked()
     {
         performSegue(withIdentifier: "ProflieVC", sender: self)
     }
-    
+
     private func finishLoading()
     {
         hideActivityIndicator()
         if AppDataHandler.didReceivedAllData(){
+            let mainVC = parent as? MainViewController
             if appDataHandler.canAllowAnnouncement{
-                announcementImgBtn.isHidden = false
-                announcementCountLabel.isHidden = false
+                mainVC?.announcementImgBtn.isHidden = false
+                mainVC?.announcementCountLabel.isHidden = false
                 if appDataHandler.announcemnetUnreadCount > 0 {
-                    announcementCountLabel.text = "\(appDataHandler.announcemnetUnreadCount)"
-                    announcementCountLabel.isHidden = false
+                    mainVC?.announcementCountLabel.text = "\(appDataHandler.announcemnetUnreadCount)"
+                    mainVC?.announcementCountLabel.isHidden = false
                 }
                 else{
-                    announcementCountLabel.isHidden = true
+                    mainVC?.announcementCountLabel.isHidden = true
                 }
             }
             else{
-                announcementImgBtn.isHidden = true
-                announcementCountLabel.isHidden = true
+                mainVC?.announcementImgBtn.isHidden = true
+                mainVC?.announcementCountLabel.isHidden = true
             }
-            
+
             sectionVC?.reloadData()
             dashboardVC?.appointmentSection = AppDataHandler.findSectionWithName(string: getString(key: "com.charmphr.home.listView.Appointments"))
             dashboardVC?.fetchDashboardData()
+            
             
             setAddBtn()
         }
@@ -665,7 +467,7 @@ class HomeViewController: UIViewController, CharmConnectionHandlerDelegate, Home
         }
         else if let profileVC = segue.destination as? ProfileViewController
         {
-            profileVC.demographicsValueChangedDelegate = self
+            profileVC.demographicsValueChangedDelegate = parent as? MainViewController
         }
         else if let invoiceVC = segue.destination as? InvoiceViewController
         {
@@ -713,25 +515,17 @@ class HomeViewController: UIViewController, CharmConnectionHandlerDelegate, Home
     }
     
     func appDataHandlerDidRefreshUnreadCount() {
-        
+
+        let mainVC = parent as? MainViewController
         if appDataHandler.announcemnetUnreadCount > 0 {
-            announcementCountLabel.text = "\(appDataHandler.announcemnetUnreadCount)"
-            announcementCountLabel.isHidden = false
+            mainVC?.announcementCountLabel.text = "\(appDataHandler.announcemnetUnreadCount)"
+            mainVC?.announcementCountLabel.isHidden = false
         }
         else{
-            announcementCountLabel.isHidden = true
+            mainVC?.announcementCountLabel.isHidden = true
         }
-        
+
         sectionVC?.reloadData()
-    }
-    
-    func demographicsViewControllerDidChangePatientPhoto(photo: UIImage) {
-        Patient.selectedPatientInstance?.patientPhoto = photo
-        imageViewWithInitailsView.setImage(image: photo)
-    }
-    
-    func demographicsViewControllerDidChangeName() {
-        setTitleName(name: "Hi \(Patient.selectedPatientInstance?.firstName ?? "")")
     }
 
     func addViewControllerDataAdded(message: String?) {
@@ -785,12 +579,19 @@ class HomeViewController: UIViewController, CharmConnectionHandlerDelegate, Home
     
     func onBookAppointmentBackPressed() {
         AppDataHandler.sharedInstance().refreshAppointments = true
-        
-        if dashboardBtn.isSelected{
-            dashboardVC?.refreshDashboardData()
-        }
-        else{
-            onClickDashboardBtn(dashboardBtn)
+
+        if #available(iOS 18.0, *) {
+            if selectedTab?.identifier == "dashboard" {
+                dashboardVC?.refreshDashboardData()
+            } else {
+                selectedTab = tab(forIdentifier: "dashboard")
+            }
+        } else {
+            if selectedViewController === dashboardVC {
+                dashboardVC?.refreshDashboardData()
+            } else {
+                selectedViewController = dashboardVC
+            }
         }
     }
     

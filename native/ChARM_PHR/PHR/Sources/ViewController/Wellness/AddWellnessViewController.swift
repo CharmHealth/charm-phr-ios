@@ -108,7 +108,7 @@ class AddWellnessViewController: UIViewController , CharmConnectionHandlerDelega
                 
                 vitalUnitView.setTop(offSet: Y_SPACE)
                 vitalUnitView.setLeft(offSet: X_SPACE)
-                vitalUnitView.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
+                vitalUnitView.setRight(offSet: -X_SPACE)
             }
         }
         
@@ -366,27 +366,34 @@ class AddWellnessViewController: UIViewController , CharmConnectionHandlerDelega
             vitalUnitWrapperView.setTop(offSet: 0)
             vitalUnitWrapperView.setBottom(offSet: 0)
             vitalUnitWrapperView.setLeft(offSet: 0)
-            vitalUnitWrapperView.setWidth(constant: applicationFrame.width)
-            
+            vitalUnitWrapperView.setRight(offSet: 0)
+            // Edge pins inside a scroll view only set content bounds; tie the width to the visible area
+            // so it follows fold/unfold and rotation (was the launch-time applicationFrame.width).
+            vitalUnitWrapperView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor).isActive = true
+
             vitalUnitWrapperView.addSubview(containerView)
-            
+
             if let vitalUnitView = vitalUnitView {
                 containerView.setTopRelatedToView(offSet: Y_SPACE, relatedView: vitalUnitView, relatedAttribute: .bottom)
             }
-            
+
+            containerView.setBottom(offSet: 0)
+            containerView.setLeft(offSet: X_SPACE)
+            containerView.setRight(offSet: -X_SPACE)
         }
         else {
             containerScrollView.addSubview(containerView)
             containerView.setTop(offSet: 0)
+            containerView.setBottom(offSet: 0)
+            containerView.setLeft(offSet: X_SPACE)
+            containerView.setRight(offSet: -X_SPACE)
+            containerView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor, constant: -(2 * X_SPACE)).isActive = true
         }
 
-        
-        containerView.setBottom(offSet: 0)
-        containerView.setLeft(offSet: X_SPACE)
-        containerView.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
-        
+        // Safe-area edges keep the form clear of the Dynamic Island and the iOS 27.1 landscape side bar.
         containerScrollView.setSafeAreaTop(offset: Y_SPACE)
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-X_SPACE-[containerScrollView]-X_SPACE-|", options: [], metrics:["X_SPACE":0], views: ["containerScrollView":containerScrollView]))
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
         containerScrollView.setSafeAreaBottom(offset: -Y_SPACE)
     }
    

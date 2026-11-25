@@ -15,7 +15,9 @@ class UsefulInfoDetailViewController: UIViewController , CharmConnectionHandlerD
         
     var charmConnectionHandler : CharmConnectionHandler?
     let activityIndicator = UIActivityIndicatorView()
-    
+    private weak var contentWebView: WKWebView?
+    private var webViewHeightConstraint: NSLayoutConstraint?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,7 +67,7 @@ class UsefulInfoDetailViewController: UIViewController , CharmConnectionHandlerD
         containerView.addSubview(horizontalLine)
         
         horizontalLine.setLeft(offSet: 0)
-        horizontalLine.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
+        horizontalLine.setRight(offSet: 0)
         horizontalLine.setHeight(constant: 0.25)
         horizontalLine.setTopRelatedToView(offSet: 0, relatedView: categoryView, relatedAttribute: .bottom)
         
@@ -110,6 +112,7 @@ class UsefulInfoDetailViewController: UIViewController , CharmConnectionHandlerD
 
                 webView.setLeft(offSet: 0)
                 webView.setRight(offSet: 0)
+                contentWebView = webView
             }
             else{
                 let label = UILabel()
@@ -129,7 +132,7 @@ class UsefulInfoDetailViewController: UIViewController , CharmConnectionHandlerD
             
         categoryView.setTop(offSet: 0)
         categoryView.setLeft(offSet: 8)
-        categoryView.setWidth(constant: applicationFrame.width - (2 * X_SPACE) - (2 * PADDING_8))
+        categoryView.setRight(offSet: -8)
         categoryView.layoutChange()
             
         contentView.setLeft(offSet: 8)
@@ -144,21 +147,45 @@ class UsefulInfoDetailViewController: UIViewController , CharmConnectionHandlerD
         containerView.setBottom(offSet: 0)
         containerView.setLeft(offSet: 0)
         containerView.setRight(offSet: 0)
-        self.view.addConstraint(NSLayoutConstraint.init(item: containerView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1, constant: -(X_SPACE + X_SPACE)))
-        
+        // Edge pins inside a scroll view only set content bounds; tie the width to the visible area so
+        // the card follows fold/unfold and rotation.
+        containerView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor).isActive = true
+
+        // Safe-area edges keep the card clear of the Dynamic Island and the iOS 27.1 landscape side bar.
         containerScrollView.setSafeAreaTop(offset: Y_SPACE)
-        containerScrollView.setRight(offSet: -X_SPACE)
-        containerScrollView.setLeft(offSet: X_SPACE)
+        containerScrollView.setSafeAreaLeft(offset: X_SPACE)
+        containerScrollView.setSafeAreaRight(offset: -X_SPACE)
         containerScrollView.setSafeAreaBottom(offset: -Y_SPACE)
     }
-    
+
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         if webView.isLoading == false {
-            webView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { [weak self] (result, error) in
-                if let height = result as? CGFloat {
-                    webView.setHeight(constant: height + 20)
-                }
-            })
+            measureWebViewHeight(webView)
+        }
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        // Text re-wraps at the new width, so the HTML height changes after rotation / fold / unfold.
+        coordinator.animate(alongsideTransition: nil) { [weak self] _ in
+            guard let self, let webView = self.contentWebView else { return }
+            self.measureWebViewHeight(webView)
+        }
+    }
+
+    /// Measures the rendered body height (not scrollHeight, which never shrinks below the current
+    /// web view height) and updates a single stored height constraint.
+    private func measureWebViewHeight(_ webView: WKWebView) {
+        let script = "(function(){var b=document.body,s=getComputedStyle(b);return Math.ceil(b.getBoundingClientRect().height+parseFloat(s.marginTop)+parseFloat(s.marginBottom));})()"
+        webView.evaluateJavaScript(script) { [weak self] result, _ in
+            guard let self, let height = (result as? NSNumber).map({ CGFloat(truncating: $0) }) else { return }
+            if let constraint = self.webViewHeightConstraint {
+                constraint.constant = height + 20
+            } else {
+                let constraint = webView.heightAnchor.constraint(equalToConstant: height + 20)
+                constraint.isActive = true
+                self.webViewHeightConstraint = constraint
+            }
         }
     }
     

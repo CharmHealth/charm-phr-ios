@@ -20,9 +20,9 @@ class DocumentShareView: UIView{
     let toView = UIView()
     let toLabel = UILabel()
     let toValueStackView = UIStackView()
-    let toPracticeView = UIView()
+    let toPracticeView = WidthObservingView()
     let toPracticeTextField = CustomTextField()
-    let toOtherView = UIView()
+    let toOtherView = WidthObservingView()
     let toOtherTextField = CustomTextField()
     let noDataMemberView = UIView()
     let noDataLabel = UILabel()
@@ -41,11 +41,26 @@ class DocumentShareView: UIView{
     let expiryDaysList = ["1 Day","5 Days","10 Days"]
     var expiryDaySelectedIndex = 0
     var hasspace = false
-    var viewframe = applicationFrame.width - 90
+    var viewframe: CGFloat = 0
     var beforeCardView: UIView?
     var segmentControlHeightConstraint: NSLayoutConstraint? = nil
+    private var toLabelWidth: CGFloat = 0
+    private let chipSpacing: CGFloat = 8
     
-    var toValueViewWidth: CGFloat = applicationFrame.width
+    /// Live width of one chip row in the given "To" container (was applicationFrame.width - 90 at
+    /// launch), so recipient chips wrap to the current screen size on the iPhone Duo / in landscape.
+    private func chipRowWidth(in container: UIView) -> CGFloat {
+        if container.bounds.width > 0 {
+            return container.bounds.width
+        }
+        let visibleWidth = bounds.width > 0 ? bounds.width : applicationFrame.width
+        return max(visibleWidth - (X_SPACE * 3) - toLabelWidth - (CARD_PADDING * 3), 0)
+    }
+    
+    /// Maximum width of a single recipient chip (one full row of the visible container).
+    var toValueViewWidth: CGFloat {
+        return chipRowWidth(in: toPracticeView.isHidden ? toOtherView : toPracticeView)
+    }
     
     init(){
         super.init(frame: .zero)
@@ -84,20 +99,33 @@ class DocumentShareView: UIView{
         
         addProperties()
         addConstraints()
+        
+        // Re-wrap the chips whenever a container's own width changes (rotation, fold/unfold, side bar).
+        // Observed on the container itself: its bounds are already updated when its layoutSubviews runs.
+        toPracticeView.onWidthChange = { [weak self] in
+            guard let self, self.toPracticeView.subviews.contains(where: { $0 is CardViewWithCloseBtn }) else { return }
+            self.removeDeletedViewAndSetConstraints(removedView: nil, isMember: true)
+        }
+        toOtherView.onWidthChange = { [weak self] in
+            guard let self, self.toOtherView.subviews.contains(where: { $0 is CardViewWithCloseBtn }) else { return }
+            self.removeDeletedViewAndSetConstraints(removedView: nil, isMember: false)
+        }
     }
     
     //MARK: - addConstraints
     
     private func addConstraints(){
         
-        containerScrollView.setLeft(offSet: 0)
-        containerScrollView.setRight(offSet: 0)
+        // Safe-area edges keep the form clear of the Dynamic Island and the iOS 27.1 landscape side bar.
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
         containerScrollView.setSafeAreaTop(offset: CARD_PADDING)
         containerScrollView.setSafeAreaBottom(offset: 0)
         
         segmentControlView.setTop(offSet: 0)
         segmentControlView.setLeft(offSet: X_SPACE)
-        segmentControlView.setWidth(constant: SHARE_DOCUMENT_FRAME_WIDTH)
+        // Visible width minus side margins (was the launch-time SHARE_DOCUMENT_FRAME_WIDTH).
+        segmentControlView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor, constant: -(X_SPACE * 2)).isActive = true
         
         shareToSegmentControl.setLeft(offSet: 0)
         shareToSegmentControl.setRight(offSet: 0)
@@ -106,34 +134,30 @@ class DocumentShareView: UIView{
         segmentControlHeightConstraint = shareToSegmentControl.setAndReturnHeight(constant: 0)
         
         shareToSubView.setLeft(offSet: X_SPACE)
+        shareToSubView.setRight(offSet: -X_SPACE)
         shareToSubView.setTopRelatedToView(offSet: CARD_PADDING, relatedView: segmentControlView, relatedAttribute: .bottom)
-        shareToSubView.setBottom(offSet: 0)
-        
-        toValueViewWidth -= X_SPACE
+        shareToSubView.setBottom(offSet: -20)
+        // Edge pins inside a scroll view only set content bounds; tie the width to the visible area.
+        // All sections below fill it via the stack's .fill alignment.
+        shareToSubView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor, constant: -(X_SPACE * 2)).isActive = true
         
         enterMailLabel.setLeft(offSet: 0)
         enterMailLabel.setRight(offSet: 0)
         enterMailLabel.setTop(offSet: 2)
-        enterMailLabel.setWidth(constant: SHARE_DOCUMENT_FRAME_WIDTH)
         
         shareToSubView.setCustomSpacing(12, after: enterMailLabel)
         
         toView.setLeft(offSet: 0)
-        toView.setWidth(constant: SHARE_DOCUMENT_FRAME_WIDTH)
         
         toLabel.setLeft(offSet: X_SPACE)
         toLabel.setCenterY()
-        let toLabelWidth = toLabel.sizeThatFits(CGSize(width: 100, height: 50)).width
+        toLabelWidth = toLabel.sizeThatFits(CGSize(width: 100, height: 50)).width
         toLabel.setWidth(constant: toLabelWidth)
-        
-        toValueViewWidth -= (X_SPACE + toLabelWidth)
         
         toValueStackView.setLeftRelatedToView(offSet: CARD_PADDING, relatedView: toLabel, relatedAttribute: .right)
         toValueStackView.setRight(offSet: -CARD_PADDING)
         toValueStackView.setTop(offSet: 6)
         toValueStackView.setBottom(offSet: -6)
-        
-        toValueViewWidth -= (CARD_PADDING * 2)
         
         toPracticeView.setLeft(offSet: 0)
         toPracticeView.setRight(offSet: 0)
@@ -175,7 +199,8 @@ class DocumentShareView: UIView{
         
         notAvailabelLabel.setCenterX()
         notAvailabelLabel.setTop(offSet: CARD_PADDING + 3)
-        notAvailabelLabel.setWidth(constant: notAvailabelLabel.sizeThatFits(CGSize(width: applicationFrame.width, height: 50)).width)
+        // Wraps within the card instead of a launch-time single-line width.
+        notAvailabelLabel.setLeft(offSet: CARD_PADDING, relatedBy: .greaterThanOrEqual)
         
         addToContactBtn.setCenterX()
         addToContactBtn.setTopRelatedToView(offSet: CARD_PADDING, relatedView: notAvailabelLabel, relatedAttribute: .bottom)
@@ -183,10 +208,8 @@ class DocumentShareView: UIView{
         addToContactBtn.setHeight(constant: CARD_PADDING * 2)
         
         documentWillShareLabel.setLeft(offSet: 0)
-        documentWillShareLabel.setWidth(constant: SHARE_DOCUMENT_FRAME_WIDTH)
         
         expiryView.setLeft(offSet: 0)
-        expiryView.setWidth(constant: SHARE_DOCUMENT_FRAME_WIDTH)
         expiryView.setHeight(constant: ACTION_BTN_HEIGT)
         
         expiryLabel.setLeft(offSet: X_SPACE)
@@ -206,11 +229,11 @@ class DocumentShareView: UIView{
         rightArrowIcon.setBottom(offSet: -(CARD_PADDING + 4))
         
         attachmentView.setLeft(offSet: 0)
-        attachmentView.setWidth(constant: SHARE_DOCUMENT_FRAME_WIDTH)
         
         informationView.setLeft(offSet: 0)
-        informationView.setWidth(constant: SHARE_DOCUMENT_FRAME_WIDTH)
-        informationView.setBottom(offSet: -20)
+        // No bottom pin here: informationView is an arranged subview, so pinning it to the stack's bottom
+        // fought the stack's own constraints and shortened the scroll content (the last attachment row
+        // could not be scrolled into view). The 20pt bottom padding now lives on shareToSubView instead.
     }
     
     //MARK: - addProperties
@@ -275,6 +298,8 @@ class DocumentShareView: UIView{
         notAvailabelLabel.text = getString(key: "com.charmphr.sharedocuments.notavailabel.title")
         notAvailabelLabel.textColor = UIColorFromRGB(rgbValueWithAlpha: TEXT_COLOR_BLACK87)
         notAvailabelLabel.font = UIFont.systemFont(ofSize: FONT_SIZE_NORMAL, Weight: .regular)
+        notAvailabelLabel.numberOfLines = 0
+        notAvailabelLabel.textAlignment = .center
         
         addToContactBtn.setProperties(titleStrKey:getString(key: "com.charmphr.sharedocuments.addToContact.title"), fontsize: FONT_SIZE_NORMAL, weight: .semibold, fontcolor: THEME_COLOR)
         hideOthersNoData(isHidden: true)
@@ -362,85 +387,41 @@ class DocumentShareView: UIView{
     //remove the deleted view and re-arrange the remaining constraints fo the view
     
     func removeDeletedViewAndSetConstraints(removedView: CardViewWithCloseBtn?, isMember: Bool){
-        
-        hasspace = false
-        viewframe = applicationFrame.width - 90
-        beforeCardView = nil
-        
-        let index: Int = toPracticeView.subviews.firstIndex(where: { cardView in
-            if let cardViewWithCloseBtn = cardView as? CardViewWithCloseBtn{
-                return removedView == cardViewWithCloseBtn
-            }
-            else{
-                return false
-            }
-        }) ?? -1
         removedView?.removeFromSuperview()
-        
-        if isMember{
-            removeAndSetSubViewsFromSuperView(uiView: toPracticeView, index: index)
-        }
-        else{
-            removeAndSetSubViewsFromSuperView(uiView: toOtherView, index: index)
-        }
+        relayoutChips(in: isMember ? toPracticeView : toOtherView)
     }
     
-    private func removeAndSetSubViewsFromSuperView(uiView: UIView, index: Int){
-        for i in 0..<uiView.subviews.count{
-            if let cardViewWithCloseBtn = uiView.subviews[i] as? CardViewWithCloseBtn{
-                let width = cardViewWithCloseBtn.getViewWidth()
-                if i >= index{
-                    cardViewWithCloseBtn.removeConstraints()
-                    if i == 1{
-                        hasspace = false
-                    }
-                    else{
-                        if width <= viewframe{
-                            hasspace = true
-                        }
-                        else{
-                            hasspace = false
-                            viewframe = applicationFrame.width - 90
-                        }
-                    }
-                    setConstraintsToView(uiView: cardViewWithCloseBtn, viewWidth: width)
-                }
-                else{
-                    if i == 1{
-                        hasspace = false
-                    }
-                    else{
-                        if width <= viewframe{
-                            hasspace = true
-                        }
-                        else{
-                            hasspace = false
-                            viewframe = applicationFrame.width - 90
-                        }
-                    }
-                    beforeCardView = cardViewWithCloseBtn
-                    viewframe = viewframe - width
-                }
+    /// Flows every chip left-to-right, wrapping to a new line when the next chip (plus the gap) does
+    /// not fit, then places the search field after the last chip or on its own line.
+    private func relayoutChips(in container: UIView){
+        let rowWidth = chipRowWidth(in: container)
+        hasspace = false
+        viewframe = rowWidth
+        beforeCardView = nil
+        
+        for case let chip as CardViewWithCloseBtn in container.subviews {
+            // Clamp to the current row so a chip created on a wider screen still fits after folding.
+            let width = min(chip.getViewWidth(), rowWidth)
+            chip.removeConstraints()
+            
+            if beforeCardView != nil, width + chipSpacing <= viewframe {
+                hasspace = true                 // same line, after the previous chip
+                viewframe -= chipSpacing
             }
-            else{
-                if uiView.subviews.count == 1{
-                    viewframe = 0
-                }
+            else {
+                hasspace = false                // first chip, or wrap to a new line
+                viewframe = rowWidth
             }
+            setConstraintsToView(uiView: chip, viewWidth: width)
         }
-        for i in 0..<uiView.subviews.count{
-            if let textField = uiView.subviews[i] as? UITextField{
-                textField.removeConstraints()
-                textField.arrangeViews(constant: 10, hasSpace: viewframe > 75, beforeView: beforeCardView)
-                textField.setBottom(offSet: 0)
-                textField.setHeight(constant: 32)
-                if viewframe > 75{
-                    textField.setWidth(constant: viewframe - 10)
-                }
-                else{
-                    textField.setWidth(constant: applicationFrame.width - 100)
-                }
-            }
+        
+        for case let textField as UITextField in container.subviews {
+            textField.removeConstraints()
+            let fitsOnLastLine = beforeCardView != nil && viewframe > 75
+            textField.arrangeViews(constant: 10, hasSpace: fitsOnLastLine, beforeView: beforeCardView)
+            textField.setBottom(offSet: 0)
+            textField.setHeight(constant: 32)
+            textField.setWidth(constant: fitsOnLastLine ? viewframe - 10 : max(rowWidth, 0))
         }
     }
     
@@ -448,7 +429,7 @@ class DocumentShareView: UIView{
     
     private func setConstraintsToView(uiView: UIView, viewWidth: CGFloat){
         
-        uiView.arrangeViews(constant: 8, hasSpace: hasspace, beforeView: beforeCardView)
+        uiView.arrangeViews(constant: chipSpacing, hasSpace: hasspace, beforeView: beforeCardView)
         beforeCardView = uiView
         viewframe = viewframe - viewWidth
         

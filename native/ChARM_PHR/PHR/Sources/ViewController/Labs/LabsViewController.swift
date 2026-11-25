@@ -171,12 +171,10 @@ class LabsViewController: CustomViewControllerWithTableView , UITableViewDataSou
         {
             if arrayOfResults.isEmpty
             {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Lab_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return arrayOfResults.count
@@ -184,12 +182,10 @@ class LabsViewController: CustomViewControllerWithTableView , UITableViewDataSou
         {
             if arrayOfOrders.count == 0
             {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Lab_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return arrayOfOrders.count

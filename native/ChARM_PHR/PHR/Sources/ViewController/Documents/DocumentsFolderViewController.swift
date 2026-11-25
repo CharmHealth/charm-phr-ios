@@ -125,8 +125,9 @@ class DocumentsFolderViewController: UIViewController , UIDocumentPickerDelegate
         self.view.addSubview(collectionView)
         
         collectionView.setBottom(offSet: 0)
-        collectionView.setRight(offSet: 0)
-        collectionView.setLeft(offSet: 0)
+        // Safe-area edges keep the folders clear of the Dynamic Island and the iOS 27.1 landscape side bar.
+        collectionView.setSafeAreaRight(offset: 0)
+        collectionView.setSafeAreaLeft(offset: 0)
         collectionView.setSafeAreaTop(offset: 24)
         
         let tableviewBgView = UIView()
@@ -215,7 +216,21 @@ class DocumentsFolderViewController: UIViewController , UIDocumentPickerDelegate
             return CGSize(width: 80, height: 100)
         }else
         {
-            return CGSize(width: collectionView.contentSize.width, height: 52)
+            // Full row = visible width minus the 16pt section insets, so rows follow rotation / fold.
+            let width = collectionView.bounds.width - collectionView.adjustedContentInset.left - collectionView.adjustedContentInset.right - 32
+            return CGSize(width: max(width, 0), height: 52)
+        }
+    }
+
+    private var lastCollectionWidth: CGFloat = 0
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Item sizes depend on the width (list mode), so re-layout when it changes (rotation, fold/unfold, side bar).
+        let width = collectionView.bounds.width
+        if width > 0, width != lastCollectionWidth {
+            lastCollectionWidth = width
+            collectionView.collectionViewLayout.invalidateLayout()
         }
     }
         

@@ -924,9 +924,6 @@ class AddFlowsheetEntryViewController: UIViewController, UITextFieldDelegate, Ch
             dateValueField.isUserInteractionEnabled = false
         }
         
-        dateLayout.setLeft(offSet: CARD_PADDING)
-        dateLayout.setWidth(constant: (applicationFrame.width - (CARD_PADDING * 2)))
-        
         icon.setRight(offSet: -CARD_PADDING)
         icon.setCenterY()
         icon.setWidth(constant: 25)
@@ -1195,14 +1192,14 @@ class AddFlowsheetEntryViewController: UIViewController, UITextFieldDelegate, Ch
                 if(isAboveHalf){
                    
                     if (vitalLabelHeight > FONT_SIZE_NORMAL * 2) {
-                        vitalView.setWidth(constant: applicationFrame.width - (CARD_PADDING * 4))
+                        vitalView.setFullGridWidth()
                     }
                     else{
                         vitalView.setWidth(constant: vitalLabelWidth)
                     }
                 }
                 else{
-                    vitalView.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - flowsheetGridLayoutPaddingConstant)
+                    vitalView.setHalfGridWidth()
                 }
                 // Forcing hasSpace to false if the label width is more than half
                 if (isAboveHalf){
@@ -1506,7 +1503,7 @@ class AddFlowsheetEntryViewController: UIViewController, UITextFieldDelegate, Ch
                 if isLast{
                     vitalView.setBottom(offSet: -CARD_PADDING)
                 }
-                vitalView.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - flowsheetGridLayoutPaddingConstant)
+                vitalView.setHalfGridWidth()
                 
                 let vitalLabel = UILabel()
                 vitalView.addSubview(vitalLabel)
@@ -1727,7 +1724,7 @@ class AddFlowsheetEntryViewController: UIViewController, UITextFieldDelegate, Ch
                             if isLast{
                                 vitalView.setBottom(offSet: -CARD_PADDING)
                             }
-                            vitalView.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - flowsheetGridLayoutPaddingConstant)
+                            vitalView.setHalfGridWidth()
                                             
                             let vitalLabel = UILabel()
                             vitalView.addSubview(vitalLabel)
@@ -1809,7 +1806,7 @@ class AddFlowsheetEntryViewController: UIViewController, UITextFieldDelegate, Ch
                                 if isLast{
                                     vitalView.setBottom(offSet: -CARD_PADDING)
                                 }
-                                vitalView.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - flowsheetGridLayoutPaddingConstant)
+                                vitalView.setHalfGridWidth()
                                 
                                 let vitalLabel = UILabel()
                                 vitalView.addSubview(vitalLabel)
@@ -1937,7 +1934,7 @@ class AddFlowsheetEntryViewController: UIViewController, UITextFieldDelegate, Ch
 
                     systolicLabel.setTopRelatedToView(offSet: CARD_PADDING, relatedView: bpLabel, relatedAttribute: .bottom)
                     systolicLabel.setLeft(offSet: CARD_PADDING)
-                    systolicLabel.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - flowsheetGridLayoutPaddingConstant)
+                    systolicLabel.setHalfGridWidth()
 
                     let systolicView = CommonFieldUnitView(notes: flowsheetEntry.unit)
                     bpView.addSubview(systolicView)
@@ -1948,7 +1945,7 @@ class AddFlowsheetEntryViewController: UIViewController, UITextFieldDelegate, Ch
                     systolicView.setLeft(offSet: CARD_PADDING)
                     systolicView.setTopRelatedToView(offSet: CARD_PADDING, relatedView: systolicLabel, relatedAttribute: .bottom)
                     systolicView.setBottom(offSet: 0)
-                    systolicView.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - flowsheetGridLayoutPaddingConstant)
+                    systolicView.setHalfGridWidth()
                     systolicView.setHeight(constant: 40)
             
                     let diastolicLabel = UILabel()
@@ -1962,7 +1959,7 @@ class AddFlowsheetEntryViewController: UIViewController, UITextFieldDelegate, Ch
                     diastolicLabel.setTopRelatedToView(offSet: CARD_PADDING, relatedView: bpLabel, relatedAttribute: .bottom)
                     diastolicLabel.setRight(offSet: -CARD_PADDING)
                     diastolicLabel.setLeftRelatedToView(offSet: 0, relatedView: systolicLabel, relatedAttribute: .right)
-                    diastolicLabel.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - flowsheetGridLayoutPaddingConstant)
+                    diastolicLabel.setHalfGridWidth()
                     
                     let diastolicView = CommonFieldUnitView(notes: flowsheetEntry.unit)
                     bpView.addSubview(diastolicView)
@@ -1974,7 +1971,7 @@ class AddFlowsheetEntryViewController: UIViewController, UITextFieldDelegate, Ch
                     diastolicView.setRight(offSet: -CARD_PADDING)
                     diastolicView.setTopRelatedToView(offSet: CARD_PADDING, relatedView: diastolicLabel, relatedAttribute: .bottom)
                     diastolicView.setBottom(offSet: 0)
-                    diastolicView.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - flowsheetGridLayoutPaddingConstant)
+                    diastolicView.setHalfGridWidth()
                     diastolicView.setHeight(constant: 40)
 
                     systolicView.commonTextField.tag = tagNo
@@ -2042,7 +2039,7 @@ class AddFlowsheetEntryViewController: UIViewController, UITextFieldDelegate, Ch
                     if isLast{
                         vitalView.setBottom(offSet: -CARD_PADDING)
                     }
-                    vitalView.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - flowsheetGridLayoutPaddingConstant)
+                    vitalView.setHalfGridWidth()
                                     
                     let vitalLabel = UILabel()
                     vitalView.addSubview(vitalLabel)
@@ -2751,5 +2748,22 @@ class AddFlowsheetEntryViewController: UIViewController, UITextFieldDelegate, Ch
     
     func showAlertDialog(titleKey: String) {
         CharmUtil.createOkayAlertWith(title: getString(key: titleKey), msg: nil)
+    }
+}
+
+// Grid widths relative to the card, so fields resize on rotation and fold/unfold.
+fileprivate extension UIView {
+
+    // Two fields per row: padding + field + padding + field + padding = container width.
+    func setHalfGridWidth() {
+        guard let superview else { return }
+        translatesAutoresizingMaskIntoConstraints = false
+        widthAnchor.constraint(equalTo: superview.widthAnchor, multiplier: 0.5, constant: -(CARD_PADDING * 3) / 2).isActive = true
+    }
+
+    func setFullGridWidth() {
+        guard let superview else { return }
+        translatesAutoresizingMaskIntoConstraints = false
+        widthAnchor.constraint(equalTo: superview.widthAnchor, constant: -(CARD_PADDING * 2)).isActive = true
     }
 }

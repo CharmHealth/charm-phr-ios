@@ -100,9 +100,17 @@ class WellnessViewController: UIViewController , UITableViewDelegate, UITableVie
             
             bgImg.setWidth(constant: 114)
             bgImg.setHeight(constant: 114)
-            bgImg.setTop(offSet: 6)
-            bgImg.setBottom(offSet: -6)
+            bgImg.setCenterY()
             bgImg.setRight(offSet: -6)
+            // Card height = max(image + 12, text block): the message can wrap to more lines when the
+            // width shrinks (folded iPhone Duo / portrait) without pushing "Get Started" out of the card.
+            let hugContent = healthKitStartView.heightAnchor.constraint(equalToConstant: 0)
+            hugContent.priority = .defaultLow
+            NSLayoutConstraint.activate([
+                bgImg.topAnchor.constraint(greaterThanOrEqualTo: healthKitStartView.topAnchor, constant: 6),
+                startedBtn.bottomAnchor.constraint(lessThanOrEqualTo: healthKitStartView.bottomAnchor, constant: -X_SPACE),
+                hugContent
+            ])
             
             charmIV.setWidth(constant: 28)
             charmIV.setHeight(constant: 28)
@@ -120,7 +128,9 @@ class WellnessViewController: UIViewController , UITableViewDelegate, UITableVie
             indicatorImg.setRightRelatedToView(offSet: -5, relatedView: charmIV, relatedAttribute: .left)
             
             healthKitStartView.setSafeAreaTop(offset: 13)
-            healthKitStartView.setHorizontal(offSet: X_SPACE)
+            // Safe-area edges keep the card clear of the iOS 27.1 landscape side bar / Dynamic Island.
+            healthKitStartView.setSafeAreaLeft(offset: X_SPACE)
+            healthKitStartView.setSafeAreaRight(offset: -X_SPACE)
         }
         
         tableView = UITableView()
@@ -144,7 +154,8 @@ class WellnessViewController: UIViewController , UITableViewDelegate, UITableVie
         
        // self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics:nil, views: ["tableView":tableView!]))
         
-        tableView.setHorizontal(offSet: X_SPACE)
+        tableView.setSafeAreaLeft(offset: X_SPACE)
+        tableView.setSafeAreaRight(offset: -X_SPACE)
         
         if let healthKitStartView {
             tableView.setTopRelatedToView(offSet: 0, relatedView: healthKitStartView, relatedAttribute: .bottom)

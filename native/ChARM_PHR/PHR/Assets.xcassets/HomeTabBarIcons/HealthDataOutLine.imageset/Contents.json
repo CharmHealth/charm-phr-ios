@@ -1,23 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "My Health _ Inactive.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "MyHealthInactive2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "MyHealthInactive3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "my-health-filled-unselected.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }

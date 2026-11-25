@@ -445,12 +445,18 @@ class QuestionnaireSoapOptionView: UIView, UIScrollViewDelegate, UITextFieldDele
             scrollView.setTop(offSet: 0)
             
             scrollView.addSubview(mainView)
-            
+
             mainView.setLeft(offSet: 0)
             mainView.setRight(offSet: 0)
             mainView.setTop(offSet: 0)
             mainView.setBottom(offSet: 0)
-            
+            // Options wrap to the card width and the list grows with its content, so it adapts to
+            // rotation and iPhone Duo fold/unfold instead of using sizes measured once at build time.
+            NSLayoutConstraint.activate([
+                mainView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+                scrollView.frameLayoutGuide.heightAnchor.constraint(equalTo: scrollView.contentLayoutGuide.heightAnchor)
+            ])
+
             let soapWidgetOptionListParentStackView = UIStackView()
             mainView.addSubview(soapWidgetOptionListParentStackView)
             
@@ -478,7 +484,8 @@ class QuestionnaireSoapOptionView: UIView, UIScrollViewDelegate, UITextFieldDele
                 scrollView.setBottom(offSet: 0)
                 soapWidgetOptionListParentStackView.setBottom(offSet: -CARD_PADDING)
                 scrollViewHeightConstraint = scrollView.setAndReturnHeight(constant: CARD_PADDING * 2)
-                
+                scrollViewHeightConstraint?.isActive = false
+
                 let spltStr:[String] = (soapWidget.entryName ?? "").split(separator: "^").map({elm in
                     return "\(elm)"
                 })
@@ -528,6 +535,7 @@ class QuestionnaireSoapOptionView: UIView, UIScrollViewDelegate, UITextFieldDele
                     scrollViewHeightConstraint = scrollView.setAndReturnHeight(constant: CARD_PADDING * 2)
                     scrollView.setBottom(offSet: 0)
                 }
+                scrollViewHeightConstraint?.isActive = false
                 
                 var spltStr:[String] = (soapWidget.customText ?? "").split(separator: "^").map({elm in
                     return "\(elm)"
@@ -595,7 +603,7 @@ class QuestionnaireSoapOptionView: UIView, UIScrollViewDelegate, UITextFieldDele
                 
                 optionButton.setLeft(offSet: 0)
                 optionButton.setTop(offSet: 0)
-                optionButton.setWidth(constant: optionButton.viewWidth)
+                optionButton.setRight(offSet: 0)
                 
                 if isOthersAllowed && optionString == OTHERS{
                     let otherTF = UITextField()
@@ -614,8 +622,7 @@ class QuestionnaireSoapOptionView: UIView, UIScrollViewDelegate, UITextFieldDele
                     otherTF.setLeftRelatedToView(offSet: othersFieldLeftPadding, relatedView: optionButton, relatedAttribute: .left)
                     otherTF.setTopRelatedToView(offSet: 0, relatedView: optionButton, relatedAttribute: .bottom)
                     otherTF.setBottom(offSet: 0)
-                    let width = viewWidth - (othersFieldLeftPadding + (CARD_PADDING * 2))
-                    otherTF.setWidth(constant: width)
+                    otherTF.setRight(offSet: 0)
                     
                     otherTF.tag = OPTION_VIEW_STARTING_TAG
                     OPTION_VIEW_STARTING_TAG += 1
@@ -688,7 +695,7 @@ class QuestionnaireSoapOptionView: UIView, UIScrollViewDelegate, UITextFieldDele
                 
                 optionButton.setTop(offSet: 0)
                 optionButton.setBottom(offSet: 0)
-                optionButton.setWidth(constant: optionButton.viewWidth)
+                optionButton.setRight(offSet: 0)
                 
                 horizontalView.setLeft(offSet: 0)
                 horizontalView.setTop(offSet: CARD_PADDING)
@@ -763,19 +770,7 @@ class QuestionnaireSoapOptionView: UIView, UIScrollViewDelegate, UITextFieldDele
                 setSubViewModal(soapNestedModalParent: soapNestedModalParent, isRemoveView: true)
             }
         }
-        
-        var valueArr: [SoapNestedCheckListModal] = soapNestedListModalDict.map { (key: Int, value: SoapNestedCheckListModal) in
-            return value
-        }
-        
-        valueArr.sort { modal1, modal2 in
-            return modal1.modifieldWidth > modal2.modifieldWidth
-        }
-        
-        if let maxWidthModal = valueArr.first{
-            mainView.removeConstraint(attribute: .width)
-            mainView.setWidth(constant: maxWidthModal.modifieldWidth + SOAP_MAIN_VIEW_PADDING)
-        }
+        // mainView width now follows the card (see createSubView), so no measured width is applied here.
     }
     
 //MARK: get ChildAnswer List
@@ -1152,8 +1147,6 @@ class QuestionnaireSoapOptionView: UIView, UIScrollViewDelegate, UITextFieldDele
                 if let parentView = btn.superview{
                     if !btn.isOptionSelected{
                         btn.setOptionSelected(isSelected: true)
-                        btn.removeConstraint(attribute: .width)
-                        btn.setWidth(constant: btn.viewWidth)
                         setChildViews(btn: btn, parentView: parentView, optionsArr: optionsArr)
                     }
                 }
@@ -1413,9 +1406,8 @@ class SOAPOptionView : UIView {
         uiLabel.setRight(offSet: 0)
         uiLabel.setTop(offSet: 0)
         uiLabel.setBottom(offSet: 0)
-        if labelHeight <= ONE_LINE_BUTTON_HEIGHT{
-            uiLabel.setHeight(constant: labelHeight)
-        }
+        // Minimum one-line height keeps short options aligned with the icon; longer ones wrap and grow.
+        uiLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: ONE_LINE_BUTTON_HEIGHT).isActive = true
         setOptionSelected(isSelected: isSelected)
     }
     

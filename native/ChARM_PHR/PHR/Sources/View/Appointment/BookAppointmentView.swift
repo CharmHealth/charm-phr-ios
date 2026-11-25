@@ -186,7 +186,6 @@ class BookAppointmentView: UIView , UITextViewDelegate{
         bookAppStackView.addArrangedSubview(errorMsgLabel)
         
         let lastSpacing = UIView()
-        lastSpacing.setWidth(constant: applicationFrame.width)
         lastSpacing.setHeight(constant: 20)
         bookAppStackView.addArrangedSubview(lastSpacing)
         
@@ -203,6 +202,11 @@ class BookAppointmentView: UIView , UITextViewDelegate{
         bookAppStackView.axis = .vertical
         bookAppStackView.spacing = 20
         bookAppStackView.distribution = .fill
+        bookAppStackView.alignment = .fill
+        bookAppStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: X_SPACE, bottom: 0, trailing: X_SPACE)
+        bookAppStackView.isLayoutMarginsRelativeArrangement = true
+
+        slotWeekDayView.distribution = .fillEqually
         
         practiceCard.addShadowAndCornerRadius(.SMALL)
         practiceView.hideSeparator()
@@ -325,18 +329,15 @@ class BookAppointmentView: UIView , UITextViewDelegate{
         bookAppStackView.setTop(offSet: 0)
         bookAppStackView.setBottom(offSet: 0)
         bookAppStackView.setLeft(offSet: 0)
-        bookAppStackView.setWidth(constant: applicationFrame.width)
-        
+        bookAppStackView.setRight(offSet: 0)
+        // Edge pins inside a scroll view only set content bounds; this ties the width to the visible area.
+        bookAppStackView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor).isActive = true
+
         scrollView.setSafeAreaTop(offset: 0)
-        scrollView.setLeft(offSet: 0)
-        scrollView.setRight(offSet: 0)
+        scrollView.setSafeAreaLeft(offset: 0)
+        scrollView.setSafeAreaRight(offset: 0)
         scrollView.setSafeAreaBottom(offset: 0)
-        
-        practiceCard.setTop(offSet: 10)
-        practiceCard.setLeft(offSet: X_SPACE)
-        practiceCard.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
-       // practiceCard.setRight(offSet: -10)
-        
+
         practiceView.setLeft(offSet: 0)
         practiceView.setRight(offSet: 0)
         
@@ -348,13 +349,6 @@ class BookAppointmentView: UIView , UITextViewDelegate{
         
         visitTypeView.setLeft(offSet: 0)
         visitTypeView.setRight(offSet: 0)
-        
-        timezoneLabel.setLeft(offSet: X_SPACE)
-        timezoneLabel.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
-
-        onlineAppointmentCard.setLeft(offSet: X_SPACE)
-        onlineAppointmentCard.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
-       // practiceCard.setRight(offSet: -10)
         
         slotDateView.setLeft(offSet: 0)
         slotDateView.setRight(offSet: 0)
@@ -378,8 +372,8 @@ class BookAppointmentView: UIView , UITextViewDelegate{
         calendarView.setHeight(constant: 311)
         
         
-        slotWeekDayView.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         slotWeekDayView.setLeft(offSet: 0)
+        slotWeekDayView.setRight(offSet: 0)
         slotWeekDayView.setTopRelatedToView(offSet: 10, relatedView: calendarMonthLabel, relatedAttribute: .bottom)
     
         
@@ -404,12 +398,6 @@ class BookAppointmentView: UIView , UITextViewDelegate{
         slotTimeView.setLeft(offSet: 0)
         slotTimeView.setRight(offSet: 0)
         
-        requestAppointmentCard.setLeft(offSet: X_SPACE)
-        requestAppointmentCard.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
-        
-        otherDetailsCard.setLeft(offSet: X_SPACE)
-        otherDetailsCard.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
-        
         reasonLabel.setTop(offSet: Y_SPACE)
         reasonLabel.setLeft(offSet: 10)
         reasonLabel.setRight(offSet: -10)
@@ -420,8 +408,6 @@ class BookAppointmentView: UIView , UITextViewDelegate{
         reasonTextView.setBottom(offSet: -Y_SPACE)
         reasonTextView.setHeight(constant: 50, relatedBy: .greaterThanOrEqual)
         
-        errorMsgLabel.setLeft(offSet: X_SPACE)
-        errorMsgLabel.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         errorMsgLabel.setHeight(constant: 50)
         
        // errorPage.equalsTheContainerView()
@@ -454,12 +440,7 @@ class BookAppointmentView: UIView , UITextViewDelegate{
         
         let calendar = Calendar(identifier: .gregorian)
         let days:[String] = calendar.shortWeekdaySymbols
-        
-        let widthSize = (applicationFrame.width - (2 * X_SPACE) ) / CGFloat(days.count)
-        
-            
 
-        
         days.forEach{ day in
             
             let dayLabel = UILabel()
@@ -469,8 +450,7 @@ class BookAppointmentView: UIView , UITextViewDelegate{
             dayLabel.textAlignment = .center
             
             slotWeekDayView.addArrangedSubview(dayLabel)
-            
-            dayLabel.setWidth(constant: widthSize)
+
             dayLabel.setTop(offSet: 0)
             dayLabel.setBottom(offSet: 0)
         }

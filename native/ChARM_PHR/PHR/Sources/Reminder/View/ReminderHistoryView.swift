@@ -26,8 +26,12 @@ class ReminderHistoryView: UIView{
     private var timeObjToWidthMap: [Date: CGFloat] = [:]
     private var timeStringsWidth: CGFloat = 0
     private weak var delegate: ReminderHistoryViewController?
-    var scrollViewContainerHeight: CGFloat = 0
     private var reminderPOJO: ReminderPOJO?
+    // Live layout state so the time columns / table follow width changes (iPhone Duo fold, rotation, side bar).
+    private var timeArray: [ReminderHistoryTime] = []
+    private var timeLabelWidthConstraints: [NSLayoutConstraint] = []
+    private var tableHeightConstraint: NSLayoutConstraint?
+    private var lastLayoutWidth: CGFloat = 0
     
     init(reminderPOJO: ReminderPOJO?, delegate: ReminderHistoryViewController?){
         super.init(frame: .zero)
@@ -56,36 +60,30 @@ class ReminderHistoryView: UIView{
     
     private func addConstraints(){
 
-        let titleLabelHeight: CGFloat = titleLabel.sizeThatFits(CGSize(width: applicationFrame.width, height: 300)).height
-        let descriptionLabelHeight: CGFloat = descriptionLabel.sizeThatFits(CGSize(width: applicationFrame.width, height: 300)).height
-        let scheduleLabelHeight: CGFloat = scheduledLabel.sizeThatFits(CGSize(width: applicationFrame.width, height: 300)).height
-
         activityIndicator.setCenterY()
         activityIndicator.setCenterX()
 
         noDataView.setCenterY()
         noDataView.setCenterX()
 
+        // Width comes from the edge pins and label heights from their intrinsic size, so the card
+        // re-wraps whenever the available width changes.
         reminderDetailView.setTop(offSet: CARD_PADDING)
         reminderDetailView.setLeft(offSet: SPACING_12)
         reminderDetailView.setRight(offSet: -SPACING_12)
-        reminderDetailView.setWidth(constant: applicationFrame.width - (SPACING_12 * 2))
 
         titleLabel.setLeft(offSet: CARD_PADDING)
         titleLabel.setRight(offSet: -CARD_PADDING)
         titleLabel.setTop(offSet: TOP_SPACE_FROM_NAVIGATION)
-        titleLabel.setHeight(constant: titleLabelHeight)
 
         descriptionLabel.setLeft(offSet: CARD_PADDING)
         descriptionLabel.setRight(offSet: -CARD_PADDING)
         descriptionLabel.setTopRelatedToView(offSet: ITEM_VERTICAL_MARGIN, relatedView: titleLabel, relatedAttribute: .bottom)
-        descriptionLabel.setHeight(constant: descriptionLabelHeight)
 
         scheduledLabel.setLeft(offSet: CARD_PADDING)
         scheduledLabel.setRight(offSet: -CARD_PADDING)
         scheduledLabel.setTopRelatedToView(offSet: ITEM_VERTICAL_MARGIN, relatedView: descriptionLabel, relatedAttribute: .bottom)
         scheduledLabel.setBottom(offSet: -CARD_PADDING)
-        scheduledLabel.setHeight(constant: scheduleLabelHeight)
 
         reminderHistoryDetailView.setTopRelatedToView(offSet: CARD_PADDING, relatedView: reminderDetailView, relatedAttribute: .bottom)
         reminderHistoryDetailView.setLeft(offSet: SPACING_12)
@@ -107,12 +105,66 @@ class ReminderHistoryView: UIView{
         historyTimeView.setTop(offSet: CARD_PADDING)
         historyTimeView.setHeight(constant: BUTTON_HEIGHT_20)
 
-        scrollViewContainerHeight = titleLabelHeight + descriptionLabelHeight + scheduleLabelHeight + (10 + 4 + 4 + 8 + 10 + 10 + 10 + 20 + 20 + 110)
-        
         historyTableView.setTopRelatedToView(offSet: PADDING_3, relatedView: historyTimeView, relatedAttribute: .bottom)
         historyTableView.setLeft(offSet: 0)
         historyTableView.setRight(offSet: 0)
         historyTableView.setBottom(offSet: -PADDING_6)
+
+        // Table wants its full content height but never grows past the visible card; it scrolls
+        // internally beyond that. Replaces the old launch-time applicationFrame.height maths.
+        let tableHeight = historyTableView.heightAnchor.constraint(equalToConstant: 0)
+        tableHeight.priority = .defaultHigh
+        tableHeightConstraint = tableHeight
+        NSLayoutConstraint.activate([
+            tableHeight,
+            reminderHistoryCardView.heightAnchor.constraint(lessThanOrEqualTo: reminderScrollView.frameLayoutGuide.heightAnchor)
+        ])
+    }
+
+    func setHistoryRowCount(_ count: Int, rowHeight: CGFloat){
+        tableHeightConstraint?.constant = count > 0 ? (CGFloat(count) * rowHeight) + 3 : 0
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let width = reminderScrollView.bounds.width
+        guard width > 0, width != lastLayoutWidth, !timeArray.isEmpty else { return }
+        lastLayoutWidth = width
+        updateTimeColumnWidths()
+        // Status icons in each row are sized from the column widths, so rebuild the rows.
+        historyTableView.reloadData()
+    }
+
+    /// Visible width of the history card; falls back to the host's safe-area width before first layout.
+    private var availableCardWidth: CGFloat {
+        if reminderScrollView.bounds.width > 0 { return reminderScrollView.bounds.width }
+        let hostWidth = delegate?.view.safeAreaLayoutGuide.layoutFrame.width ?? 0
+        return (hostWidth > 0 ? hostWidth : applicationFrame.width) - (SPACING_12 * 2)
+    }
+
+    private func updateTimeColumnWidths(){
+        guard timeArray.count == timeLabelWidthConstraints.count, !timeArray.isEmpty else { return }
+        let font = UIFont.systemFont(ofSize: FONT_SIZE_MEDIUM, Weight: .regular)
+        let gaps = CGFloat(timeArray.count - 1) * X_SPACE
+        let fixedSpacing = reminderHistoryTimeViewLeftSpacing + (CARD_PADDING * 2)
+        let remainingWidth = availableCardWidth - fixedSpacing - gaps
+        let fitsWidth = timeStringsWidth <= remainingWidth + gaps
+
+        for (index, reminderHistoryTime) in timeArray.enumerated(){
+            guard let timeObj = reminderHistoryTime.timeobj else { continue }
+            let columnWidth: CGFloat
+            if fitsWidth{
+                // Columns share the visible width equally.
+                columnWidth = remainingWidth / CGFloat(timeArray.count)
+            }
+            else{
+                // Too many times to fit: natural widths, the card scrolls horizontally.
+                let text = timeObj.getStringFromDate(dateFormat: charmDisplayTimeFormat)
+                columnWidth = ceil(text.widthOfString(usingFont: font))
+            }
+            timeLabelWidthConstraints[index].constant = columnWidth
+            delegate?.mapTimeViewAndWidth(timeObj: timeObj, width: columnWidth)
+        }
     }
     
     private func addProperties(){
@@ -145,6 +197,7 @@ class ReminderHistoryView: UIView{
             attributedText.append(NSMutableAttributedString(string: endDateString, attributes: [.font: UIFont.systemFont(ofSize: FONT_SIZE_NORMAL, Weight: .semibold), .foregroundColor: UIColorFromRGB(rgbValueWithAlpha: TEXT_COLOR_BLACK87)]))
         }
         scheduledLabel.attributedText = attributedText
+        scheduledLabel.numberOfLines = 0
         
         setViewBorderAndCornerRadius(uiView: reminderDetailView)
         setViewBorderAndCornerRadius(uiView: reminderHistoryDetailView)
@@ -199,6 +252,7 @@ class ReminderHistoryView: UIView{
 
     private func setTimeView(timeArray: [ReminderHistoryTime]){
 
+        timeStringsWidth = 0
         for i in 0 ..< timeArray.count{
             let reminderHistoryTime = timeArray[i]
             if let timeStringWidth = reminderHistoryTime.timeobj?.getStringFromDate(dateFormat: charmDisplayTimeFormat).widthOfString(usingFont: UIFont.systemFont(ofSize: FONT_SIZE_MEDIUM, Weight: .regular)){
@@ -213,6 +267,8 @@ class ReminderHistoryView: UIView{
         }
 
         if !timeArray.isEmpty && historyTimeView.subviews.isEmpty{
+            self.timeArray = timeArray
+            timeLabelWidthConstraints = []
             timeArray.forEach({ reminderHistoryTime in
 
                 let timeLabel = UILabel()
@@ -229,20 +285,13 @@ class ReminderHistoryView: UIView{
                 timeLabel.setTop(offSet: 0)
                 timeLabel.setBottom(offSet: 0)
 
-                let reminderHistorySpacing: CGFloat = reminderHistoryTimeViewLeftSpacing + (CARD_PADDING * 2) + (SPACING_12 * 2)
-                if let timeObj = reminderHistoryTime.timeobj{
-                    if timeStringsWidth + reminderHistorySpacing <= applicationFrame.width{
-                        let remainingWidth: CGFloat = applicationFrame.width - reminderHistorySpacing - (CGFloat(timeArray.count - 1) * X_SPACE)
-                        timeLabel.setWidth(constant: (remainingWidth / CGFloat(timeArray.count)))
-                        delegate?.mapTimeViewAndWidth(timeObj: timeObj, width: remainingWidth / CGFloat(timeArray.count))
-                    }
-                    else{
-                        timeLabel.setWidth(constant: timeLabel.sizeThatFits(CGSize(width: 200, height: 50)).width)
-                        
-                        delegate?.mapTimeViewAndWidth(timeObj: timeObj, width: timeLabel.sizeThatFits(CGSize(width: 200, height: 50)).width)
-                    }
-                }
+                // Constant is filled in by updateTimeColumnWidths() and refreshed on every width change.
+                let widthConstraint = timeLabel.widthAnchor.constraint(equalToConstant: 0)
+                widthConstraint.isActive = true
+                timeLabelWidthConstraints.append(widthConstraint)
             })
+            lastLayoutWidth = availableCardWidth
+            updateTimeColumnWidths()
         }
     }
     

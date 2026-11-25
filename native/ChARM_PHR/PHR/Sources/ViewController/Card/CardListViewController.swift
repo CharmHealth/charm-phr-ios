@@ -57,7 +57,6 @@ class CardListViewController: UIViewController,CharmConnectionV2HandlerDelegate,
 //        customTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
 //
 //        //TODO: change image
-//        bottomImageView.image = #imageLiteral(resourceName: "Questionnaires_HP_BG")
         
         cardListView?.cardSegmentControl.addTarget(self, action: #selector(cardSegmentChanged(_:)), for: .valueChanged)
         

@@ -33,7 +33,7 @@ class SupportViewController: AddDataUIViewController, CharmConnectionHandlerDele
         self.title = getString(key: "com.charmphr.support.title")
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
         
-        navigationController?.navigationBar.tintColor = UIColorFromRGB(rgbValueWithAlpha: TEXT_COLOR_BLUE)
+        navigationController?.navigationBar.tintColor = .systemBlue
         navigationController?.navigationBar.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
         
         charmConnectionHandler = CharmConnectionHandler(delegate: self)
@@ -996,7 +996,7 @@ class SupportViewController: AddDataUIViewController, CharmConnectionHandlerDele
                 attachmentView.arrangeViews(constant: CARD_PADDING, hasSpace: hasSpace, beforeView: beforeView)
                 beforeView = attachmentView
                 hasSpace = !hasSpace
-                attachmentView.setWidth(constant: APPLICATION_FRAME_WIDTH_HALF - ((CARD_PADDING * 2) + 2))
+                attachmentView.widthAnchor.constraint(equalTo: supportView.attachmentView.widthAnchor, multiplier: 0.5, constant: -CARD_PADDING / 2).isActive = true
 
                 attachmentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewAttachmentClicked(tapGesture:))))
                 

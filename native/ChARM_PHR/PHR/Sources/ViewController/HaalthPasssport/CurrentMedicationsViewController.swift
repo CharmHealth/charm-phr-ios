@@ -33,14 +33,12 @@
 //        self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonClicked)), animated: true)
 //
 //        //TODO: change image
-//        bottomImageView.image = #imageLiteral(resourceName: "Medication_HP_BG")
 //    }
 //
 //    //MARK: uitableview delegate
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        if arrayOfMedication.count > 4 || arrayOfMedication.count == 0
 //        {
-//            bottomImageView.isHidden = true
 //            if arrayOfMedication.count == 0
 //            {
 //                self.noDataBackGroundView.setImage(enum: .noData, title: NSLocalizedString("com.charmphr.action.noData.title", comment: ""), message: "\(NSLocalizedString("com.charmphr.action.noData.message", comment: ""))\(NSLocalizedString("com.charmphr.prescriptions.nomedications.title", comment: ""))")
@@ -51,7 +49,6 @@
 //            }
 //        }else
 //        {
-//            bottomImageView.isHidden = false
 //            self.noDataBackGroundView.hideSubView(bool: true)
 //        }
 //        return arrayOfMedication.count

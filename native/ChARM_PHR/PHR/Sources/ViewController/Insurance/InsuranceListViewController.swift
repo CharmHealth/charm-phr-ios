@@ -37,8 +37,9 @@ class InsuranceListViewController: CustomViewControllerWithTableView, CharmConne
         noteView.setTop(offSet: PADDING)
         noteView.setBottom(offSet: 0)
         
-        self.titleCustomView.layoutIfNeeded()
-        changeCustomTitleViewHeight(height: noteView.frame.height + PADDING)
+        // No fixed height: the header is sized by the note (top PADDING → bottom 0), so the message wraps to
+        // more lines when the width shrinks (iPhone Duo fold, rotation, iOS 27.1 side bar). Was measured once at load.
+        titleCustomView.removeConstraint(attribute: .height)
         
         customTableView.separatorColor = .clear
         customTableView.dataSource = self
@@ -49,6 +50,12 @@ class InsuranceListViewController: CustomViewControllerWithTableView, CharmConne
         getInsurance()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Keep the base class's scroll offset maths in sync with the content-driven header height.
+        topViewHeight = titleCustomView.frame.height
+    }
+
     func getInsurance() {
         
         if refreshControl.isRefreshing != true {
@@ -63,12 +70,10 @@ class InsuranceListViewController: CustomViewControllerWithTableView, CharmConne
         if insuranceList.count == 0
         {
             
-            bottomImageView.isHidden = true
             self.noDataBackGroundView.backgroundColor =  UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
             self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: "\(getString(key: "com.charmphr.action.noData.message"))\(getString(key: "com.charmphr.insurance.title"))")
         }else
         {
-            bottomImageView.image = #imageLiteral(resourceName: "insurance_healthPassport")
             self.noDataBackGroundView.hideSubView(bool: true)
         }
         return insuranceList.count

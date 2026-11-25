@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "My health _ Inactive copy.png",
+      "filename" : "my-health-filled-selected.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Myhealth copy2x.png",
+      "filename" : "my-health-filled-selected2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "My healthInactive3x.png",
+      "filename" : "my-health-filled-selected3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

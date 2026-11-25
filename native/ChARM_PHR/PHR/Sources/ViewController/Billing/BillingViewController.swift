@@ -311,12 +311,10 @@ class BillingViewController: CustomViewControllerWithTableView, CharmConnectionV
     func invoiceArrayCount() -> Int{
         if invoicesArray.isEmpty
         {
-            bottomImageView.image = nil
             self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
         }
         else
         {
-            bottomImageView.image = #imageLiteral(resourceName: "Billing_BG")
             self.noDataBackGroundView.hideSubView(bool: true)
         }
         return invoicesArray.count
@@ -324,12 +322,10 @@ class BillingViewController: CustomViewControllerWithTableView, CharmConnectionV
     func receiptArrayCount() -> Int{
         if receiptArray.isEmpty
         {
-            bottomImageView.image = nil
             self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
         }
         else
         {
-            bottomImageView.image = #imageLiteral(resourceName: "Billing_BG")
             self.noDataBackGroundView.hideSubView(bool: true)
         }
         return receiptArray.count

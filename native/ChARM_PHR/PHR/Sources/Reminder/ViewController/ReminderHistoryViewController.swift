@@ -34,8 +34,9 @@ class ReminderHistoryViewController: AddDataUIViewController, CharmConnectionV2H
             self.view.addSubview(reminderHistoryView)
             reminderHistoryView.setSafeAreaTop(offset: 0)
             reminderHistoryView.setBottom(offSet: -CARD_PADDING)
-            reminderHistoryView.setLeft(offSet: 0)
-            reminderHistoryView.setRight(offSet: 0)
+            // Safe-area edges keep the cards clear of the Dynamic Island and the iOS 27.1 landscape side bar.
+            reminderHistoryView.setSafeAreaLeft(offset: 0)
+            reminderHistoryView.setSafeAreaRight(offset: 0)
             reminderHistoryView.historyTableView.delegate = self
             reminderHistoryView.historyTableView.dataSource = self
             reminderHistoryView.noDataView.delegate = self
@@ -198,25 +199,15 @@ class ReminderHistoryViewController: AddDataUIViewController, CharmConnectionV2H
             
             reminderHistoryGroupArray.append(reminderHistoryGroupPOJO)
         })
+        reminderHistoryView?.setHistoryRowCount(reminderHistoryGroupArray.count, rowHeight: reminderHistoryItemHeight)
         reminderHistoryView?.historyTableView.reloadData()
+        guard !reminderHistoryGroupArray.isEmpty else { return }
         reminderHistoryView?.historyTableView.scrollToRow(at: IndexPath(row: reminderHistoryGroupArray.count - 1, section: 0), at: .bottom, animated: true)
     }
     
 //MARK: - TableView Delegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        reminderHistoryView?.historyTableView.removeConstraint(attribute: .height)
-        let tableViewHeight = CGFloat(reminderHistoryGroupArray.count * 44)
-        if let reminderHistoryView = reminderHistoryView{
-            let remainingHeight = applicationFrame.height - reminderHistoryView.scrollViewContainerHeight
-            if tableViewHeight > remainingHeight{
-                reminderHistoryView.historyTableView.setHeight(constant: remainingHeight)
-            }
-            else{
-                reminderHistoryView.historyTableView.setHeight(constant: tableViewHeight + 3)
-            }
-        }
         return reminderHistoryGroupArray.count
     }
 

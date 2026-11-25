@@ -1067,6 +1067,13 @@ class BookAppointmentViewController: AddDataUIViewController , selectAddAppointm
         }
     }
     
+    // JTAppleCalendar sizes its day cells from its bounds, so it must reload on rotation and fold/unfold.
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        guard let monthView = bookAppointmentView?.calendarMonthView else { return }
+        monthView.viewWillTransition(to: size, with: coordinator, anchorDate: monthView.visibleDates().monthDates.first?.date)
+    }
+
     func calendar(_ calendar: JTACMonthView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         if let date = visibleDates.monthDates.last {
             

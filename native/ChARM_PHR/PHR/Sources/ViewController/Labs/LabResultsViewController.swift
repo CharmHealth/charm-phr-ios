@@ -45,7 +45,9 @@ class LabResultsViewController: UIViewController , CharmConnectionHandlerDelegat
         let containerScrollView = UIScrollView()
         containerScrollView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(containerScrollView)
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[containerScrollView]|", options: [], metrics: nil, views: ["containerScrollView":containerScrollView]))
+        // Safe-area edges keep the cards clear of the iOS 27.1 landscape side bar / Dynamic Island.
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[containerScrollView]|", options: [], metrics: nil, views: ["containerScrollView":containerScrollView]))
         
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +58,8 @@ class LabResultsViewController: UIViewController , CharmConnectionHandlerDelegat
         containerView.setBottom(offSet: 0)
         containerView.setTop(offSet: 0)
         
-        self.view.addConstraint(NSLayoutConstraint.init(item: containerView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1, constant: 0))
+        // Content width follows the visible (safe-area) width, so it fits on fold/unfold and rotation and only scrolls vertically.
+        containerView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor).isActive = true
         
         activityIndicatorView.hidesWhenStopped = true
         activityIndicatorView.startAnimating()

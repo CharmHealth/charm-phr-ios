@@ -8,7 +8,6 @@
 
 import UIKit
 
-private let conditionParentWidth: CGFloat = applicationFrame.width - (2 * X_SPACE) - CARD_PADDING
 
 // MARK: - Cell
 
@@ -99,7 +98,6 @@ class MedConditionItemView: UIView {
     private var facilityListLabel: UILabel? = nil
 
     private var deleteLabelConstraint: NSLayoutConstraint? = nil
-    private var conditionParentWidthConstraint: NSLayoutConstraint? = nil
     private var severityLabelWidthConstraint: NSLayoutConstraint? = nil
     private var severityLabelTopConstraint: NSLayoutConstraint? = nil
     private var sepatorHeightConstraint: NSLayoutConstraint? = nil
@@ -142,7 +140,8 @@ class MedConditionItemView: UIView {
         verticalStackView.setLeft(offSet: CARD_PADDING)
         verticalStackView.setTop(offSet: CARD_PADDING)
         verticalStackView.setBottom(offSet: -CARD_PADDING)
-        conditionParentWidthConstraint = verticalStackView.setAndReturnWidth(constant: conditionParentWidth)
+        // Width comes from the card: stack right == deleteLabel left, deleteLabel right == card right
+        // (see checkAndCreateDeleteLabel). Was a launch-time width, which left the card half empty when unfolded/rotated.
 
         // Date row — top=0, no bottom (height driven by single-line intrinsic content)
         startDateLabel.setLeft(offSet: 0)
@@ -484,7 +483,6 @@ class MedConditionItemView: UIView {
             checkAndCreateDeleteLabel()
             UIView.animate(withDuration: duration, delay: 0, animations: { [self] in
                 deleteLabelConstraint?.constant = SWIPE_LABEL_HEIGHT_CONSTRAINT
-                conditionParentWidthConstraint?.constant = conditionParentWidth - SWIPE_LABEL_HEIGHT_CONSTRAINT
                 self.layoutIfNeeded()
             })
         }
@@ -493,7 +491,6 @@ class MedConditionItemView: UIView {
     func setRowActionForSwipeRight(duration: TimeInterval) {
         UIView.animate(withDuration: duration, delay: 0, animations: { [self] in
             deleteLabelConstraint?.constant = 0
-            conditionParentWidthConstraint?.constant = conditionParentWidth
             self.layoutIfNeeded()
         })
     }

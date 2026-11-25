@@ -55,6 +55,9 @@ class AddFlowsheetEntryView: UIView{
         stackView.distribution = .fill
         stackView.spacing = CARD_PADDING
         stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: CARD_PADDING, bottom: 0, trailing: CARD_PADDING)
+        stackView.isLayoutMarginsRelativeArrangement = true
 
         observedCard.addShadowAndCornerRadius(.SMALL)
         
@@ -72,19 +75,18 @@ class AddFlowsheetEntryView: UIView{
     
     func addConstraints(){
         
-        containerScrollView.setLeft(offSet: 0)
-        containerScrollView.setRight(offSet: 0)
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
         containerScrollView.setSafeAreaTop(offset: Y_SPACE)
         containerScrollView.setSafeAreaBottom(offset: -Y_SPACE)
-        
+
         stackView.setLeft(offSet: 0)
         stackView.setRight(offSet: 0)
         stackView.setTop(offSet: CARD_PADDING)
         stackView.setBottom(offSet: -CARD_PADDING)
-        
-        observedCard.setLeft(offSet: CARD_PADDING)
-        observedCard.setWidth(constant: (applicationFrame.width - 20))
-        
+        // Edge pins inside a scroll view only set content bounds; this ties the width to the visible area.
+        stackView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor).isActive = true
+
         observedLabel.setLeft(offSet: CARD_PADDING)
         observedLabel.setRight(offSet: -CARD_PADDING)
         observedLabel.setTop(offSet: CARD_PADDING)
@@ -122,8 +124,7 @@ class CommonFlowsheetLayout: UIView {
         
         commonFlowsheetLabel.setTop(offSet:CARD_PADDING)
         commonFlowsheetLabel.setLeft(offSet: CARD_PADDING)
-    
-        commonFlowsheetLabel.setWidth(constant: applicationFrame.width - (2 * X_SPACE) - (2 * CARD_PADDING))
+        commonFlowsheetLabel.setRight(offSet: -CARD_PADDING, relatedBy: .lessThanOrEqual)
 
         let separator = UIView()
         

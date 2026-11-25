@@ -148,11 +148,15 @@ class AddDocumentViewController: AddDataUIViewController, CharmConnectionHandler
         containerView.setTop(offSet: Y_SPACE)
         containerView.setBottom(offSet: -Y_SPACE)
         containerView.setLeft(offSet: X_SPACE)
-        containerView.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
-     
-        
+        containerView.setRight(offSet: -X_SPACE)
+        // Edge pins inside a scroll view only set content bounds; tie the width to the visible area so the
+        // form follows fold/unfold and rotation (was the launch-time applicationFrame.width).
+        containerView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor, constant: -(2 * X_SPACE)).isActive = true
+
+        // Safe-area edges keep the form clear of the Dynamic Island and the iOS 27.1 landscape side bar.
         containerScrollView.setSafeAreaTop(offset: 0)
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-X_SPACE-[containerScrollView]-X_SPACE-|", options: [], metrics:["X_SPACE":0], views: ["containerScrollView":containerScrollView]))
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
         containerScrollView.setSafeAreaBottom(offset: 0)
         
     }
@@ -303,6 +307,8 @@ class AddDocumentViewController: AddDataUIViewController, CharmConnectionHandler
     }
     
     override func onBackClick() {
+        // Also blocks the swipe-back gesture, which AddDataUIViewController routes through onBackClick.
+        guard !activityIndicator.isAnimating else { return }
         dismissKeyboard()
         
         if let selectedFileUrl = selectedFileUrl {
@@ -420,6 +426,9 @@ class AddDocumentViewController: AddDataUIViewController, CharmConnectionHandler
         activityIndicator.startAnimating()
         self.view.isUserInteractionEnabled = false
         navigationItem.rightBarButtonItem?.isEnabled = false
+        // Back is a custom-view bar item, so the button itself must be disabled too.
+        backButton.isEnabled = false
+        navigationItem.leftBarButtonItem?.isEnabled = false
     }
     
     func hideActivityIndicator()
@@ -427,5 +436,7 @@ class AddDocumentViewController: AddDataUIViewController, CharmConnectionHandler
         activityIndicator.stopAnimating()
         self.view.isUserInteractionEnabled = true
         navigationItem.rightBarButtonItem?.isEnabled = true
+        backButton.isEnabled = true
+        navigationItem.leftBarButtonItem?.isEnabled = true
     }
 }

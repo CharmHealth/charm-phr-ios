@@ -39,11 +39,8 @@ class CustomViewControllerWithTableView: UIViewController , UITableViewDelegate 
     var backGroundColor = APPLICATION_BACKGROUND_COLOR
     
     //TODO: noDataBackGroundView show and hide method should be here
-    //While showing noDataBackGroundView we should hide bottomImageView
     let noDataBackGroundView = NoDataView()
-    
-    let bottomImageView = UIImageView()
-    
+
     var canAllowAddEntry = false
     
 
@@ -73,15 +70,17 @@ class CustomViewControllerWithTableView: UIViewController , UITableViewDelegate 
         customTableView.showsHorizontalScrollIndicator = false
         self.view.addSubview(customTableView)
         customTableView.addSubview(refreshControl)
-        customTableView.setHorizontal()
+        // Safe area keeps cards clear of the Dynamic Island and the landscape vertical bar (iOS 27.1+).
+        customTableView.setSafeAreaLeft(offset: 0)
+        customTableView.setSafeAreaRight(offset: 0)
         
         bottomCustomView.translatesAutoresizingMaskIntoConstraints = false
         bottomCustomView.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
         self.view.addSubview(bottomCustomView)
 
         bottomCustomView.setTopRelatedToView(offSet: 0, relatedView: customTableView, relatedAttribute: .bottom)
-        bottomCustomView.setLeft(offSet: 0)
-        bottomCustomView.setRight(offSet: 0)
+        bottomCustomView.setSafeAreaLeft(offset: 0)
+        bottomCustomView.setSafeAreaRight(offset: 0)
         bottomCustomView.setSafeAreaBottom(offset: 0)
         heightConstraintOfBottomView = bottomCustomView.setAndReturnHeight(constant: 0)
         
@@ -120,15 +119,7 @@ class CustomViewControllerWithTableView: UIViewController , UITableViewDelegate 
         
         tableviewBgView.clipsToBounds = false
         customTableView.clipsToBounds = true
-        bottomImageView.isHidden = true
-        tableviewBgView.addSubview(bottomImageView)
-        
-        let htConst = NSLayoutConstraint(item: bottomImageView, attribute: .height, relatedBy: .equal, toItem: bottomImageView, attribute: .width, multiplier: 0.64456, constant: 0)
-        bottomImageView.superview!.addConstraint(htConst)
-        bottomImageView.setSafeAreaBottom(offset: 0)
-        bottomImageView.setRight(offSet: 0)
-        bottomImageView.setLeft(offSet: 0)
-        
+
         noDataBackGroundView.setCenterY()
         noDataBackGroundView.setCenterX()
         noDataBackGroundView.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: backGroundColor)
@@ -261,40 +252,6 @@ class CustomViewControllerWithTableView: UIViewController , UITableViewDelegate 
         }
         
         cell.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: cellBackgroundColor)
-        findTheLastTableviewCellAndHideBottomImageView(cell: cell, indexPath: indexPath)
-    }
-    
-    var isIndexPathsEquals: Bool = false
-    func findTheLastTableviewCellAndHideBottomImageView(cell : UITableViewCell , indexPath : IndexPath)
-    {
-        
-        if customTableView.style == .grouped
-        {
-            bottomImageView.isHidden = false
-        }else
-        {
-            if indexPath == IndexPath(row: customTableView.numberOfRows(inSection: customTableView.numberOfSections - 1) - 1, section: customTableView.numberOfSections - 1)
-            {
-                if (bottomImageView.frame.minY - cell.frame.maxY ) > 50
-                {
-                    bottomImageView.isHidden = false
-                    isIndexPathsEquals = true
-                }else
-                {
-                    bottomImageView.isHidden = true
-                    isIndexPathsEquals = false
-                }
-            }else
-            {
-                if isIndexPathsEquals{
-                    bottomImageView.isHidden = false
-                }
-                else{
-                    bottomImageView.isHidden = true
-                }
-                
-            }
-        }
     }
 
     // only for plain tableview not for grouped and with many sections

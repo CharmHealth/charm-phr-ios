@@ -317,12 +317,14 @@ class AddVaccineViewController: AddDataUIViewController , CharmConnectionHandler
         containerView.setTop(offSet: Y_SPACE)
         containerView.setBottom(offSet: -Y_SPACE)
         containerView.setLeft(offSet: X_SPACE)
-        containerView.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
+        containerView.setRight(offSet: -X_SPACE)
+        // Card follows the visible width (fold/unfold, rotation, iOS 27.1 landscape side bar); vertical scrolling only.
+        containerView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor, constant: -2 * X_SPACE).isActive = true
         
         
         containerScrollView.setSafeAreaTop(offset: 0)
-        containerScrollView.setLeft(offSet: 0)
-        containerScrollView.setRight(offSet: 0)
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
 //        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-X_SPACE-[containerScrollView]-X_SPACE-|", options: [], metrics:["X_SPACE":X_SPACE], views: ["containerScrollView":containerScrollView]))
         containerScrollView.setSafeAreaBottom(offset: 0)
     }

@@ -82,11 +82,12 @@ class SelectPatientViewController: CustomViewControllerWithTableView , UITableVi
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let homeVC = storyboard.instantiateViewController(withIdentifier: "homeVC") as? HomeViewController {
+            let mainVC = MainViewController(homeVC: homeVC)
             if appDelegate.notificationObj == nil{
-                self.navigationController?.setViewControllers([homeVC], animated: true)
+                self.navigationController?.setViewControllers([mainVC], animated: true)
             }
             else{
-                self.navigationController?.setViewControllers([homeVC], animated: false)
+                self.navigationController?.setViewControllers([mainVC], animated: false)
             }
         }
     }

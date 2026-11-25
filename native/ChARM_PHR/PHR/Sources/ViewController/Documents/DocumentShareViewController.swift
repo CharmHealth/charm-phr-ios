@@ -87,7 +87,9 @@ class DocumentShareViewController: AddDataUIViewController, CharmConnectionHandl
             documentShareView.informationView.isHidden = false
             fetchPharmacyList()
         }
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: getString(key: "com.charmphr.action.share"), style: .plain, target: self, action: #selector(shareOnClick))
+        let shareButton = UIBarButtonItem(image: UIImage(systemName: "arrow.up"), style: .plain, target: self, action: #selector(shareOnClick))
+        shareButton.accessibilityLabel = getString(key: "com.charmphr.action.share")
+        self.navigationItem.rightBarButtonItem = shareButton
         
         loadSelectedAttachments()
     }
@@ -503,7 +505,6 @@ class DocumentShareViewController: AddDataUIViewController, CharmConnectionHandl
             if delegate.selectedDocumentArray.count > 0{
                 let selectedDocumentList = delegate.selectedDocumentArray
                 var hasSpace = false
-                let viewFrame = SUPPORT_FRAME_WIDTH
                 var beforeView: UIView?
                 for (i,documentObj) in selectedDocumentList.enumerated(){
                     
@@ -518,7 +519,8 @@ class DocumentShareViewController: AddDataUIViewController, CharmConnectionHandl
                     beforeView = attachmentView
                     hasSpace = !hasSpace
                     
-                    attachmentView.setWidth(constant: (viewFrame / 2) - 10)
+                    // Two cards per row at half the live width (was the launch-time SUPPORT_FRAME_WIDTH).
+                    attachmentView.widthAnchor.constraint(equalTo: documentShareView.attachmentView.widthAnchor, multiplier: 0.5, constant: -10).isActive = true
                     if i == selectedDocumentList.count - 1{
                         attachmentView.setBottom(offSet: -10)
                     }

@@ -82,7 +82,9 @@ class WellnessDetailViewController: CustomViewControllerWithTableView , UITableV
         
         customTableView.removeConstraint(attribute: .left)
         customTableView.removeConstraint(attribute: .right)
-        customTableView.setHorizontal(offSet: X_SPACE)
+        // Safe-area edges keep the bordered list clear of the iOS 27.1 landscape side bar / Dynamic Island.
+        customTableView.setSafeAreaLeft(offset: X_SPACE)
+        customTableView.setSafeAreaRight(offset: -X_SPACE)
         customTableView.layer.borderColor = UIColorFromRGB(rgbValueWithAlpha: BORDER_COLOR).cgColor
         customTableView.layer.borderWidth = 0.5
         customTableView.addCornerRadius(.SMALL)
@@ -453,17 +455,11 @@ fileprivate class BottomSheetFloatingController: UIViewController, UITableViewDe
         view.addSubview(sheetView)
 
         dimView.frame = view.bounds
-        
-        let window = UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .flatMap { $0.windows }
-            .first { $0.isKeyWindow }
+        dimView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-        let bottomInset = window?.safeAreaInsets.bottom ?? 0
-        let height: CGFloat = CGFloat(50 + items.count * 55) + bottomInset
-        let width: CGFloat = view.frame.width
-
-        sheetView.frame = CGRect(x: 0, y: view.frame.height, width: width, height: min(height, 420))
+        // Start off-screen; layoutSheet() sizes it from the live bounds/safe area on every layout pass.
+        sheetView.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 0)
+        layoutSheet()
 
         titleLabel.text = titleText
         sheetView.addSubview(titleLabel)
@@ -473,8 +469,9 @@ fileprivate class BottomSheetFloatingController: UIViewController, UITableViewDe
 
         titleLabel.setLeft(offSet: X_SPACE)
         titleLabel.setTop(offSet: X_SPACE)
-        titleLabel.wrapWidth(maxWidth: width - 100)
-        
+        // Relative to the close button instead of a launch-time width, so it follows rotation/fold.
+        titleLabel.setRightRelatedToView(offSet: -X_SPACE, relatedView: closeButton, multiplier: 1, relatedAttribute: .left, relatedBy: .lessThanOrEqual)
+
         closeButton.setRight(offSet: -X_SPACE)
         closeButton.setCenterY(view: titleLabel)
         closeButton.setWidth(constant: buttonSize)
@@ -504,17 +501,38 @@ fileprivate class BottomSheetFloatingController: UIViewController, UITableViewDe
         tableView.separatorStyle = .none
     }
 
+    /// true once the sheet has slid in; drives where layoutSheet() places it.
+    private var isSheetShown = false
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        layoutSheet()
+    }
+
+    /// Sizes and positions the sheet from the current bounds and safe area, so it follows rotation,
+    /// fold/unfold and the iOS 27.1 landscape side bar while open.
+    private func layoutSheet() {
+        let insets = view.safeAreaInsets
+        let width = view.bounds.width - insets.left - insets.right
+        let height = min(CGFloat(50 + items.count * 55) + insets.bottom, 420, view.bounds.height - insets.top)
+        sheetView.frame.size = CGSize(width: width, height: height)
+        sheetView.frame.origin.x = insets.left
+        sheetView.frame.origin.y = isSheetShown ? view.bounds.height - height : view.bounds.height
+    }
+
     private func animateIn() {
+        isSheetShown = true
         UIView.animate(withDuration: 0.25) { self.dimView.alpha = 1 }
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.6, options: [.curveEaseOut]) {
-            self.sheetView.frame.origin.y = self.view.frame.height - self.sheetView.frame.height
+            self.layoutSheet()
         }
     }
 
     @objc private func closeSheet() {
+        isSheetShown = false
         UIView.animate(withDuration: 0.3) {
             self.dimView.alpha = 0
-            self.sheetView.frame.origin.y = self.view.frame.height
+            self.layoutSheet()
         } completion: { _ in
             self.dismiss(animated: false)
         }

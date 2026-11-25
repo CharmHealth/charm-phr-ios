@@ -64,7 +64,7 @@ class DemographicsViewController:  UIViewController , CharmConnectionHandlerDele
         self.navigationItem.title = getString(key: "com.charmphr.Demographics.title")
         self.view.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
-        self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveBtnClicked)), animated: true)
+        self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveBtnClicked)), animated: true)
         
         activityIndicator.color = .gray
         activityIndicator.hidesWhenStopped = true
@@ -447,14 +447,14 @@ class DemographicsViewController:  UIViewController , CharmConnectionHandlerDele
         containerView.setTop(offSet: 0)
         containerView.setBottom(offSet: 0)
         containerView.setLeft(offSet: 0)
-        containerView.setWidth(constant: applicationFrame.width)
-        //containerView.setRight(offSet: 0)
-       // self.view.addConstraint(NSLayoutConstraint.init(item: containerView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1, constant: -(X_SPACE + X_SPACE)))
-        
-        
+        containerView.setRight(offSet: 0)
+        // Edge pins inside a scroll view only set content bounds; this ties the width to the visible area.
+        containerView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor).isActive = true
+
         containerScrollView.setSafeAreaTop(offset: Y_SPACE)
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-X_SPACE-[containerScrollView]-X_SPACE-|", options: [], metrics:["X_SPACE":0], views: ["containerScrollView":containerScrollView]))
         containerScrollView.setSafeAreaBottom(offset: -Y_SPACE)
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
         
         self.view.bringSubviewToFront(activityIndicator)
         

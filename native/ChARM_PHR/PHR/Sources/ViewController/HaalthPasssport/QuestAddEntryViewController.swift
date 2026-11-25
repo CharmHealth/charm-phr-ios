@@ -6,7 +6,8 @@
 //  Copyright © 2025 Dhanuprasanya P. All rights reserved.
 //
 
-fileprivate let VIEW_WIDTH: CGFloat = applicationFrame.width - 40
+fileprivate let DIALOG_SIDE_INSET: CGFloat = 20
+fileprivate let DIALOG_MAX_WIDTH: CGFloat = 500
 fileprivate let NAME_MAXLENGTH: Int32 = 100
 fileprivate let DETAIL_MAXLENGTH: Int32 = 255
 fileprivate let btnHeight: CGFloat = 44
@@ -50,7 +51,7 @@ class QuestAddEntryViewController: UIViewController{
             
             questAddEntryView.setCenterX()
             questAddEntryView.setCenterY()
-            questAddEntryView.setWidth(constant: VIEW_WIDTH)
+            setDialogWidth(questAddEntryView)
             
             questAddEntryView.closeBtn.addTarget(self, action: #selector(onClickCloseBtn), for: .touchUpInside)
             questAddEntryView.doneBtn.addTarget(self, action: #selector(onClickDoneBtn), for: .touchUpInside)
@@ -64,13 +65,24 @@ class QuestAddEntryViewController: UIViewController{
             
             questSelectEntryView.setCenterX()
             questSelectEntryView.setCenterY()
-            questSelectEntryView.setWidth(constant: VIEW_WIDTH)
+            setDialogWidth(questSelectEntryView)
             
             questSelectEntryView.closeBtn.addTarget(self, action: #selector(onClickCloseBtn), for: .touchUpInside)
             questSelectEntryView.addBtn.addTarget(self, action: #selector(onClickAddBtn), for: .touchUpInside)
         }
     }
     
+    // Visible width minus 20 each side (as on iPhone), capped so the dialog doesn't stretch across the unfolded iPhone Duo.
+    private func setDialogWidth(_ dialog: UIView){
+        let fitsScreen = dialog.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor, constant: -DIALOG_SIDE_INSET * 2)
+        fitsScreen.priority = .defaultHigh
+        NSLayoutConstraint.activate([
+            fitsScreen,
+            dialog.widthAnchor.constraint(lessThanOrEqualTo: scrollView.frameLayoutGuide.widthAnchor, constant: -DIALOG_SIDE_INSET * 2),
+            dialog.widthAnchor.constraint(lessThanOrEqualToConstant: DIALOG_MAX_WIDTH)
+        ])
+    }
+
     init(entryWidgetType: QuestEntryWidgetType?, allergyType: AllergyType? = nil, entryList: [AddWidgetCommonModel], index: Int? = nil, delegate: QuestAddEntryVCDelegate){
         super.init(nibName: nil, bundle: nil)
         
@@ -242,7 +254,7 @@ fileprivate class QuestAddEntryView: UIView, UITextFieldDelegate, MDTextFieldDel
             deleteBtn.setLeft(offSet: 0)
             deleteBtn.setTopRelatedToView(offSet: 0, relatedView: separatorLine2, relatedAttribute: .bottom)
             deleteBtn.setBottom(offSet: 0)
-            deleteBtn.setWidth(constant: (VIEW_WIDTH - 1) / 2)
+            deleteBtn.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5, constant: -0.5).isActive = true
             deleteBtn.setHeight(constant: btnHeight)
             
             verticalLine.setLeftRelatedToView(offSet: 0, relatedView: deleteBtn, relatedAttribute: .right)
@@ -252,12 +264,12 @@ fileprivate class QuestAddEntryView: UIView, UITextFieldDelegate, MDTextFieldDel
             verticalLine.setHeight(constant: btnHeight)
             
             doneBtn.setLeftRelatedToView(offSet: 0, relatedView: verticalLine, relatedAttribute: .right)
-            doneBtn.setWidth(constant: (VIEW_WIDTH - 1) / 2)
+            doneBtn.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5, constant: -0.5).isActive = true
         }
         else{
             doneBtn.setTitle(getString(key: "com.charmphr.action.add"), for: .normal)
             doneBtn.setLeft(offSet: 0)
-            doneBtn.setWidth(constant: VIEW_WIDTH)
+            doneBtn.setRight(offSet: 0)
         }
         
         doneBtn.setTopRelatedToView(offSet: 0, relatedView: separatorLine2, relatedAttribute: .bottom)
@@ -513,7 +525,7 @@ fileprivate class QuestSelectEntryView: UIView, UITableViewDataSource, UITableVi
         separatorLine2.setHeight(constant: LINE_HEIGHT)
 
         addBtn.setLeft(offSet: 0)
-        addBtn.setWidth(constant: VIEW_WIDTH)
+        addBtn.setRight(offSet: 0)
         addBtn.setTopRelatedToView(offSet: 0, relatedView: separatorLine2, relatedAttribute: .bottom)
         addBtn.setBottom(offSet: 0)
         addBtn.setHeight(constant: btnHeight)

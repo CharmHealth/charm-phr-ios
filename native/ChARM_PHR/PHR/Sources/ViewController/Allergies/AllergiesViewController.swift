@@ -246,17 +246,14 @@ class AllergiesViewController: CustomViewControllerWithTableView , UITableViewDa
             {
                 if !AppConfig.sharedInstance.isCustomBrandApp
                 {
-                    bottomImageView.image = nil
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: "\(getString(key: "com.charmphr.action.noData.message"))\(getString(key: "com.charmphr.allergies.noAllergy.title"))")
                 }else
                 {
-                    bottomImageView.isHidden = true
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
                 }
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Allergies_HP_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return arrayOfActiveAllergies.count
@@ -267,19 +264,15 @@ class AllergiesViewController: CustomViewControllerWithTableView , UITableViewDa
             {
                 if !AppConfig.sharedInstance.isCustomBrandApp
                 {
-                    bottomImageView.image = nil
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
-                    bottomImageView.isHidden = true
                 }else
                 {
-                    bottomImageView.isHidden = true
                     self.noDataBackGroundView.backgroundColor =  UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
                 }
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Allergies_HP_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return arrayOfInactiveAllergies.count
@@ -293,7 +286,6 @@ class AllergiesViewController: CustomViewControllerWithTableView , UITableViewDa
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: "\(getString(key: "com.charmphr.action.noData.message"))\(getString(key: "com.charmphr.allergies.noAllergy.title"))")
                 }else
                 {
-                    bottomImageView.isHidden = false
                     self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
                 }
             }

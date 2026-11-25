@@ -110,22 +110,18 @@ class QuestionnairesViewController: CustomViewControllerWithTableView, CharmConn
         
         if questionnaireSegmentControl.selectedSegmentIndex == 0 {
             if questionnaireCurrentList.isEmpty {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
             }
             else{
-                bottomImageView.image = #imageLiteral(resourceName: "Questionnaires_HP_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return questionnaireCurrentList.count
         }
         else{
             if questionnairePastList.isEmpty {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
             }
             else{
-                bottomImageView.image = #imageLiteral(resourceName: "Questionnaires_HP_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return questionnairePastList.count

@@ -61,13 +61,16 @@ class ProfileViewController: UIViewController , DemographicsViewControllerDidCha
         containerView.addCornerRadius(.SMALL)
         
         containerView.setLeft(offSet: 0)
+        containerView.setRight(offSet: 0)
         containerView.setTop(offSet: 0)
         containerView.setBottom(offSet: 0)
-        containerView.setWidth(constant: applicationFrame.width)
-        
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[containerScrollView]|", options: [], metrics:["X_SPACE":X_SPACE], views: ["containerScrollView":containerScrollView]))
+        // Edge pins inside a scroll view only set content bounds; this ties the width to the visible area.
+        containerView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor).isActive = true
+
         containerScrollView.setSafeAreaTop(offset: Y_SPACE)
         containerScrollView.setSafeAreaBottom(offset: -Y_SPACE)
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
         
         let profileImageView = ImageViewWithInitailsView()
         profileImageView.layer.masksToBounds = true

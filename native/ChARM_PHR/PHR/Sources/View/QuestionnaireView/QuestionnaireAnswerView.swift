@@ -13,6 +13,15 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
     private var questionnaireAnswerModel: QuestionnaireAnswerModel? = nil
     private var physicianTemplate : PhysicianTemplates? = nil
     private weak var delegate: QuestionnaireAnswerViewController? = nil
+
+    // Safe-area width of the screen when the questionnaire is built, so widgets fit the current
+    // iPhone Duo posture instead of the launch-time screen size.
+    private var contentWidth: CGFloat {
+        if let hostView = delegate?.view, hostView.bounds.width > 0 {
+            return hostView.bounds.inset(by: hostView.safeAreaInsets).width
+        }
+        return applicationFrame.width
+    }
     var isDataEditAllowed = false
    
     private let containerScrollView = TPKeyboardAvoidingScrollView()
@@ -56,6 +65,7 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
         containerView.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
         
         var submitBtn: UIButton? = nil
+        var saveDraftBtn: UIButton? = nil
         let submitBtnHeight: CGFloat = 56
         
         if let patQuesMap = physicianTemplate?.patientQuesMap {
@@ -87,7 +97,12 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
                 else{
                     submitBtn?.setTitle(getString(key: "com.charmphr.action.submit"), for: .normal)
                     if physicianTemplate?.questionnaireType != QUESTIONNAIRE_TYPE_ConsentForm{
-                        delegate?.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(onSaveClicked)), animated: true)
+                        // Draft save sits beside Submit at the bottom so it stays put in every orientation
+                        // (a text bar item would not move to the iOS 27.1 landscape side bar).
+                        let draftBtn = UIButton()
+                        draftBtn.setTitle(getString(key: "com.charmphr.questionnaire.savedraft"), for: .normal)
+                        draftBtn.addTarget(self, action: #selector(onSaveClicked), for: .touchUpInside)
+                        saveDraftBtn = draftBtn
                     }
                 }
             }
@@ -101,28 +116,47 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
         containerView.alignment = .fill
         
         containerScrollView.setSafeAreaTop(offset: Y_SPACE)
-        containerScrollView.setLeft(offSet: 0)
-        containerScrollView.setRight(offSet: 0)
-        
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
+
         containerView.setTop(offSet: 0)
         containerView.setBottom(offSet: 0)
         containerView.setLeft(offSet: X_SPACE)
         containerView.setRight(offSet: -X_SPACE)
-        containerView.setWidth(constant: applicationFrame.width - (X_SPACE * 2))
+        // Edge pins inside a scroll view only set content bounds; this ties the width to the visible area.
+        containerView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor, constant: -(X_SPACE * 2)).isActive = true
         
         if let submitBtn = submitBtn {
             
             submitBtn.setBackgroundColor(bgColor: THEME_COLOR)
             submitBtn.setTitleColor(.white, for: .normal)
             submitBtn.titleLabel?.font = .systemFont(ofSize: FONT_SIZE_LARGE, Weight: .semibold)
-            self.addSubview(submitBtn)
-            
-            submitBtn.setLeft(offSet: X_SPACE)
-            submitBtn.setRight(offSet: -X_SPACE)
-            submitBtn.setSafeAreaBottom(offset: -Y_SPACE)
-            submitBtn.setHeight(constant: submitBtnHeight)
-            
-            containerScrollView.setBottomRelatedToView(offSet: -Y_SPACE, relatedView: submitBtn, relatedAttribute: .top)
+
+            let actionStack = UIStackView(arrangedSubviews: [submitBtn])
+            actionStack.axis = .horizontal
+            actionStack.distribution = .fillEqually
+            actionStack.spacing = CARD_PADDING
+
+            if let saveDraftBtn = saveDraftBtn {
+                // Secondary (outlined) style so Submit remains the primary action.
+                saveDraftBtn.addPillCornerRadiusAndShadow(height: submitBtnHeight)
+                saveDraftBtn.backgroundColor = UIColorFromRGB(rgbValueWithAlpha: APPLICATION_BACKGROUND_COLOR)
+                saveDraftBtn.layer.borderWidth = 1.5
+                let themeColor = UIColorFromRGB(rgbValueWithAlpha: THEME_COLOR)
+                saveDraftBtn.layer.borderColor = themeColor.cgColor
+                saveDraftBtn.setTitleColor(themeColor, for: .normal)
+                saveDraftBtn.titleLabel?.font = .systemFont(ofSize: FONT_SIZE_LARGE, Weight: .semibold)
+                actionStack.insertArrangedSubview(saveDraftBtn, at: 0)
+            }
+
+            self.addSubview(actionStack)
+
+            actionStack.setSafeAreaLeft(offset: X_SPACE)
+            actionStack.setSafeAreaRight(offset: -X_SPACE)
+            actionStack.setSafeAreaBottom(offset: -Y_SPACE)
+            actionStack.setHeight(constant: submitBtnHeight)
+
+            containerScrollView.setBottomRelatedToView(offSet: -Y_SPACE, relatedView: actionStack, relatedAttribute: .top)
         }
         else{
             containerScrollView.setSafeAreaBottom(offset: -Y_SPACE)
@@ -132,8 +166,6 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
             if delegate?.consentFormDelegate != nil {
                 let infoView = InformationView(infoLocalisedKey: "com.charmphr.consentform.info")
                 containerView.addArrangedSubview(infoView)
-                
-                infoView.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
             }
                                                       
             var prevSectionTag: Int? = nil
@@ -207,7 +239,7 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
         let sectionView = SectionView(questionnaireEntryPOJO: questionnaireEntryPOJO, delegate: self)
         
         containerView.addArrangedSubview(sectionView)
-        sectionView.setConstraints(width: applicationFrame.width - (2 * X_SPACE))
+        sectionView.setConstraints()
         
         sectionView.tag = tagNo
         tagNo = tagNo + 1
@@ -255,7 +287,7 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
         var width: CGFloat = 0
         if let prevSection = prevSection {
             prevSection.addArrangedSubview(questionnaireLayout)
-            width = applicationFrame.width - (2 * X_SPACE) - (2 * CARD_PADDING)
+            width = contentWidth - (2 * X_SPACE) - (2 * CARD_PADDING)
         }
         else{
             containerView.addArrangedSubview(questionnaireLayout)
@@ -263,7 +295,7 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
         
         if feedbackPOJO.questionnaireEntry.isMandatory {
             questionnaireLayout.commonQuestionnaireLabel.makeMandatory()
-            width = applicationFrame.width - (2 * X_SPACE)
+            width = contentWidth - (2 * X_SPACE)
         }
         
         let questionnaireOptionView =  QuestionnaireOptionView(question: feedbackPOJO, isFixedOption: !allowOthers, width: width)
@@ -562,14 +594,14 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
                 
                 if let prevSection = prevSection {
                     prevSection.addArrangedSubview(soapTableView)
-                    width = applicationFrame.width - (2 * X_SPACE) - (2 * CARD_PADDING)
+                    width = contentWidth - (2 * X_SPACE) - (2 * CARD_PADDING)
                 }
                 else{
                     containerView.addArrangedSubview(soapTableView)
-                    width =  applicationFrame.width - (2 * X_SPACE)
+                    width =  contentWidth - (2 * X_SPACE)
                 }
                 
-                soapTableView.initView(isSectionPresent: isSectionPresent(), soapWidgetEntry: soapWidgetEntry, viewWidth: applicationFrame.width - (2 * X_SPACE))
+                soapTableView.initView(isSectionPresent: isSectionPresent(), soapWidgetEntry: soapWidgetEntry, viewWidth: contentWidth - (2 * X_SPACE))
                 
                 soapTableView.backgroundColor = .white
                 if !isSectionPresent(){
@@ -603,11 +635,11 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
                 var width: CGFloat = 0
                 if let prevSection = prevSection {
                     prevSection.addArrangedSubview(questionnaireLayout)
-                    width = applicationFrame.width - (2 * X_SPACE) - (2 * CARD_PADDING)
+                    width = contentWidth - (2 * X_SPACE) - (2 * CARD_PADDING)
                 }
                 else{
                     containerView.addArrangedSubview(questionnaireLayout)
-                    width = applicationFrame.width - (2 * X_SPACE)
+                    width = contentWidth - (2 * X_SPACE)
                 }
                 
                 if soapWidgetEntry.isMandatory{
@@ -696,7 +728,7 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
         
     private func createAllergyWidget(feedbackPOJO: QuestionnaireEntryPOJO){
         
-        let width: CGFloat = prevSection == nil ? applicationFrame.width - (2 * X_SPACE) : applicationFrame.width - (2 * X_SPACE) - (2 * CARD_PADDING)
+        let width: CGFloat = prevSection == nil ? contentWidth - (2 * X_SPACE) : contentWidth - (2 * X_SPACE) - (2 * CARD_PADDING)
         let addShadow: Bool = prevSection == nil ? true : false
         
         let allergyWidgetLayout = AllergiesWidgetView(feedbackPOJO: feedbackPOJO, addShadow: addShadow, width: width, isDataEditAllowed: isDataEditAllowed, delegate: delegate)
@@ -720,7 +752,7 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
 
     private func createPrescriptionWidget(entryType: QuestEntryWidgetType, feedbackPOJO: QuestionnaireEntryPOJO){
         
-        let width: CGFloat = prevSection == nil ? applicationFrame.width - (2 * X_SPACE) : applicationFrame.width - (2 * X_SPACE) - (2 * CARD_PADDING)
+        let width: CGFloat = prevSection == nil ? contentWidth - (2 * X_SPACE) : contentWidth - (2 * X_SPACE) - (2 * CARD_PADDING)
         let addShadow: Bool = prevSection == nil ? true : false
         
         let medicationWidgetLayout = PrescriptionWidgetView(entryType: entryType, feedbackPOJO: feedbackPOJO, addShadow: addShadow, isDataEditAllowed: isDataEditAllowed, width: width, delegate: delegate)
@@ -806,11 +838,11 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
        
     private func createPersonalDetailsWidget(feedbackPOJO: QuestionnaireEntryPOJO){
         
-        var width = applicationFrame.width
+        var width = contentWidth
         var addShadow = true
         
         if prevSection != nil{
-            width = applicationFrame.width - (2 * X_SPACE)
+            width = contentWidth - (2 * X_SPACE)
             addShadow = false
         }
         
@@ -950,11 +982,11 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
 
     private func createPatContactDetailWidget(feedbackPOJO: QuestionnaireEntryPOJO){
         
-        var width = applicationFrame.width
+        var width = contentWidth
         var addShadow = true
         
         if prevSection != nil{
-            width = applicationFrame.width - (2 * X_SPACE)
+            width = contentWidth - (2 * X_SPACE)
             addShadow = false
         }
         
@@ -1069,11 +1101,11 @@ class QuestionnaireAnswerView: UIView, UIScrollViewDelegate, SelectValueViewCont
     //MARK:  - PatInsurance Widget functions
 
     private func createPatInsuranceWidget(feedbackPOJO: QuestionnaireEntryPOJO){
-        var width = applicationFrame.width
+        var width = contentWidth
         var addShadow = true
         
         if prevSection != nil{
-            width = applicationFrame.width - (2 * X_SPACE)
+            width = contentWidth - (2 * X_SPACE)
             addShadow = false
         }
         

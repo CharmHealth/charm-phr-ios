@@ -40,14 +40,12 @@ class HpDocumentsViewController: CustomViewControllerWithTableView , UITableView
         self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonClicked)), animated: true)
         
         //TODO: change image
-        bottomImageView.image = #imageLiteral(resourceName: "Document_HP_BG")
     }
     
     //MARK: uitableview delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if arrayOfDocuments.count > 4 || arrayOfDocuments.isEmpty
         {
-            bottomImageView.isHidden = true
             if arrayOfDocuments.isEmpty
             {
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: "\(getString(key: "com.charmphr.action.noData.message"))\(getString(key: "com.charmphr.Documents.nodata.title"))")
@@ -58,7 +56,6 @@ class HpDocumentsViewController: CustomViewControllerWithTableView , UITableView
             }
         }else
         {
-            bottomImageView.isHidden = false
             self.noDataBackGroundView.hideSubView(bool: true)
         }
         return arrayOfDocuments.count

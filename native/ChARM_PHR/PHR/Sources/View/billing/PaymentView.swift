@@ -311,17 +311,23 @@ class PaymentView: UIView , UITextFieldDelegate {
         activityIndicator.setCenterY()
         
         containerScrollView.setSafeAreaTop(offset: Y_SPACE)
-        containerScrollView.setLeft(offSet: 0)
-        containerScrollView.setRight(offSet: 0)
+        // Safe-area edges keep the form clear of the Dynamic Island and the iOS 27.1 landscape side bar.
+        containerScrollView.setSafeAreaLeft(offset: 0)
+        containerScrollView.setSafeAreaRight(offset: 0)
         containerScrollView.setBottomRelatedToView(offSet: -Y_SPACE, relatedView: payBtn, relatedAttribute: .top)
         
         containerStackView.setTop(offSet: 0)
         containerStackView.setBottom(offSet: 0)
         containerStackView.setLeft(offSet: 0)
-        containerStackView.setWidth(constant: applicationFrame.width)
+        containerStackView.setRight(offSet: 0)
+        // Edge pins inside a scroll view only set content bounds; tie the width to the visible area so the
+        // form follows fold/unfold and rotation (was the launch-time applicationFrame.width).
+        containerStackView.widthAnchor.constraint(equalTo: containerScrollView.frameLayoutGuide.widthAnchor).isActive = true
+        // Cards are pinned X_SPACE from both stack edges below; the card-on-file checkbox keeps its own width.
+        containerStackView.alignment = .leading
         
-        payBtn.setLeft(offSet: X_SPACE)
-        payBtn.setRight(offSet: -X_SPACE)
+        payBtn.setSafeAreaLeft(offset: X_SPACE)
+        payBtn.setSafeAreaRight(offset: -X_SPACE)
         payBtn.setSafeAreaBottom(offset: -Y_SPACE)
         payBtn.setHeight(constant: payBtnHeight)
         
@@ -330,11 +336,11 @@ class PaymentView: UIView , UITextFieldDelegate {
         //cardOnFileBtn.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         cardOnFileBtn?.setLeft(offSet: 4)
         
-        cardDetailsLayout.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         cardDetailsLayout.setLeft(offSet: X_SPACE)
+        cardDetailsLayout.setRight(offSet: -X_SPACE)
             
         cardHolderNameView.setLeft(offSet: 0)
-        cardHolderNameView.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
+        cardHolderNameView.setRight(offSet: 0)
         cardHolderNameView.setTop(offSet: 0)
         
       //  cardHolderNameView.layer.bott
@@ -351,7 +357,7 @@ class PaymentView: UIView , UITextFieldDelegate {
         
         
         cardNumberView.setLeft(offSet: 0)
-        cardNumberView.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
+        cardNumberView.setRight(offSet: 0)
         cardNumberView.setTopRelatedToView(offSet: 0, relatedView: cardHolderNameView, relatedAttribute: .bottom)
         
         cardNumberLabel.setLeft(offSet: X_SPACE)
@@ -363,7 +369,7 @@ class PaymentView: UIView , UITextFieldDelegate {
         cardNumberTF.setRight(offSet: -X_SPACE)
         
         cardExpiresDateView.setLeft(offSet: 0)
-        cardExpiresDateView.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
+        cardExpiresDateView.setRight(offSet: 0)
         cardExpiresDateView.setTopRelatedToView(offSet: 0, relatedView: cardNumberView, relatedAttribute: .bottom)
         
         cardExpiresDateLabel.setLeft(offSet: X_SPACE)
@@ -376,7 +382,7 @@ class PaymentView: UIView , UITextFieldDelegate {
         cardExpiryTF.setRight(offSet: -X_SPACE)
         
         cardCvvView.setLeft(offSet: 0)
-        cardCvvView.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
+        cardCvvView.setRight(offSet: 0)
         cardCvvView.setTopRelatedToView(offSet: 0, relatedView: cardExpiresDateView, relatedAttribute: .bottom)
         cardCvvView.setBottom(offSet: 0)
         
@@ -408,15 +414,15 @@ class PaymentView: UIView , UITextFieldDelegate {
 
         
         
-        cardOnFileLayout?.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         cardOnFileLayout?.setLeft(offSet: X_SPACE)
+        cardOnFileLayout?.setRight(offSet: -X_SPACE)
         
-        payableView?.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
         payableView?.setLeft(offSet: X_SPACE)
+        payableView?.setRight(offSet: -X_SPACE)
         
         if let infoView = infoView {
-            infoView.setWidth(constant: applicationFrame.width - (2 * X_SPACE))
             infoView.setLeft(offSet: X_SPACE)
+            infoView.setRight(offSet: -X_SPACE)
         }
 
         onCardOnFileChange()

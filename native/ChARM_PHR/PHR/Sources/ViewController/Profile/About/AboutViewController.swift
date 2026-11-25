@@ -100,11 +100,9 @@ class AboutViewController: CustomViewControllerWithTableView , UITableViewDataSo
          {
             if arrayOfFacility.isEmpty
             {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
             }else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "Hospitalization_HP_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
              
@@ -113,12 +111,10 @@ class AboutViewController: CustomViewControllerWithTableView , UITableViewDataSo
          {
             if arrayOfProvider.isEmpty
             {
-                bottomImageView.image = nil
                 self.noDataBackGroundView.setImage(enum: .noData, title: getString(key: "com.charmphr.action.noData.title"), message: nil)
             }
             else
             {
-                bottomImageView.image = #imageLiteral(resourceName: "TreatingPhysicians_HP_BG")
                 self.noDataBackGroundView.hideSubView(bool: true)
             }
             return arrayOfProvider.count

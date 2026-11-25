@@ -8,6 +8,8 @@
 
 import UIKit
 
+fileprivate let REMINDER_DIALOG_MAX_WIDTH: CGFloat = 500
+
 protocol ReminderDetailDelegate: AnyObject{
     func pushEditVc(reminderPOJO: ReminderPOJO)
     func pushHistoryVC(reminderPOJO: ReminderPOJO)
@@ -53,9 +55,7 @@ class ReminderDetailDialogViewController: UIViewController, CharmConnectionV2Han
             self.view.addSubview(reminderDetailDialogView)
             
             reminderDetailDialogView.delegate = self
-            reminderDetailDialogView.setLeft(offSet: reminderPopVCPadding)
-            reminderDetailDialogView.setRight(offSet: -reminderPopVCPadding)
-            reminderDetailDialogView.setCenterY()
+            layoutDialog(reminderDetailDialogView)
             
             reminderDetailDialogView.editButton.addTarget(self, action: #selector(onClickEditBtn), for: .touchUpInside)
             reminderDetailDialogView.historyButton.addTarget(self, action: #selector(OnClickHistoryBtn), for: .touchUpInside)
@@ -94,15 +94,6 @@ class ReminderDetailDialogViewController: UIViewController, CharmConnectionV2Han
                 }
             }
             
-            let heightOfButtons = (reminderDetailDialogView.takenBtn.sizeThatFits(CGSize(width: REMINDER_POPVC_WIDTH, height: 100)).height + CELL_PADDING + CELL_PADDING) * 2
-            
-            if ((applicationFrame.height * 0.75) - reminderPopSubviewHeight - heightOfButtons) > reminderDetailDialogView.reminderItemHeight{
-                reminderDetailDialogView.scrollView.setHeight(constant: reminderDetailDialogView.reminderItemHeight)
-            }
-            else{
-                reminderDetailDialogView.scrollView.setHeight(constant: (applicationFrame.height * 0.75) - reminderPopSubviewHeight - heightOfButtons)
-            }
-            
             reminderDetailDialogView.setTimeLabelText(str: timeObj?.getStringFromDate(dateFormat: charmDisplayTimeFormat))
         }
     }
@@ -110,7 +101,27 @@ class ReminderDetailDialogViewController: UIViewController, CharmConnectionV2Han
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    /// Centres the dialog in the safe area. Width is the safe width minus side padding, capped for
+    /// wide layouts (unfolded iPhone Duo, landscape); height grows with content up to 75% of the
+    /// safe-area height (the original cap), after which the reminder list scrolls.
+    private func layoutDialog(_ dialog: UIView){
+        // Required when using anchors directly (the setLeft/setCenterY helpers did this before);
+        // otherwise the .zero initial frame becomes a 0×0 autoresizing constraint and the dialog vanishes.
+        dialog.translatesAutoresizingMaskIntoConstraints = false
+        let safeArea = view.safeAreaLayoutGuide
+        let preferredWidth = dialog.widthAnchor.constraint(equalTo: safeArea.widthAnchor, constant: -(reminderPopVCPadding * 2))
+        preferredWidth.priority = .defaultHigh
+        NSLayoutConstraint.activate([
+            dialog.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            dialog.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor),
+            preferredWidth,
+            dialog.widthAnchor.constraint(lessThanOrEqualTo: safeArea.widthAnchor, constant: -(reminderPopVCPadding * 2)),
+            dialog.widthAnchor.constraint(lessThanOrEqualToConstant: REMINDER_DIALOG_MAX_WIDTH),
+            dialog.heightAnchor.constraint(lessThanOrEqualTo: safeArea.heightAnchor, multiplier: 0.75)
+        ])
+    }
+
     
     override func viewDidLoad(){
         super.viewDidLoad()
